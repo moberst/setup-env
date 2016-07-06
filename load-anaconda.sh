@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 cd ~
-wget http://repo.continuum.io/archive/Anaconda2-4.0.0-Linux-x86_64.sh
-bash Anaconda2-4.0.0-Linux-x86_64.sh -b
-echo 'PATH="/home/ubuntu/anaconda2/bin:$PATH"' >> .bashrc
+wget http://repo.continuum.io/archive/Anaconda3-4.1.0-Linux-x86_64.sh
+bash Anaconda3-4.1.0-Linux-x86_64.sh
+echo 'PATH="/home/ubuntu/anaconda3/bin:$PATH"' >> .bashrc
 . .bashrc
