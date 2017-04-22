@@ -12,6 +12,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim' 
 Plugin 'scrooloose/nerdtree' 
 Plugin 'tomtom/tcomment_vim' 
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 
 " All of your Plugins must be added before the following line 
 call vundle#end()            " required 
@@ -30,3 +32,6 @@ filetype plugin indent on
 " Put your non-Plugin stuff after this line 
 
 " autocmd vimenter * NERDTree
+
+" Use spaces instead of tabs, and keep the whitespace small
+set tabstop=2 softtabstop=2 shiftwidth=2
