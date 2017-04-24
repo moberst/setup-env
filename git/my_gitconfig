@@ -1,0 +1,12 @@
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+[user]
+	email = michael.k.oberst@gmail.com
+	name = Michael Oberst
+[core]
+	editor = vim
+[push]
+	default = simple

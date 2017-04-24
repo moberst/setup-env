@@ -4,6 +4,8 @@
 sudo apt-get install git-all
 
 # Set up git configuations
+# Alternatively, use the my_gitconfig file, and copy to 
+# $HOME/.git/.gitconfig
 git config --global user.name "Michael Oberst"
 git config --global user.email michael.k.oberst@gmail.com
 git config --global alias.st status
