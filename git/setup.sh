@@ -14,3 +14,4 @@ git config --global alias.co checkout
 git config --global alias.br branch
 git config --global core.editor vim
 git config --global push.default simple
+git config --global credential.helper cache
