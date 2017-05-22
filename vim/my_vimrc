@@ -9,11 +9,23 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here') 
 " let Vundle manage Vundle, required 
 Plugin 'VundleVim/Vundle.vim' 
+
+" General plugins
 Plugin 'ctrlpvim/ctrlp.vim' 
 Plugin 'scrooloose/nerdtree' 
 Plugin 'tomtom/tcomment_vim' 
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'scrooloose/syntastic'
+Plugin 'jnurmine/Zenburn'
+Plugin 'altercation/vim-colors-solarized'
+
+" Plugins for python
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'nvie/vim-flake8'
+
 
 " All of your Plugins must be added before the following line 
 call vundle#end()            " required 
@@ -21,17 +33,54 @@ filetype plugin indent on
 
 " To ignore plugin indent changes, instead use: 
 "filetype plugin on 
-" 
-" Brief help 
-" :PluginList       - lists configured plugins 
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate 
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache 
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal 
-" 
-" see :h vundle for more details or wiki for FAQ 
+
 " Put your non-Plugin stuff after this line 
 
-" autocmd vimenter * NERDTree
+" PYTHON setup
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+
+" Ensures that the autocomplete window goes away when you’re done with it
+let g:ycm_autoclose_preview_window_after_completion=1
+
+" Define a shortcut for goto definition.
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+let python_highlight_all=1
+syntax on
+
+" GENERAL setup
+if has('gui_running') 
+	set background=dark
+	colorscheme solarized
+else
+	colorscheme zenburn
+endif
+
+set encoding=utf-8
+set nu
 
 " Use spaces instead of tabs, and keep the whitespace small
 set tabstop=2 softtabstop=2 shiftwidth=2
+
+" Switch between splits using ctr+j/k/l/h
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+" Enable folding with the spacebar
+nnoremap <space> za
+
+" autocmd vimenter * NERDTree
