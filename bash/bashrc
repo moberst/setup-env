@@ -5,3 +5,18 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Make directory and cd into it automatically
+function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+# Aliases for common commands
+alias la="ls -la"
+alias pg="ps aux | grep"
+alias tf="tail -f -n 100"
+alias gd="git difftool -t vimdiff"
+
+# Aliases for directory navigation
+alias cd..="cd .."
+alias cd..2="cd ../.."
+alias cd..3="cd ../../.."
+alias cd..4="cd ../../../.."
+alias cd..5="cd ../../../../.."
