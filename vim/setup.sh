@@ -3,6 +3,7 @@
 # Install vim
 sudo apt-get update
 sudo apt-get install vim
+sudo apt-get install ack-grep
 
 # Set up plugins and .vimrc
 VUNDLE_PATH="$HOME/.vim/bundle/Vundle.vim"
