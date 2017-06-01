@@ -48,3 +48,5 @@ wget -P "$DEST_DIR" "$DOWNLOAD_URL_BASE/$DOWNLOAD_URL_DIR/$DOWNLOAD_FILE"
 bash "$DEST_DIR/$DOWNLOAD_FILE"
 rm "$DEST_DIR/$DOWNLOAD_FILE"
 
+# Create the default environment with python3 and flake8
+conda env create -f default.yml
