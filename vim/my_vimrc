@@ -28,7 +28,6 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'nvie/vim-flake8'
 
-
 " All of your Plugins must be added before the following line 
 call vundle#end()            " required 
 filetype plugin indent on    
@@ -69,6 +68,15 @@ endif
 
 set encoding=utf-8
 set nu
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " Use spaces instead of tabs, and keep the whitespace small
 set tabstop=2 softtabstop=2 shiftwidth=2
