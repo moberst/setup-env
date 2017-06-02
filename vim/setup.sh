@@ -16,8 +16,3 @@ else
 	git clone https://github.com/VundleVim/Vundle.vim.git "$VUNDLE_PATH"
 fi
 
-# setup .vimrc
-cp my_vimrc ~/.vimrc
-
-# Reinstall plugins
-vim +PluginInstall +qall

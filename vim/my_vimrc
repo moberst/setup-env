@@ -21,6 +21,7 @@ Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-unimpaired'
 
 " Plugins for python
 Plugin 'tmhedberg/SimpylFold'
@@ -38,15 +39,13 @@ filetype plugin indent on
 " Put your non-Plugin stuff after this line 
 
 " PYTHON setup
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
 au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
     \ set fileformat=unix
 
 " Ensures that the autocomplete window goes away when you’re done with it
@@ -77,6 +76,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+nnoremap <silent> <F5> :SyntasticCheck<CR>
 
 " Use spaces instead of tabs, and keep the whitespace small
 set tabstop=2 softtabstop=2 shiftwidth=2
