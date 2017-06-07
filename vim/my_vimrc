@@ -39,25 +39,6 @@ filetype plugin indent on
 
 " Put your non-Plugin stuff after this line 
 
-" PYTHON setup
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix
-
-" Ensures that the autocomplete window goes away when you’re done with it
-let g:ycm_autoclose_preview_window_after_completion=1
-
-" Define a shortcut for goto definition.
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-let python_highlight_all=1
-syntax on
-
 " GENERAL setup
 if has('gui_running') 
 	set background=dark
@@ -82,7 +63,7 @@ let g:syntastic_sh_checkers=['bashate']
 nnoremap <silent> <F5> :SyntasticCheck<CR>
 
 " Use spaces instead of tabs, and keep the whitespace small
-set tabstop=2 softtabstop=2 shiftwidth=2
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " Switch between splits using ctr+j/k/l/h
 nnoremap <C-J> <C-W><C-J>
@@ -97,3 +78,23 @@ set foldlevel=99
 nnoremap <space> za
 
 " autocmd vimenter * NERDTree
+
+" PYTHON setup
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+
+" Ensures that the autocomplete window goes away when you’re done with it
+let g:ycm_autoclose_preview_window_after_completion=1
+
+" Define a shortcut for goto definition.
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+let python_highlight_all=1
+syntax on
+
