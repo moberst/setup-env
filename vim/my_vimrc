@@ -49,6 +49,7 @@ endif
 
 set encoding=utf-8
 set nu
+set cc=80
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -70,6 +71,13 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Substitue word with last yanked word
+nnoremap <C-V> ciw<C-r>0<ESC> 
+
+" Keep visual mode after indent
+vnoremap > >gv
+vnoremap < <gv
 
 " Enable folding
 set foldmethod=indent
