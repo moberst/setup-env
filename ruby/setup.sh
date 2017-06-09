@@ -20,7 +20,7 @@ sudo apt-get install -y libssl-dev libreadline-dev
 ~/.rbenv/bin/rbenv install 2.4.1
 
 # Install ruby-gems
-if [ ! -d ~/.rbenv/plugins/ruby-build ]; then
+if [ ! -d ~/.rubygems ]; then
 	git clone https://github.com/rubygems/rubygems ~/.rubygems 
 fi
 
