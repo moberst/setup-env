@@ -87,7 +87,11 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
-" autocmd vimenter * NERDTree
+" NERDtree settings
+" Toggle Nerdtree with C-T
+map <C-T> :NERDTreeToggle<CR>
+" Close Vim if the only window open is nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " PYTHON setup
 au BufNewFile,BufRead *.py

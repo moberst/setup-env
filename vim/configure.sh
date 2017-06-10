@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # setup .vimrc
-cp my_vimrc ~/.vimrc
+cp vimrc ~/.vimrc
 
 # Reinstall plugins
 vim +PluginInstall +qall
