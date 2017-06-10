@@ -1,4 +1,0 @@
-alias la="ls -la"
-alias pg="ps aux | grep"
-alias tf="tail -f -n 100"
-alias gd="git difftool -t vimdiff"
