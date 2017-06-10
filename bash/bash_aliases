@@ -1,0 +1,23 @@
+# Make directory and cd into it automatically
+function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+# Aliases for common commands
+alias pg="ps aux | grep"
+alias tf="tail -f -n 100"
+alias gd="git difftool -t vimdiff"
+
+# Aliases for directory navigation
+alias ..="cd .."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
+alias ..5="cd ../../../../.."
+
+# Alias to pretty-print the current path
+alias path='echo -e ${PATH//:/\\n}'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
