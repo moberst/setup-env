@@ -21,3 +21,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Directory stack navigation
+alias pd="pushd"
+alias pc="pushd +1"
+alias pp="popd"
