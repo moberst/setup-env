@@ -14,19 +14,19 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim' 
 Plugin 'scrooloose/nerdtree' 
 Plugin 'tomtom/tcomment_vim' 
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
+" Plugin 'tpope/vim-surround'
+" Plugin 'tpope/vim-repeat'
 Plugin 'scrooloose/syntastic'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'airblade/vim-gitgutter'
+" Plugin 'airblade/vim-gitgutter'
 
 " Plugins for python
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-scripts/indentpython.vim'
+" Plugin 'tmhedberg/SimpylFold'
+" Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'nvie/vim-flake8'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
@@ -63,7 +63,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_sh_checkers=['bashate']
 
-nnoremap <silent> <F5> :SyntasticCheck<CR>
+nnoremap <silent> <F5> :SyntasticToggle<CR>
 
 " Use spaces instead of tabs, and keep the whitespace small
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
@@ -105,6 +105,11 @@ au BufNewFile,BufRead *.py
 
 " Ensures that the autocomplete window goes away when you’re done with it
 let g:ycm_autoclose_preview_window_after_completion=1
+let g:syntastic_python_checkers=['flake8', 'pyflakes']
+let g:syntastic_aggregate_errors = 1
+
+" Turn off python mode linting, duplicates with syntastic
+" let g:pymode_lint_on_write = 0
 
 " Define a shortcut for goto definition.
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
