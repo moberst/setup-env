@@ -10,27 +10,45 @@ call vundle#begin()
 " let Vundle manage Vundle, required 
 Plugin 'VundleVim/Vundle.vim' 
 
+"""""""""""""""""""""""""""""
 " General plugins
+"""""""""""""""""""""""""""""
+" Navigation (CtrlP and Nerdtree)
 Plugin 'ctrlpvim/ctrlp.vim' 
 Plugin 'scrooloose/nerdtree' 
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" Plugin 'dyng/ctrlsf.vim'
+
+" Commenting and text maniputation
 Plugin 'tomtom/tcomment_vim' 
-" Plugin 'tpope/vim-surround'
-" Plugin 'tpope/vim-repeat'
-Plugin 'scrooloose/syntastic'
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'dyng/ctrlsf.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'JamshedVesuna/vim-markdown-preview'
+
+" Syntax checking
+Plugin 'scrooloose/syntastic'
+
+" Colorscheme
+Plugin 'jnurmine/Zenburn'
+" Plugin 'altercation/vim-colors-solarized'
+
+" Git control 
+" Plugin 'tpope/vim-fugitive'
 " Plugin 'airblade/vim-gitgutter'
 
-" Plugins for python
+" Markdown plugins
+Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
+"""""""""""""""""""""""""""""
+" Python plugins
+"""""""""""""""""""""""""""""
 " Plugin 'tmhedberg/SimpylFold'
 " Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'nvie/vim-flake8'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" Plugin 'nvie/vim-flake8'
 Plugin 'python-mode/python-mode' 
 
 " All of your Plugins must be added before the following line 
@@ -43,12 +61,7 @@ filetype plugin indent on
 " Put your non-Plugin stuff after this line 
 
 " GENERAL setup
-if has('gui_running') 
-	set background=dark
-	colorscheme solarized
-else
-	colorscheme zenburn
-endif
+colorscheme zenburn
 
 set encoding=utf-8
 set nu
@@ -58,6 +71,18 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" Setup for plasticboy/vim-markdown
+set conceallevel=2
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+
+" Setup for JamshedVesuna/vim-markdown-preview
+" Map markdown preview to CTRL-M
+let vim_markdown_preview_hotkey='<C-m>'
+" Use grip for markdown preview
+let vim_markdown_preview_github=1
+
+" Setup for syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -93,9 +118,6 @@ nnoremap <space> za
 map <C-T> :NERDTreeToggle<CR>
 " Close Vim if the only window open is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Map markdown preview to CTRL-M
-let vim_markdown_preview_hotkey='<C-m>'
 
 " PYTHON setup
 au BufNewFile,BufRead *.py

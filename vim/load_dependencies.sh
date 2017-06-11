@@ -8,3 +8,4 @@ pip install bashate
 
 # Install grip for markdown preview
 pip install grip
+sudo apt-get install xdotool
