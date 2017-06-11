@@ -34,7 +34,7 @@ Plugin 'jnurmine/Zenburn'
 " Plugin 'altercation/vim-colors-solarized'
 
 " Git control 
-" Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 " Plugin 'airblade/vim-gitgutter'
 
 " Markdown plugins
