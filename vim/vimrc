@@ -67,7 +67,7 @@ set encoding=utf-8
 set nu
 set colorcolumn=80
 
-set wrap linebreak nolist textwidth=79
+set wrap linebreak nolist 
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
