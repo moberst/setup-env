@@ -61,6 +61,7 @@ wait
 set_group python start
 package python-mode/python-mode  &
 package tmhedberg/SimpylFold  &
+package heavenshell/vim-pydocstring &
 # package vim-scripts/indentpython.vim  &
 # package nvie/vim-flake8  &
 wait
