@@ -1,5 +1,4 @@
-Note to self: Consider setting up a separate directory for installing / configuring linters, e.g.,
+# Vim
 
-* flake8
-* sqlint
-* bashate
+Contains a folder for Vim7 and Vim8, which require substantially different
+setup
