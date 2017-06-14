@@ -76,7 +76,7 @@ wait
 ) &
 
 (
-set_group sql start
+set_group sql opt
 package cosminadrianpopescu/vim-sql-workbench &
 wait
 ) &
