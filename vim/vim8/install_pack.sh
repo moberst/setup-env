@@ -76,6 +76,12 @@ wait
 ) &
 
 (
+set_group sql start
+package cosminadrianpopescu/vim-sql-workbench &
+wait
+) &
+
+(
 set_group markdown start
 package JamshedVesuna/vim-markdown-preview  &
 package godlygeek/tabular  &
