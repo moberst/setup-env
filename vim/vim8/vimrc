@@ -23,21 +23,26 @@ let g:vim_markdown_frontmatter = 1
 
 " Setup for JamshedVesuna/vim-markdown-preview
 " Map markdown preview to CTRL-M
-let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_hotkey='<C-M>'
 " Use grip for markdown preview
 let vim_markdown_preview_github=1
 
-" Setup for syntastic
+" Setup for syntax checkers
+" let g:pymode_lint_ignore = " Use for ignoring vertain errors
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+let g:pymode_lint_on_write = 1
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
 let g:syntastic_sh_checkers=['bashate']
 
 nnoremap <silent> <F5> :SyntasticToggle<CR>
 
 " Use spaces instead of tabs, and keep the whitespace small
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+set backspace=2 " make backspace work like most other apps
 
 " Switch between splits using ctr+j/k/l/h
 nnoremap <C-J> <C-W><C-J>
@@ -78,6 +83,8 @@ au BufNewFile,BufRead *.py
 " let g:ycm_autoclose_preview_window_after_completion=1
 let g:syntastic_python_checkers=['flake8', 'pyflakes']
 let g:syntastic_aggregate_errors = 1
+
+let g:pymode_breakpoint_bind = '<leader>b'
 
 " Turn off python mode linting, duplicates with syntastic
 " let g:pymode_lint_on_write = 0

@@ -54,6 +54,8 @@ package tpope/vim-surround  &
 package tpope/vim-repeat  &
 package terryma/vim-multiple-cursors  &
 package tpope/vim-unimpaired  &
+package kshenoy/vim-signature &
+package easymotion/vim-easymotion &
 wait
 ) &
 
