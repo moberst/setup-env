@@ -78,6 +78,7 @@ wait
 (
 set_group sql opt
 package cosminadrianpopescu/vim-sql-workbench &
+package vim-scripts/dbext.vim &
 wait
 ) &
 
