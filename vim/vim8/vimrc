@@ -57,8 +57,9 @@ nnoremap <leader>p ciw<C-r>0<ESC>
 vnoremap > >gv
 vnoremap < <gv
 
-let g:sw_exe = '/home/moberst/.sqlworkbench/sqlwbconsole.sh'
-let g:sw_config_dir = '/home/moberst/.sqlworkbench/'
+let g:sw_exe = '/home/moberst/sqlworkbench/sqlwbconsole.sh'
+let g:sw_config_dir = '/home/moberst/sqlworkbench/'
+let g:ctrlp_extensions=['sw_profiles']
 
 " Enable folding
 set foldmethod=indent
