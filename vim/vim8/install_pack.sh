@@ -64,14 +64,19 @@ set_group python start
 package python-mode/python-mode  &
 package tmhedberg/SimpylFold  &
 package heavenshell/vim-pydocstring &
-# package vim-scripts/indentpython.vim  &
-# package nvie/vim-flake8  &
 wait
 ) &
 
 (
 set_group python opt
 package Valloric/YouCompleteMe opt &
+package vim-scripts/indentpython.vim  &
+wait
+) &
+
+(
+set_group sql start
+package lifepillar/pgsql.vim &
 wait
 ) &
 
@@ -93,7 +98,12 @@ wait
 (
 set_group VCS start
 package tpope/vim-fugitive  &
-# package airblade/vim-gitgutter  &
+wait
+) &
+
+(
+set_group VCS opt
+package airblade/vim-gitgutter  &
 wait
 ) &
 

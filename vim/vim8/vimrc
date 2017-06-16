@@ -27,6 +27,9 @@ let vim_markdown_preview_hotkey='<C-M>'
 " Use grip for markdown preview
 let vim_markdown_preview_github=1
 
+" Setup for sql formatter
+let g:sql_type_default = 'pgsql'
+
 " Setup for syntax checkers
 " let g:pymode_lint_ignore = " Use for ignoring vertain errors
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
@@ -89,6 +92,7 @@ let g:syntastic_python_checkers=['flake8', 'pyflakes']
 let g:syntastic_aggregate_errors = 1
 
 let g:pymode_breakpoint_bind = '<leader>b'
+
 
 " Turn off python mode linting, duplicates with syntastic
 " let g:pymode_lint_on_write = 0
