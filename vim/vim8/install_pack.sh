@@ -60,6 +60,12 @@ wait
 ) &
 
 (
+set_group text-utils opt
+package vim-scripts/taglist.vim &
+wait
+) &
+
+(
 set_group python start
 package python-mode/python-mode  &
 package tmhedberg/SimpylFold  &
