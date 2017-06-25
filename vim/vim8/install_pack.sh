@@ -94,6 +94,12 @@ wait
 ) &
 
 (
+set_group ember start
+package joukevandermaas/vim-ember-hbs &
+wait
+) &
+
+(
 set_group markdown start
 package JamshedVesuna/vim-markdown-preview  &
 package godlygeek/tabular  &
