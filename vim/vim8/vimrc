@@ -5,6 +5,8 @@ filetype plugin indent on
 
 " GENERAL setup
 colorscheme zenburn
+let g:airline_theme='powerlineish'
+" colorscheme molokai
 
 set encoding=utf-8
 set nu
@@ -53,12 +55,19 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Substitue word with last yanked word
-nnoremap <leader>p ciw<C-r>0<ESC> 
-
 " Keep visual mode after indent
 vnoremap > >gv
 vnoremap < <gv
+
+" Mappings for CtrlSF
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 let g:sw_exe = '/home/moberst/sqlworkbench/sqlwbconsole.sh'
 let g:sw_config_dir = '/home/moberst/sqlworkbench/'
