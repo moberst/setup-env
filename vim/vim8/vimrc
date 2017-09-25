@@ -16,6 +16,17 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" Setup for snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+
+" Setup for vimtex
+let g:vimtex_compiler_method='latexmk'
+let g:tex_flavor = 'latex'
+let g:syntastic_tex_chktex_quiet_messages = { "level":"warnings"}
+
 " Setup for plasticboy/vim-markdown
 set conceallevel=2
 let g:vim_markdown_math = 1
@@ -34,6 +45,7 @@ let g:sql_type_default = 'pgsql'
 " let g:pymode_lint_ignore = " Use for ignoring vertain errors
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 let g:pymode_lint_on_write = 1
+let g:pymode_python = 'python'
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1

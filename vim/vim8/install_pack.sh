@@ -74,8 +74,15 @@ wait
 ) &
 
 (
+set_group snips start
+package SirVer/ultisnips &
+package honza/vim-snippets &
+wait
+) &
+
+(
 set_group python opt
-package Valloric/YouCompleteMe opt &
+package Valloric/YouCompleteMe &
 package vim-scripts/indentpython.vim  &
 wait
 ) &
@@ -104,6 +111,21 @@ set_group markdown start
 package JamshedVesuna/vim-markdown-preview  &
 package godlygeek/tabular  &
 package plasticboy/vim-markdown  &
+wait
+) &
+
+(
+set_group rmarkdown start
+package vim-pandoc/vim-pandoc &
+package vim-pandoc/vim-pandoc-syntax  &
+package vim-pandoc/vim-rmarkdown  &
+wait
+) &
+
+(
+set_group latex start
+package xuhdev/vim-latex-live-preview &
+package lervag/vimtex &
 wait
 ) &
 
