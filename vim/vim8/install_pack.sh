@@ -153,4 +153,10 @@ package jnurmine/Zenburn  &
 wait
 ) &
 
+(
+set_group colorschemes opt
+package tomasr/molokai &
+wait
+) &
+
 wait
