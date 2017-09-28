@@ -28,6 +28,9 @@ let g:UltiSnipsEditSplit="vertical"
 let g:vimtex_compiler_method='latexmk'
 let g:tex_flavor = 'latex'
 let g:syntastic_tex_chktex_quiet_messages = { "level":"warnings"}
+let g:vimtex_fold_enabled = 1
+let g:vimtex_indent_enabled = 1
+let g:vimtex_toc_enabled = 1
 
 " Setup for plasticboy/vim-markdown
 set conceallevel=2
@@ -47,7 +50,7 @@ let g:sql_type_default = 'pgsql'
 " let g:pymode_lint_ignore = " Use for ignoring vertain errors
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 let g:pymode_lint_on_write = 1
-let g:pymode_python = 'python'
+let g:pymode_virtualenv = 1
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1

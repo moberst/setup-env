@@ -76,7 +76,7 @@ wait
 (
 set_group snips start
 package SirVer/ultisnips &
-package honza/vim-snippets &
+package moberst/vim-snippets &
 wait
 ) &
 
