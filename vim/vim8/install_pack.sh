@@ -77,12 +77,13 @@ wait
 set_group snips start
 package SirVer/ultisnips &
 package moberst/vim-snippets &
+package Valloric/YouCompleteMe &
+package ervandew/supertab &
 wait
 ) &
 
 (
 set_group python opt
-package Valloric/YouCompleteMe &
 package vim-scripts/indentpython.vim  &
 wait
 ) &
@@ -101,13 +102,13 @@ wait
 ) &
 
 (
-set_group ember start
+set_group ember opt
 package joukevandermaas/vim-ember-hbs &
 wait
 ) &
 
 (
-set_group markdown start
+set_group markdown opt
 package JamshedVesuna/vim-markdown-preview  &
 package godlygeek/tabular  &
 package plasticboy/vim-markdown  &
@@ -115,7 +116,7 @@ wait
 ) &
 
 (
-set_group rmarkdown start
+set_group rmarkdown opt
 package vim-pandoc/vim-pandoc &
 package vim-pandoc/vim-pandoc-syntax  &
 package vim-pandoc/vim-rmarkdown  &

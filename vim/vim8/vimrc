@@ -23,10 +23,17 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 " Setup for snippets
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical" " Setup for vimtex
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsEditSplit="vertical" 
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" Setup for vimtex
 let g:vimtex_compiler_method='latexmk'
 let g:tex_flavor = 'latex'
 let g:syntastic_tex_chktex_quiet_messages = { "level":"warnings"}
@@ -113,7 +120,8 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 " Ensures that the autocomplete window goes away when you’re done with it
-" let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_autoclose_preview_window_after_insertion=1
+let g:ycm_autoclose_preview_window_after_completion=1
 let g:syntastic_python_checkers=['flake8', 'pyflakes']
 let g:syntastic_aggregate_errors = 1
 
