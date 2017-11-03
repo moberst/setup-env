@@ -6,7 +6,7 @@ sudo apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev \
 
 PYTHON_CONFIG_DIR="/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu"
 
-SETUP_DIR="$HOME/repos/setup-env/vim/vim8"
+SETUP_DIR="$HOME/repos/setup-env/vim/"
 VIM_DIR="$HOME/.vim"
 
 # Delete vim if it already exists
