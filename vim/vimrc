@@ -32,6 +32,12 @@ let g:UltiSnipsEditSplit="vertical"
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+" Turn off YCM for Tex and Markdown
+let g:ycm_filetype_blacklist = {
+      \ 'markdown': 1,
+      \ 'tex': 1,
+      \ 'text': 1
+      \}
 
 " Setup for vimtex
 let g:vimtex_compiler_method='latexmk'
