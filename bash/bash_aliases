@@ -31,3 +31,4 @@ alias vim="vim --servername VIM"
 
 # Debugging
 alias wtf="python -m pdb -c continue"
+alias tmux="tmux -2"
