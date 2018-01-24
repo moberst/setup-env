@@ -32,3 +32,6 @@ alias vim="vim --servername VIM"
 # Debugging
 alias wtf="python -m pdb -c continue"
 alias tmux="tmux -2"
+
+# Create tex directory (requires an argument)
+alias newtex="bash $HOME/repos/setup-env/tex/create_base.sh"
