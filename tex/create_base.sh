@@ -8,11 +8,13 @@ if [ -d "$NAME" ]; then
   exit 1
 fi
 
+echo "Creating directory structure"
 # Create directory structure
 mkdir $NAME
 mkdir $NAME/figs
 mkdir $NAME/sections
 
+echo "Moving files"
 # Move over the files
 cp $SCRIPT_HOME/header.tex $SCRIPT_HOME/introduction.tex \
    $SCRIPT_HOME/natbib.sty $SCRIPT_HOME/jmb.bst $SCRIPT_HOME/base.tex \
@@ -27,3 +29,8 @@ mv $NAME/introduction.tex $NAME/sections/
 
 sed -i '.bak' 's/\bibliography{base}/\bibliography{'$NAME'}/g' $NAME/$NAME.tex
 rm $NAME/$NAME.tex.bak
+
+echo "Initializing Git Repository"
+# Initialize git repository
+cd $NAME
+git init 
