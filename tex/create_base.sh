@@ -1,11 +1,22 @@
-name=$1
-mkdir $name
-cp header.tex introduction.tex natbib.sty jmb.bst base.tex base.bib $name
+# Enable this to be run from another directory (where the project lives)
+SCRIPT_HOME="$HOME/repos/setup-env/tex"
+NAME=$1
+# Create directory structure
+mkdir $NAME
+mkdir $NAME/figs
+mkdir $NAME/sections
 
-printf "all:\n\tpdflatex $name\n\tbibtex $name\n\tpdflatex $name\n\topen -a skim $name.pdf\n\nclean:\n\trm *.aux *.brf *.pdf *.log *.bbl *.blg *.dvi *.ps *.out *.fdb_latexmk *.synctex.gz" > $name/Makefile
+# Move over the files
+cp $SCRIPT_HOME/header.tex $SCRIPT_HOME/introduction.tex \
+   $SCRIPT_HOME/natbib.sty $SCRIPT_HOME/jmb.bst $SCRIPT_HOME/base.tex \
+   $SCRIPT_HOME/base.bib $NAME
 
-mv $name/base.tex $name/$name.tex
-mv $name/base.bib $name/$name.bib
+# No Makefile, just use vimtex
 
-sed -i '.bak' 's/\bibliography{base}/\bibliography{'$name'}/g' $name/$name.tex
-rm $name/$name.tex.bak
+# Change file names
+mv $NAME/base.tex $NAME/$NAME.tex
+mv $NAME/base.bib $NAME/$NAME.bib
+mv $NAME/introduction.tex $NAME/sections/
+
+sed -i '.bak' 's/\bibliography{base}/\bibliography{'$NAME'}/g' $NAME/$NAME.tex
+rm $NAME/$NAME.tex.bak
