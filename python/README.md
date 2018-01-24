@@ -14,4 +14,6 @@ environments using the command
 ```
 conda env create -f $YML_FILE
 ```
+# NOTE
 
+Convention (in bashrc) is to install miniconda on a new system, and put it in a dotfile directory
