@@ -1,6 +1,13 @@
 # Enable this to be run from another directory (where the project lives)
 SCRIPT_HOME="$HOME/repos/setup-env/tex"
 NAME=$1
+
+# Check if directory already exists
+if [ -d "$NAME" ]; then
+  echo "Error: Directory $NAME exists!"
+  exit 1
+fi
+
 # Create directory structure
 mkdir $NAME
 mkdir $NAME/figs
