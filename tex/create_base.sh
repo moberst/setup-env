@@ -53,5 +53,5 @@ else
   echo "Moving basic files"
   mkdir $NAME/tex
   cp $SCRIPT_HOME/header.tex $NAME/tex/header.tex
-  cp $SCRIPT_HOME/basic.tex $NAME/main.tex
+  cp $SCRIPT_HOME/basic.tex $NAME/notes.tex
 fi
