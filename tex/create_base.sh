@@ -4,12 +4,12 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 
 # Enable this to be run from another directory (where the project lives)
 SCRIPT_HOME="$HOME/repos/setup-env/tex"
-NAME=$1
+NAME=""
 FULL_SETUP=0
 PRESENTATION=0
 
 # Parse arguments
-while getopts "h?f" opt; do
+while getopts "h?fpd:" opt; do
 	case "$opt" in
 	h|\?)
 		show_help
@@ -21,6 +21,9 @@ while getopts "h?f" opt; do
 	p)
 		PRESENTATION=1
 		;;
+	d)
+		NAME=$OPTARG
+		;;
 	esac
 done
 
@@ -30,7 +33,7 @@ if [ -d "$NAME" ]; then
   exit 1
 fi
 
-echo "Creating directory structure"
+echo "Creating directory structure for $NAME"
 # Create directory structure
 mkdir $NAME
 
@@ -53,10 +56,13 @@ if [ $FULL_SETUP -eq 1 ]; then
   # Initialize git repository
   cd $NAME
   git init 
+
 elif [ $PRESENTATION -eq 1 ]; then
   echo "Moving presentation files"
+  mkdir $NAME/tex
   cp $SCRIPT_HOME/header.tex $NAME/tex/header.tex
   cp $SCRIPT_HOME/basic_presentation.tex $NAME/presentation.tex
+
 else
   echo "Moving basic files"
   mkdir $NAME/tex
