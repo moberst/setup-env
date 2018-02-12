@@ -6,6 +6,7 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 SCRIPT_HOME="$HOME/repos/setup-env/tex"
 NAME=$1
 FULL_SETUP=0
+PRESENTATION=0
 
 # Parse arguments
 while getopts "h?f" opt; do
@@ -16,6 +17,9 @@ while getopts "h?f" opt; do
 		;;
 	f)
 		FULL_SETUP=1
+		;;
+	p)
+		PRESENTATION=1
 		;;
 	esac
 done
@@ -49,6 +53,10 @@ if [ $FULL_SETUP -eq 1 ]; then
   # Initialize git repository
   cd $NAME
   git init 
+elif [ $PRESENTATION -eq 1 ]; then
+  echo "Moving presentation files"
+  cp $SCRIPT_HOME/header.tex $NAME/tex/header.tex
+  cp $SCRIPT_HOME/basic_presentation.tex $NAME/presentation.tex
 else
   echo "Moving basic files"
   mkdir $NAME/tex
