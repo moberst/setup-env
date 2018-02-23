@@ -33,7 +33,7 @@ function package () {
     echo "$expected_repo: $result"
   else
     echo "$expected_repo: Installing..."
-    git clone -q "$repo_url"
+    git clone -q --recurse-submodules "$repo_url"
   fi
 }
 
