@@ -130,6 +130,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " Latex setup
 au BufNewFile,BufRead *.tex
     \ set spelllang=en | 
+    \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
     \ set spell
 
 " PYTHON setup
