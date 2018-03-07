@@ -70,6 +70,7 @@ set_group python start
 package python-mode/python-mode  &
 package tmhedberg/SimpylFold  &
 package heavenshell/vim-pydocstring &
+package nathanaelkane/vim-indent-guides &
 wait
 ) &
 
@@ -133,11 +134,6 @@ wait
 (
 set_group VCS start
 package tpope/vim-fugitive  &
-wait
-) &
-
-(
-set_group VCS opt
 package airblade/vim-gitgutter  &
 wait
 ) &
