@@ -8,8 +8,13 @@ colorscheme zenburn
 let g:airline_theme='powerlineish'
 " colorscheme molokai
 
+" Sweet search options!
+set incsearch
+set hlsearch
+
 set encoding=utf-8
-set nu
+set number
+set relativenumber " try using relative numbers
 set colorcolumn=80
 
 if $TERM == 'screen'
