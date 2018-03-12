@@ -33,6 +33,10 @@
 \usepackage{tikz}
 \usepackage[draft]{fixme}
 \fxsetup{inline,nomargin,theme=color}
+
+% New packages from mike
+\usepackage{dsfont} 
+
 \newtheorem{thmlem}{Lemma}
 \newtheorem{thmcol}{Corollary}
 \newtheorem{thmprop}{Proposition}
@@ -53,8 +57,6 @@
 
 \newtheorem{thmappdef}{Definition}
 \renewcommand{\thethmappdef}{A\arabic{thmappdef}}
-
-
 
 \newenvironment{thmproof}[1][Proof]{\begin{trivlist}
 \item[\hskip \labelsep {\textit{#1.}}]}{\end{trivlist}}
@@ -145,6 +147,10 @@
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
+
+% New stuff from Mike (not all here, some above)
+\def \hfn {\hat{f}_n}
+\newcommand{\1}[1]{\mathds{1}\left[#1\right]}
 
 \setlength{\parskip}{\baselineskip}
 \setlength{\parindent}{0pt}
