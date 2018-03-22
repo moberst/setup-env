@@ -37,3 +37,8 @@ alias tmux="tmux -2"
 alias newtex="bash $HOME/repos/setup-env/tex/create_base.sh"
 
 alias kvm="kvm -m 512 -net nic -net user,hostfwd=tcp:127.0.0.1:2222-:22,hostfwd=tcp:127.0.0.1:8080-:8080 $HOME/vm-6858/vm-6858.vmdk"
+
+# Wrap evince in function that sends to background and ignores output
+function evince () {
+  nohup evince "$@" > /dev/null 2>&1 & disown
+}
