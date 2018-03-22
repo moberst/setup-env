@@ -62,6 +62,7 @@ wait
 (
 set_group text-utils opt
 package vim-scripts/taglist.vim &
+package gyim/vim-boxdraw &
 wait
 ) &
 
