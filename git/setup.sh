@@ -2,5 +2,6 @@
 
 # Install git
 sudo apt-get install git-all
+sudo apt-get install exuberant-ctags
 
-bash configure.sh
+sudo bash configure.sh
