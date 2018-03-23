@@ -14,8 +14,8 @@ set hlsearch
 
 set encoding=utf-8
 set number
-set relativenumber " try using relative numbers
 set colorcolumn=80
+set tags=tags
 
 if $TERM == 'screen'
   set t_Co=256
@@ -169,4 +169,5 @@ let g:pymode_breakpoint_bind = '<leader>b'
 
 let python_highlight_all=1
 syntax on
+
 
