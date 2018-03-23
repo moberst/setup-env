@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Set up ctags template
+git config --global init.templatedir '~/.git_template'
+mkdir -p ~/.git_template
+if [ -d ~/.git_template/hooks ]; then
+  rm ~/.git_template/hooks -rf 
+fi
+cp hooks/ ~/.git_template/hooks -r
+git config --global alias.ctags '!.git/hooks/ctags'
+
 # Set up git configuations
 git config --global user.name "Michael Oberst"
 git config --global user.email michael.k.oberst@gmail.com
