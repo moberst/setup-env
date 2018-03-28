@@ -6,5 +6,5 @@ DIR="`git rev-parse --git-dir`"
 TMP_FILE="$DIR/$$.tags"
 trap 'rm -f "$DIR/$$.tags"' EXIT
 git ls-files | \
-  ctags --tag-relative -L - -f"$TMP_FILE" --languages=python --python-kinds=-iv 
+  ctags --tag-relative -L - -f"$TMP_FILE" --languages=-sql,javascript --python-kinds=-iv 
 mv $TMP_FILE "$DIR/tags"
