@@ -43,7 +43,7 @@ if [ $FULL_SETUP -eq 1 ]; then
 
   echo "Moving files"
   # Move over the files
-  cp $SCRIPT_HOME/header.tex $SCRIPT_HOME/introduction.tex \
+  cp $SCRIPT_HOME/introduction.tex \
      $SCRIPT_HOME/natbib.sty $SCRIPT_HOME/jmb.bst $SCRIPT_HOME/main.tex \
      $SCRIPT_HOME/base.bib $NAME
 
@@ -66,6 +66,5 @@ elif [ $PRESENTATION -eq 1 ]; then
 else
   echo "Moving basic files"
   mkdir $NAME/tex
-  cp $SCRIPT_HOME/header.tex $NAME/tex/header.tex
   cp $SCRIPT_HOME/basic.tex $NAME/notes.tex
 fi
