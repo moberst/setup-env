@@ -102,11 +102,22 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-export PATH="$HOME/.miniconda3/bin:$PATH"
+# Source python, rust, go, and ruby
+if [ -d ~/.miniconda3 ]; then
+  export PATH="$HOME/.miniconda3/bin:$PATH"
+fi
+if [ -d ~/.cargo ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+if [ -d ~/.go ]; then
+  export PATH="$HOME/.go/bin:$PATH"
+fi
+if [ -d /usr/local/share/chruby ]; then
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
+fi
 
 # Alias hub as git
 eval "$(hub alias -s)"
 
 export TERM="screen-256color"
-
-
