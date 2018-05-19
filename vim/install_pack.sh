@@ -110,7 +110,7 @@ wait
 ) &
 
 (
-set_group markdown opt
+set_group markdown start
 package JamshedVesuna/vim-markdown-preview  &
 package godlygeek/tabular  &
 package plasticboy/vim-markdown  &
