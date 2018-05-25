@@ -71,7 +71,7 @@ set_group python start
 package python-mode/python-mode  &
 package tmhedberg/SimpylFold  &
 package heavenshell/vim-pydocstring &
-package nathanaelkane/vim-indent-guides &
+package ambv/black &
 wait
 ) &
 
@@ -91,13 +91,8 @@ wait
 ) &
 
 (
-set_group sql start
-package lifepillar/pgsql.vim &
-wait
-) &
-
-(
 set_group sql opt
+package lifepillar/pgsql.vim &
 package cosminadrianpopescu/vim-sql-workbench &
 package vim-scripts/dbext.vim &
 wait
