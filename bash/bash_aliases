@@ -42,3 +42,14 @@ alias kvm="kvm -m 512 -net nic -net user,hostfwd=tcp:127.0.0.1:2222-:22,hostfwd=
 function evince () {
   nohup evince "$@" > /dev/null 2>&1 & disown
 }
+
+# Wrap firefox in function that sends to background and ignores output
+function ff () {
+  nohup firefox "$@" > /dev/null 2>&1 & disown
+}
+
+# Wrap chromium in function that sends to background and ignores output
+function chrome () {
+  nohup chromium-browser --incognito "$@" > /dev/null 2>&1 & disown
+}
+
