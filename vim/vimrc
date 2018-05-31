@@ -17,6 +17,10 @@ set number
 set colorcolumn=80
 set tags=tags
 
+" Alias some stupid bugs
+:command W w
+:command Xa xa
+
 if $TERM == 'screen'
   set t_Co=256
 endif
