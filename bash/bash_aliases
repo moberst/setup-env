@@ -1,5 +1,9 @@
+#!/bin/bash
+
 # Make directory and cd into it automatically
-function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+function mkdircd {
+    mkdir -p "$@" && eval cd "\"\$$#\"";
+}
 
 # Aliases for common commands
 alias pg="ps aux | grep"
@@ -13,8 +17,9 @@ alias ..3="cd ../../.."
 alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
 
-# Alias to pretty-print the current path
+# Alias to pretty-print the current path, dirs
 alias path='echo -e ${PATH//:/\\n}'
+alias dirs='dirs -v'
 
 # some more ls aliases
 alias ll='ls -l'
@@ -36,20 +41,15 @@ alias tmux="tmux -2"
 # Create tex directory (requires an argument)
 alias newtex="bash $HOME/repos/setup-env/tex/create_base.sh"
 
-alias kvm="kvm -m 512 -net nic -net user,hostfwd=tcp:127.0.0.1:2222-:22,hostfwd=tcp:127.0.0.1:8080-:8080 $HOME/vm-6858/vm-6858.vmdk"
-
-# Wrap evince in function that sends to background and ignores output
-function evince () {
-  nohup evince "$@" > /dev/null 2>&1 & disown
+# Wrap common file commands in func that sends to bg and ignores output
+function evince {
+    nohup evince "$@" > /dev/null 2>&1 & disown
 }
 
-# Wrap firefox in function that sends to background and ignores output
-function ff () {
-  nohup firefox "$@" > /dev/null 2>&1 & disown
+function chrome {
+    nohup chromium-browser --incognito "$@" > /dev/null 2>&1 & disown
 }
 
-# Wrap chromium in function that sends to background and ignores output
-function chrome () {
-  nohup chromium-browser --incognito "$@" > /dev/null 2>&1 & disown
+function libreoffice {
+    nohup libreoffice "$@" > /dev/null 2>&1 & disown
 }
-
