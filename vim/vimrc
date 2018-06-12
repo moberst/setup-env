@@ -8,6 +8,10 @@ colorscheme zenburn
 let g:airline_theme='powerlineish'
 " colorscheme molokai
 
+" todo command
+command Todo noautocmd vimgrep /TODO/j **/*.tex **/*.md | cw
+command Fixme noautocmd vimgrep /fxnote/j **/*.tex | cw
+
 " Sweet search options!
 set incsearch
 set hlsearch
