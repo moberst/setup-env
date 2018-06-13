@@ -9,7 +9,7 @@ let g:airline_theme='powerlineish'
 " colorscheme molokai
 
 " todo command
-command Todo noautocmd vimgrep /TODO/j **/*.tex **/*.md | cw
+command Todo noautocmd vimgrep /TODO/j ~/todo.md **/*.md **/*.tex | cw
 command Fixme noautocmd vimgrep /fxnote/j **/*.tex | cw
 
 " Sweet search options!
