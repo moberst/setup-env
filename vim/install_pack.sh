@@ -56,12 +56,12 @@ package terryma/vim-multiple-cursors  &
 package tpope/vim-unimpaired  &
 package kshenoy/vim-signature &
 package easymotion/vim-easymotion &
+package vim-scripts/taglist.vim &
 wait
 ) &
 
 (
 set_group text-utils opt
-package vim-scripts/taglist.vim &
 package gyim/vim-boxdraw &
 wait
 ) &

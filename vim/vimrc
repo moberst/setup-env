@@ -21,6 +21,9 @@ set number
 set colorcolumn=81
 set tags=tags
 
+" Tag list toggle
+nnoremap <silent> <F8> :TlistToggle<CR>
+
 " Alias some stupid bugs
 :command W w
 :command Xa xa
