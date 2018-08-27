@@ -25,6 +25,10 @@ alias dirs='dirs -v'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+alias lt='ls -t'
+
+# Edit the most recently edited file (Vim Last = vl)
+alias vl="vim $(ls -t | head -n 1)"
 
 # Directory stack navigation
 alias pd="pushd"
@@ -46,17 +50,10 @@ function evince {
     nohup evince "$@" > /dev/null 2>&1 & disown
 }
 
-function chrome {
-    nohup chromium-browser --incognito "$@" > /dev/null 2>&1 & disown
+function ff {
+    nohup firefox "$@" > /dev/null 2>&1 & disown
 }
 
 function libreoffice {
     nohup libreoffice "$@" > /dev/null 2>&1 & disown
 }
-
-# Alias for setting current gpu
-alias gpu_0='export CUDA_VISIBLE_DEVICES=0'
-alias gpu_1='export CUDA_VISIBLE_DEVICES=1'
-alias gpu_2='export CUDA_VISIBLE_DEVICES=2'
-alias gpu_3='export CUDA_VISIBLE_DEVICES=3'
-alias gpu='echo ${CUDA_VISIBLE_DEVICES}'
