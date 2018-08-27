@@ -26,8 +26,6 @@ if [ ! -d "$VIM_DIR" ] ; then
     make distclean
     ./configure --with-features=huge \
             --enable-multibyte \
-            --enable-pythoninterp=dynamic \
-            --with-python-config-dir="$PYTHON_CONFIG_DIR"\
             --enable-python3interp \
             --with-python3-config-dir="$PYTHON_3_CONFIG_DIR"\
             --with-x \

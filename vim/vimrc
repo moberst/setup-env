@@ -88,8 +88,12 @@ let g:vim_markdown_toc_autofit = 1
 " Setup for JamshedVesuna/vim-markdown-preview
 " Map markdown preview to CTRL-M
 let vim_markdown_preview_hotkey='<C-M>'
+" Display images
+let vim_markdown_preview_toggle=1
 " Use grip for markdown preview
 let vim_markdown_preview_github=1
+" Remove temp file after loading in browser
+let vim_markdown_preview_temp_file=1
 
 " Setup for sql formatter
 let g:sql_type_default = 'pgsql'
