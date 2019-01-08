@@ -122,6 +122,9 @@ fi
 if [ -d ~/.go ]; then
   export PATH="$HOME/.go/bin:$PATH"
 fi
+if [ -d ~/.neovim ]; then
+  export PATH="$HOME/.neovim/bin:$PATH"
+fi
 if [ -d /usr/local/share/chruby ]; then
   source /usr/local/share/chruby/chruby.sh
   source /usr/local/share/chruby/auto.sh
