@@ -5,6 +5,9 @@ function mkdircd {
     mkdir -p "$@" && eval cd "\"\$$#\"";
 }
 
+# Moving over from vim to nvim
+alias vim="nvim"
+
 # Aliases for common commands
 alias pg="ps aux | grep"
 alias tf="tail -f -n 100"
@@ -41,6 +44,14 @@ alias vim="vim --servername VIM"
 # Debugging
 alias wtf="python -m pdb -c continue"
 alias tmux="tmux -2"
+
+# Onedrive
+alias ods="systemctl --user start onedrive"
+alias odh="systemctl --user stop onedrive"
+alias odf="journalctl --user-unit onedrive -f"
+
+# Common typos
+alias sl="ls"
 
 # Create tex directory (requires an argument)
 alias newtex="bash $HOME/repos/setup-env/tex/create_base.sh"

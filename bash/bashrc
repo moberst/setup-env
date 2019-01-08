@@ -110,6 +110,11 @@ fi
 # Source python, rust, go, and ruby
 if [ -d ~/.miniconda3 ]; then
   export PATH="$HOME/.miniconda3/bin:$PATH"
+  if [ -d ~/.venv ]; then
+    export WORKON_HOME=$HOME/.venv
+    export PROJECT_HOME=$HOME/repos
+    source $HOME/.miniconda3/bin/virtualenvwrapper.sh
+  fi
 fi
 if [ -d ~/.cargo ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
