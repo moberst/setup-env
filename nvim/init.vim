@@ -1,5 +1,8 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'scrooloose/nerdtree'
+Plug 'dyng/ctrlsf.vim'
+
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -22,7 +25,6 @@ Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
-Plug 'xuhdev/vim-latex-live-preview'
 Plug 'lervag/vimtex'
 
 Plug 'tpope/vim-fugitive'
