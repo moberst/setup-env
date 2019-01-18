@@ -2,6 +2,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'scrooloose/nerdtree'
 Plug 'dyng/ctrlsf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+
+Plug 'w0rp/ale'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
@@ -12,11 +16,8 @@ Plug 'kshenoy/vim-signature'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/taglist.vim'
 
-" Plug 'python-mode/python-mode'
-Plug 'neomake/neomake'
 Plug 'tmhedberg/SimpylFold'
 Plug 'heavenshell/vim-pydocstring'
-Plug 'ambv/black'
 
 Plug 'SirVer/ultisnips'
 Plug 'moberst/vim-snippets'
@@ -56,6 +57,7 @@ endif
 
 " Source for python
 let g:python3_host_prog='/home/moberst/.miniconda3/bin/python3'
+let g:ale_linters = {'python': ['autopep8']}
 
 " No fancy cursor nonsense, we do it old school
 set guicursor=
@@ -99,7 +101,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit="vertical" 
 
 " Setup for vimtex
-let g:syntastic_tex_chktex_quiet_messages = { "level":"warnings"}
 let g:vimtex_fold_enabled = 1
 let g:vimtex_indent_enabled = 1
 let g:vimtex_toc_enabled = 1
@@ -185,6 +186,4 @@ au BufNewFile,BufRead *.py
 let python_highlight_all=1
 syntax on
 
-" Neomake setup
-call neomake#configure#automake('nw', 750)
-
+let g:deoplete#enable_at_startup = 1
