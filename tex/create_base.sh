@@ -66,5 +66,5 @@ elif [ $PRESENTATION -eq 1 ]; then
 else
     echo "Moving basic files"
     mkdir $NAME/tex
-    cp $SCRIPT_HOME/basic.tex $NAME/notes.tex
+    cp $SCRIPT_HOME/example.tex $NAME/notes.tex
 fi
