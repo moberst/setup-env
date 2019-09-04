@@ -71,7 +71,6 @@ set_group python start
 package python-mode/python-mode  &
 package tmhedberg/SimpylFold  &
 package heavenshell/vim-pydocstring &
-package ambv/black &
 wait
 ) &
 
@@ -79,14 +78,20 @@ wait
 set_group snips start
 package SirVer/ultisnips &
 package moberst/vim-snippets &
-package Valloric/YouCompleteMe &
 package ervandew/supertab &
+wait
+) &
+
+(
+set_group snips opt
+package Valloric/YouCompleteMe &
 wait
 ) &
 
 (
 set_group python opt
 package vim-scripts/indentpython.vim  &
+package ambv/black &
 wait
 ) &
 

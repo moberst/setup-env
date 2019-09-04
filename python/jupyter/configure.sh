@@ -18,4 +18,4 @@ c.NotebookApp.keyfile = u'$certdir/mycert.key'\\
 c.NotebookApp.ip = '*'\\
 c.NotebookApp.open_browser = False\\
 c.NotebookApp.password = u'$key'\\
-c.NotebookApp.port = 9999" .jupyter/jupyter_notebook_config.py
+c.NotebookApp.port = 8082" .jupyter/jupyter_notebook_config.py

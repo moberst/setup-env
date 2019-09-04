@@ -1,22 +1,12 @@
 #!/bin/bash
-apt-get remove --purge vim vim-runtime vim-gnome vim-tiny vim-gui-common
-
-apt-get install libncurses5-dev libgnome2-dev libgnomeui-dev \
-    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-    libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev python-dev
-
-apt-get install checkinstall
-
 PYTHON_CONFIG_DIR="/usr/lib/python2.7/config-x86_64-linux-gnu"
-PYTHON_3_CONFIG_DIR="/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu"
+PYTHON_3_CONFIG_DIR="/usr/lib/python3.6/config-3.5m-x86_64-linux-gnu"
 
 SETUP_DIR="$HOME/repos/setup-env/vim/"
 VIM_DIR="$HOME/.vim"
 
 # Delete vim if it already exists
 rm -rf "$VIM_DIR"
-rm -rf /usr/local/share/vim /usr/bin/vim
-apt remove vim
 
 # Clone the source code into the directory
 if [ ! -d "$VIM_DIR" ] ; then
