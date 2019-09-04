@@ -117,4 +117,7 @@ if [ -d /usr/local/share/chruby ]; then
   source /usr/local/share/chruby/auto.sh
 fi
 
+# Alias hub as git
+eval "$(hub alias -s)"
+
 export TERM="screen-256color"
