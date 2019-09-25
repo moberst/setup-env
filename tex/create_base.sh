@@ -16,12 +16,14 @@ while getopts "h?fpd:" opt; do
         exit 0
         ;;
     f)
+        NAME=$OPTARG
         FULL_SETUP=1
         ;;
     p)
+        NAME=$OPTARG
         PRESENTATION=1
         ;;
-    d)
+    n)
         NAME=$OPTARG
         ;;
     esac
@@ -43,28 +45,25 @@ if [ $FULL_SETUP -eq 1 ]; then
 
     echo "Moving files"
     # Move over the files
-    cp $SCRIPT_HOME/introduction.tex \
-       $SCRIPT_HOME/natbib.sty $SCRIPT_HOME/jmb.bst $SCRIPT_HOME/main.tex \
-       $SCRIPT_HOME/base.bib $NAME
+    cp $SCRIPT_HOME/example_paper.tex $SCRIPT_HOME/icml2019.bst \ 
+       $SCRIPT_HOME/example_references.bib $NAME
 
     # No Makefile, just use vimtex
 
-    # Change file names
-    mv $NAME/introduction.tex $NAME/sections/
-
-    echo "Initializing Git Repository"
-    # Initialize git repository
-    cd $NAME
-    git init
+    # Initialize abstract / intro
+    mv $NAME/example_paper.tex $NAME/main.tex
+    mv $NAME/example_references.tex $NAME/references.tex
+    touch $NAME/sections/0-abstract
+    touch $NAME/sections/1-introduction
 
 elif [ $PRESENTATION -eq 1 ]; then
     echo "Moving presentation files"
-    mkdir $NAME/tex
-    cp $SCRIPT_HOME/header.tex $NAME/tex/header.tex
-    cp $SCRIPT_HOME/basic_presentation.tex $NAME/presentation.tex
+    cp $SCRIPT_HOME/example_presentation.tex $NAME/main.tex
+    cp $SCRIPT_HOME/example_references.tex $NAME/references.tex
 
 else
     echo "Moving basic files"
-    mkdir $NAME/tex
-    cp $SCRIPT_HOME/example.tex $NAME/notes.tex
+    cp $SCRIPT_HOME/example_notes.tex $NAME/notes.tex
+    cp $SCRIPT_HOME/example_references.bib $NAME/references.bib
+    cp $SCRIPT_HOME/icml2019.tex $NAME
 fi
