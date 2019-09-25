@@ -61,20 +61,6 @@ wait
 ) &
 
 (
-set_group text-utils opt
-package gyim/vim-boxdraw &
-wait
-) &
-
-(
-set_group python start
-package python-mode/python-mode  &
-package tmhedberg/SimpylFold  &
-package heavenshell/vim-pydocstring &
-wait
-) &
-
-(
 set_group snips start
 package SirVer/ultisnips &
 package moberst/vim-snippets &
@@ -83,29 +69,11 @@ wait
 ) &
 
 (
-set_group snips opt
-package Valloric/YouCompleteMe &
-wait
-) &
-
-(
-set_group python opt
+set_group python start
+package python-mode/python-mode  &
+package tmhedberg/SimpylFold  &
+package heavenshell/vim-pydocstring &
 package vim-scripts/indentpython.vim  &
-package ambv/black &
-wait
-) &
-
-(
-set_group sql opt
-package lifepillar/pgsql.vim &
-package cosminadrianpopescu/vim-sql-workbench &
-package vim-scripts/dbext.vim &
-wait
-) &
-
-(
-set_group ember opt
-package joukevandermaas/vim-ember-hbs &
 wait
 ) &
 
@@ -118,16 +86,8 @@ wait
 ) &
 
 (
-set_group rmarkdown opt
-package vim-pandoc/vim-pandoc &
-package vim-pandoc/vim-pandoc-syntax  &
-package vim-pandoc/vim-rmarkdown  &
-wait
-) &
-
-(
 set_group latex start
-package xuhdev/vim-latex-live-preview &
+# package xuhdev/vim-latex-live-preview &
 package lervag/vimtex &
 wait
 ) &
@@ -140,20 +100,8 @@ wait
 ) &
 
 (
-set_group syntax start
-package scrooloose/syntastic  &
-wait
-) &
-
-(
 set_group colorschemes start
 package jnurmine/Zenburn  &
-wait
-) &
-
-(
-set_group colorschemes opt
-package tomasr/molokai &
 wait
 ) &
 

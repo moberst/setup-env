@@ -6,11 +6,6 @@ filetype plugin indent on
 " GENERAL setup
 colorscheme zenburn
 let g:airline_theme='powerlineish'
-" colorscheme molokai
-
-" todo command
-command Todo noautocmd vimgrep /TODO/j **/*.py | cw
-command Fixme noautocmd vimgrep /fxnote/j **/*.tex | cw
 
 " Sweet search options!
 set incsearch
@@ -35,7 +30,6 @@ endif
 set wrap linebreak nolist 
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 " Set indent guides
@@ -49,19 +43,7 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit="vertical" 
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-" Turn off YCM for Tex and Markdown
-let g:ycm_filetype_blacklist = {
-      \ 'markdown': 1,
-      \ 'tex': 1,
-      \ 'text': 1
-      \}
-
 " Setup for vimtex
-let g:syntastic_tex_chktex_quiet_messages = { "level":"warnings"}
 let g:vimtex_fold_enabled = 1
 let g:vimtex_indent_enabled = 1
 let g:vimtex_toc_enabled = 1
@@ -85,16 +67,6 @@ let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toc_autofit = 1
 
-" Setup for JamshedVesuna/vim-markdown-preview
-" Map markdown preview to CTRL-M
-let vim_markdown_preview_hotkey='<C-M>'
-" Display images
-let vim_markdown_preview_toggle=1
-" Use grip for markdown preview
-let vim_markdown_preview_github=1
-" Remove temp file after loading in browser
-let vim_markdown_preview_temp_file=1
-
 " Setup for sql formatter
 let g:sql_type_default = 'pgsql'
 
@@ -105,15 +77,6 @@ let g:pymode_lint_on_write = 1
 let g:pymode_options_max_line_length=81
 let g:pymode_virtualenv = 1
 let g:pymode_python = 'python3'
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_python_pylint_post_args="--max-line-length=81"
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_sh_checkers=['bashate']
-
-nnoremap <silent> <F5> :SyntasticToggle<CR>
 
 " Use spaces instead of tabs, and keep the whitespace small
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
@@ -138,11 +101,7 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-
-let g:sw_exe = '/home/moberst/sqlworkbench/sqlwbconsole.sh'
-let g:sw_config_dir = '/home/moberst/sqlworkbench/'
-let g:ctrlp_extensions=['sw_profiles']
-
+"
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
@@ -155,10 +114,10 @@ map <C-T> :NERDTreeToggle<CR>
 " Close Vim if the only window open is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Latex setup
+" Latex setup, uncomment the spellfile if you want to add stuff to dictionary
 au BufNewFile,BufRead *.tex
     \ set spelllang=en | 
-    \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
+    " \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
     \ set spell
 
 " PYTHON setup
@@ -172,8 +131,6 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 " Ensures that the autocomplete window goes away when you’re done with it
-let g:ycm_autoclose_preview_window_after_insertion=1
-let g:ycm_autoclose_preview_window_after_completion=1
 let g:syntastic_python_checkers=['flake8', 'pyflakes']
 let g:syntastic_aggregate_errors = 1
 
