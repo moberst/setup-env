@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Set up ctags template
+# Set up ctags template (for Vim)
 git config --global init.templatedir '~/.git_template'
 mkdir -p ~/.git_template
 if [ -d ~/.git_template/hooks ]; then
@@ -19,5 +19,6 @@ git config --global alias.br branch
 git config --global core.editor vim
 git config --global push.default simple
 git config --global credential.helper cache
+git config --global Core.fileMode false
 
 cat gitconfig >> $HOME/.gitconfig
