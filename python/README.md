@@ -16,4 +16,4 @@ conda env create -f $YML_FILE
 ```
 # NOTE
 
-Convention (in bashrc) is to install miniconda on a new system, and put it in a dotfile directory
+Convention (reflected in the paths assumed by `.bashrc`) is to install miniconda on a new system, and put it in a dotfile directory
