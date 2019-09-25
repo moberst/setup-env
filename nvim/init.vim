@@ -16,6 +16,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/taglist.vim'
 
+Plug 'python-mode/python-mode'
 Plug 'tmhedberg/SimpylFold'
 Plug 'heavenshell/vim-pydocstring'
 
