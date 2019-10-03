@@ -1,5 +1,5 @@
 \ProvidesPackage{header}
-\usepackage{amssymb, amsmath, amsthm, amsfonts, mathtools}
+\usepackage{amssymb, amsmath, amsthm, amsfonts, mathtools, dsfont}
 
 \newtheorem{thmlem}{Lemma}
 \newtheorem{thmcol}{Corollary}
@@ -77,7 +77,6 @@
 \def\cZ{\mathcal{Z}}
 \def\cx{\mathcal x}
 \def\cR{\mathcal{R}}
-\def \R{\mathbb{R}}
 
 \newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
 \def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
@@ -100,15 +99,30 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 
 % New stuff from Mike (not all here, some above)
-\def \hfn {\hat{f}_n}
+\def\hfn{\hat{f}_n}
 \newcommand{\1}[1]{\mathds{1}\left[#1\right]}
 \newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
-\def \R{\mathbb{R}}
-\def \Q{\mathbb{Q}}
-\def \N{\mathbb{N}}
-\def \C{\mathbb{C}}
-\def \Z{\mathbb{Z}}
-\def \P{\mathbb{P}}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+\let\oldabs\abs%
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm%
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+\def\R{\mathbb{R}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\C{\mathbb{C}}
+\def\Z{\mathbb{Z}}
+\def\P{\mathbb{P}}
 
 \setlength{\parskip}{\baselineskip}
 \setlength{\parindent}{0pt}
