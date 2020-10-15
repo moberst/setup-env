@@ -1,11 +1,25 @@
 \documentclass[11pt]{article}
-\usepackage{header}
-\usepackage{natbib} 
-\usepackage{hyperref} 
+% Custom Packages
+\usepackage{theorems}
+\usepackage{shortcuts}
+% Use this to take manual control, using the copy in the folder
+%\input{shortcuts}
 
+% Normal Packages
+\usepackage{natbib} 
+\usepackage[]{csquotes} 
+\usepackage[]{hyperref} 
+\usepackage[inline]{enumitem} 
+\usepackage[draft]{fixme}
+\fxsetup{inline,nomargin,theme=color}
+
+% Formatting for notes
 \addtolength{\oddsidemargin}{-1in}
 \addtolength{\evensidemargin}{-1in}
 \addtolength{\textwidth}{2in}
+
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}

@@ -1,0 +1,32 @@
+\ProvidesPackage{theorems}
+\usepackage{amssymb, amsmath, amsthm, amsfonts, mathtools, dsfont}
+
+% Set up Theorem Environments
+\newtheorem{thmlem}{Lemma}
+\newtheorem{thmcol}{Corollary}
+\newtheorem{thmprop}{Proposition}
+\newtheorem{thmconj}{Conjecture}
+\newtheorem{thmthm}{Theorem}
+\newtheorem*{thmappthm}{Theorem}
+\newtheorem{thmasmp}{Assumption}
+\newtheorem{thmcorr}{Corollary}
+\newtheorem{thmexp}{Example}
+
+\newtheorem{thmappasmp}{Assumption}
+\renewcommand{\thethmappasmp}{A\arabic{thmappasmp}}
+\newtheorem{thmapplem}{Lemma}
+\renewcommand{\thethmapplem}{A\arabic{thmapplem}}
+\newtheorem{thmappcol}{Corollary}
+\renewcommand{\thethmappcol}{A\arabic{thmappcol}}
+
+\theoremstyle{definition}
+\newtheorem{thmdef}{Definition}
+
+\newtheorem{thmappdef}{Definition}
+\renewcommand{\thethmappdef}{A\arabic{thmappdef}}
+
+\newenvironment{thmproof}[1][Proof]{\begin{trivlist}
+\item[\hskip \labelsep {\textit{#1.}}]}{\end{trivlist}}
+\newenvironment{thmproofsketch}[1][Proof sketch]{\begin{trivlist}
+\item[\hskip \labelsep {\textit{#1.}}]}{\end{trivlist}}
+\newtheorem{proposition}{Proposition}
