@@ -2,6 +2,24 @@
 \usepackage{amssymb, amsmath, amsfonts, mathtools, dsfont}
 \usepackage{suffix}
 
+% Convergence
+\newcommand{\cim}{\stackrel{L_1}{\rightarrow}}
+\newcommand{\cip}{\stackrel{\text{i.p.}}{\rightarrow}}
+\newcommand{\cid}{\stackrel{\text{d}}{\rightarrow}}
+\newcommand{\cas}{\stackrel{\text{a.s.}}{\rightarrow}}
+\newcommand{\eid}{\stackrel{\text{(d)}}{=}}
+
+% Distributions
+\newcommand{\Ptr}{\mathbb{P}_{\text{tr}}}
+\newcommand{\Pte}{\mathbb{P}_{\text{te}}}
+
+% Variance, covariance
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+
+% Such that 
+\newcommand{\st}{\text{s.t., }}
+
 % Fields
 \def\R{\mathbb{R}}
 \def\Q{\mathbb{Q}}
@@ -118,6 +136,7 @@
 \newcommand{\bvh}{\hat{\bv}}
 
 % distributions
+\newcommand{\Unif}{\mathsf{Unif}}
 \newcommand{\Ber}{\mathsf{Ber}}
 \newcommand{\subG}{\mathsf{subG}}
 \newcommand{\subE}{\mathsf{subE}}
@@ -146,7 +165,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \newcommand{\card}{\mathop{\mathrm{card}}}
-\newcommand{\1}[1]{\mathbf{1}\left[#1\right]}
+\newcommand{\1}[1]{\mathbf{1}\left\{#1\right\}}
 \newcommand{\dt}[2]{\frac{d}{dt}#1\big|_{#2}}
 \newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
 
