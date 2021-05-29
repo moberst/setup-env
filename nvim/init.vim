@@ -47,21 +47,6 @@ call plug#end()
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-if exists('g:gui_oni')
-  set number
-  set noswapfile
-  set smartcase
-
-  " Enable GUI mouse behavior
-  set mouse=a
-
-  " If using Oni's externalized statusline, hide vim's native statusline, 
-  set noshowmode
-  set noruler
-  set laststatus=0
-  set noshowcmd
-endif
-
 " Nvim specific setup
 
 " Source for python
@@ -193,6 +178,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 au BufNewFile,BufRead *.tex
     \ set spell | 
     \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add
+
+" Override default VIM (see /usr/share/nvim/runtime/ftplugin/python.vim)
+" setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=8
+let g:python_recommended_style=0
 
 " python setup
 au BufNewFile,BufRead *.py
