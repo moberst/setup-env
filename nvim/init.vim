@@ -1,38 +1,46 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+" File searching, requires ripgrep
 Plug 'scrooloose/nerdtree'
 Plug 'dyng/ctrlsf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 
-Plug 'w0rp/ale'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-Plug 'tomtom/tcomment_vim'
+" Editing
+Plug 'tomtom/tcomment_vim' 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'kshenoy/vim-signature'
-Plug 'easymotion/vim-easymotion'
+Plug 'kshenoy/vim-signature' " Display marks
+Plug 'easymotion/vim-easymotion' " leader/leader then jump
 Plug 'vim-scripts/taglist.vim'
-
-Plug 'python-mode/python-mode'
 Plug 'tmhedberg/SimpylFold'
-Plug 'heavenshell/vim-pydocstring'
 
-Plug 'SirVer/ultisnips'
-Plug 'moberst/vim-snippets'
+" Snippets
+Plug 'SirVer/ultisnips' " Enable the use of snippets
+Plug 'moberst/vim-snippets' " My custom snippets
 Plug 'ervandew/supertab'
 
+" Linting
+Plug 'dense-analysis/ale'
+
+" Python
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
+
+" Markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
+" Latex
 Plug 'lervag/vimtex'
 
+" Git integrations
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
+" Theme
 Plug 'jnurmine/Zenburn'
+Plug 'rafi/awesome-vim-colorschemes'
 
 call plug#end()
 
@@ -57,8 +65,19 @@ endif
 " Nvim specific setup
 
 " Source for python
-let g:python3_host_prog='/home/moberst/.miniconda3/bin/python3'
-let g:ale_linters = {'python': ['autopep8']}
+let g:python3_host_prog='/home/moberst/.miniconda3-fresh/bin/python3'
+
+" Setup for ALE
+let g:ale_linters = {'python': ['flake8', 'pydocstyle', 'mypy', 'pylint'], 'tex': ['chktex']}
+let g:ale_fixers = {'python': ['yapf']}
+let g:ale_python_flake8_executable='/home/moberst/.miniconda3-fresh/bin/flake8'
+let g:ale_python_pydocstyle_executable='/home/moberst/.miniconda3-fresh/bin/pydocstyle'
+let g:ale_python_mypy_executable='/home/moberst/.miniconda3-fresh/bin/mypy'
+let g:ale_python_yapf_executable='/home/moberst/.miniconda3-fresh/bin/yapf'
+let g:ale_python_pylint_executable='/home/moberst/.miniconda3-fresh/bin/pylint'
+
+" Setup for pydocstring
+let g:pydocstring_formatter='google'
 
 " No fancy cursor nonsense, we do it old school
 set guicursor=
@@ -66,7 +85,8 @@ set guicursor=
 "" Old VIM setup, but cut down due to redundant plugins
 
 " GENERAL setup
-colorscheme zenburn
+" colorscheme zenburn
+colorscheme sonokai
 
 " Sweet search options!
 set incsearch
@@ -186,5 +206,3 @@ au BufNewFile,BufRead *.py
 
 let python_highlight_all=1
 syntax on
-
-let g:deoplete#enable_at_startup = 1
