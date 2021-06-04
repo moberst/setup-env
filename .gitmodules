@@ -1,3 +1,6 @@
 [submodule "nvim/neovim"]
 	path = nvim/neovim
-	url = git://github.com/neovim/neovim.git
+	url = https://github.com/neovim/neovim.git
+[submodule "nvim/neovim-nightly"]
+	path = nvim/neovim-nightly
+	url = https://github.com/neovim/neovim.git
