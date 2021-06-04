@@ -6,6 +6,4 @@ else
   source $NVIM_CONFIG_DIR/stable.vim
 endif
 
-# Regardless, source the google settings
-
-source google.vim
+source $NVIM_CONFIG_DIR/google.vim
