@@ -13,6 +13,7 @@ Plug 'kshenoy/vim-signature' " Display marks
 Plug 'easymotion/vim-easymotion' " leader/leader then jump
 Plug 'vim-scripts/taglist.vim'
 Plug 'tmhedberg/SimpylFold'
+Plug 'milkypostman/vim-togglelist'
 
 " Snippets
 Plug 'SirVer/ultisnips' " Enable the use of snippets
@@ -83,6 +84,10 @@ nnoremap <leader>fg <cmd>Telescope git_files theme=get_dropdown<cr>
 nnoremap <leader>fb <cmd>Telescope buffers theme=get_dropdown<cr>
 nnoremap <leader>fs <cmd>Telescope live_grep theme=get_dropdown<cr>
 
+" Quickfix mapping
+let g:toggle_list_no_mappings = v:false
+nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
+
 " No fancy cursor nonsense, we do it old school
 set guicursor=
 
@@ -95,6 +100,8 @@ colorscheme sonokai
 " Sweet search options!
 set incsearch
 set hlsearch
+nnoremap <esc> :noh<return><esc>
+nnoremap <C-[> :noh<return><esc>
 
 set number
 set encoding=utf-8
