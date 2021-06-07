@@ -78,10 +78,10 @@ let g:ultisnips_python_style = "google"
 let g:pydocstring_formatter='google'
 
 " Find files using telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope git_files<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fs <cmd>Telescope live_grep<cr>
+nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
+nnoremap <leader>fg <cmd>Telescope git_files theme=get_dropdown<cr>
+nnoremap <leader>fb <cmd>Telescope buffers theme=get_dropdown<cr>
+nnoremap <leader>fs <cmd>Telescope live_grep theme=get_dropdown<cr>
 
 " No fancy cursor nonsense, we do it old school
 set guicursor=
