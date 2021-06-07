@@ -1,8 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
@@ -46,7 +45,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
 
@@ -79,12 +77,11 @@ let g:ultisnips_python_style = "google"
 " Setup for pydocstring
 let g:pydocstring_formatter='google'
 
-" Find files using FZF
-nnoremap <silent> <C-p> :GFiles<CR>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fb :Buffers<CR>
-nnoremap <leader>fl :Lines<CR>
-nnoremap <leader>fg :GFiles<CR>
+" Find files using telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope git_files<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fs <cmd>Telescope live_grep<cr>
 
 " No fancy cursor nonsense, we do it old school
 set guicursor=
