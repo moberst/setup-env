@@ -8,6 +8,8 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-eunuch' " UNIX Shell commands
+Plug 'tpope/vim-abolish' 
 Plug 'terryma/vim-multiple-cursors'
 Plug 'kshenoy/vim-signature' " Display marks
 Plug 'easymotion/vim-easymotion' " leader/leader then jump
@@ -19,8 +21,10 @@ Plug 'milkypostman/vim-togglelist'
 Plug 'SirVer/ultisnips' " Enable the use of snippets
 Plug 'moberst/vim-snippets' " My custom snippets
 
-" Linting
+" Linting and testing
 Plug 'dense-analysis/ale'
+Plug 'vim-test/vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
 " Python
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
@@ -66,6 +70,9 @@ let g:ale_python_mypy_executable='/home/moberst/.miniconda3-fresh/bin/mypy'
 let g:ale_python_yapf_executable='/home/moberst/.miniconda3-fresh/bin/yapf'
 let g:ale_python_pylint_executable='/home/moberst/.miniconda3-fresh/bin/pylint'
 
+" Setup for vim-test
+let test#strategy = 'neovim'
+
 " Setup for snippets
 let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
@@ -83,6 +90,7 @@ nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
 nnoremap <leader>fg <cmd>Telescope git_files theme=get_dropdown<cr>
 nnoremap <leader>fb <cmd>Telescope buffers theme=get_dropdown<cr>
 nnoremap <leader>fs <cmd>Telescope live_grep theme=get_dropdown<cr>
+nnoremap <leader>ft <cmd>Telescope file_browser theme=get_dropdown<cr>
 
 " Quickfix mapping
 let g:toggle_list_no_mappings = v:false
@@ -95,7 +103,8 @@ set guicursor=
 
 " GENERAL setup
 " colorscheme zenburn
-colorscheme sonokai
+" colorscheme sonokai
+colorscheme nord
 
 " Sweet search options!
 set incsearch
