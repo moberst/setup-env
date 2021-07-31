@@ -1,5 +1,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Navigation
 Plug 'scrooloose/nerdtree'
 Plug 'nvim-telescope/telescope.nvim'
 
@@ -9,12 +10,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch' " UNIX Shell commands
-Plug 'tpope/vim-abolish' 
-Plug 'terryma/vim-multiple-cursors'
-Plug 'kshenoy/vim-signature' " Display marks
-Plug 'easymotion/vim-easymotion' " leader/leader then jump
-Plug 'vim-scripts/taglist.vim'
-Plug 'tmhedberg/SimpylFold'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'milkypostman/vim-togglelist'
 
 " Snippets
@@ -22,6 +18,7 @@ Plug 'SirVer/ultisnips' " Enable the use of snippets
 Plug 'moberst/vim-snippets' " My custom snippets
 
 " Linting and testing
+Plug 'vim-scripts/taglist.vim'
 Plug 'dense-analysis/ale'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
@@ -29,11 +26,8 @@ Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 " Python
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
-" Markdown
+" Markdown / Latex
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-
-" Latex
 Plug 'lervag/vimtex'
 
 " Git integrations
@@ -41,7 +35,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Theme
-Plug 'jnurmine/Zenburn'
 Plug 'rafi/awesome-vim-colorschemes'
 
 " Neovim 0.5 features
@@ -56,10 +49,21 @@ call plug#end()
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" Nvim specific setup
-
 " Source for python
 let g:python3_host_prog='/home/moberst/.miniconda3-fresh/bin/python3'
+
+" NERDtree settings
+" Toggle Nerdtree with C-T
+map <C-T> :NERDTreeToggle<CR>
+" Close Vim if the only window open is nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Find files using telescope
+nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
+nnoremap <leader>fg <cmd>Telescope git_files theme=get_dropdown<cr>
+nnoremap <leader>fb <cmd>Telescope buffers theme=get_dropdown<cr>
+nnoremap <leader>fs <cmd>Telescope live_grep theme=get_dropdown<cr>
+nnoremap <leader>ft <cmd>Telescope file_browser theme=get_dropdown<cr>
 
 " Setup for ALE
 let g:ale_linters = {'python': ['flake8', 'pydocstyle', 'mypy', 'pylint'], 'tex': ['chktex']}
@@ -70,8 +74,22 @@ let g:ale_python_mypy_executable='/home/moberst/.miniconda3-fresh/bin/mypy'
 let g:ale_python_yapf_executable='/home/moberst/.miniconda3-fresh/bin/yapf'
 let g:ale_python_pylint_executable='/home/moberst/.miniconda3-fresh/bin/pylint'
 
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+nmap <leader>ad <Plug>(ale_go_to_definition_in_vsplit)
+nmap <leader>ar <Plug>(ale_find_references)
+
+" Tag list toggle
+nnoremap <silent> <F8> :TlistToggle<CR>
+
+" Setup for pydocstring
+let g:pydocstring_formatter='google'
+nmap <leader>ds :Pydocstring<CR>
+
 " Setup for vim-test
 let test#strategy = 'neovim'
+nmap <leader>tt <Plug>(ultest-summary-toggle)
+nmap <leader>tr <Plug>(ultest-run-file)
 
 " Setup for snippets
 let g:UltiSnipsExpandTrigger = "<c-j>"
@@ -82,43 +100,35 @@ let g:ultisnips_python_quoting_style = "single"
 let g:ultisnips_python_triple_quoting_style = "double"
 let g:ultisnips_python_style = "google"
 
-" Setup for pydocstring
-let g:pydocstring_formatter='google'
+" GitGutter
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
 
-" Find files using telescope
-nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
-nnoremap <leader>fg <cmd>Telescope git_files theme=get_dropdown<cr>
-nnoremap <leader>fb <cmd>Telescope buffers theme=get_dropdown<cr>
-nnoremap <leader>fs <cmd>Telescope live_grep theme=get_dropdown<cr>
-nnoremap <leader>ft <cmd>Telescope file_browser theme=get_dropdown<cr>
-
+" function! GitStatus()
+"   let [a,m,r] = GitGutterGetHunkSummary()
+"   return printf('+%d ~%d -%d', a, m, r)
+" endfunction
+" set statusline+=%{GitStatus()}
+ 
 " Quickfix mapping
 let g:toggle_list_no_mappings = v:false
 nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
 
 " No fancy cursor nonsense, we do it old school
 set guicursor=
-
-"" Old VIM setup, but cut down due to redundant plugins
-
-" GENERAL setup
-" colorscheme zenburn
-" colorscheme sonokai
 colorscheme nord
 
 " Sweet search options!
 set incsearch
 set hlsearch
-nnoremap <esc> :noh<return><esc>
-nnoremap <C-[> :noh<return><esc>
+nmap <leader>h :noh<CR>
 
 set number
 set encoding=utf-8
 set colorcolumn=81
 set tags=tags
 
-" Tag list toggle
-nnoremap <silent> <F8> :TlistToggle<CR>
+set updatetime=100
 
 " Alias some stupid bugs
 :command W w
@@ -183,26 +193,12 @@ nnoremap <C-H> <C-W><C-H>
 vnoremap > >gv
 vnoremap < <gv
 
-" Mappings for CtrlSF
-nmap     <C-F>f <Plug>CtrlSFPrompt
-vmap     <C-F>f <Plug>CtrlSFVwordPath
-vmap     <C-F>F <Plug>CtrlSFVwordExec
-nmap     <C-F>n <Plug>CtrlSFCwordPath
-nmap     <C-F>p <Plug>CtrlSFPwordPath
-nnoremap <C-F>o :CtrlSFOpen<CR>
-nnoremap <C-F>t :CtrlSFToggle<CR>
-inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
-" NERDtree settings
-" Toggle Nerdtree with C-T
-map <C-T> :NERDTreeToggle<CR>
-" Close Vim if the only window open is nerdtree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Latex setup
 au BufNewFile,BufRead *.tex
     \ set spell | 
