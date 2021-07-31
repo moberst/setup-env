@@ -2,6 +2,8 @@
 
 Some documentation for each plugin that I have, and why they are useful!
 
+Note that I have re-defined leader to ","
+
 ## Navigation
 ```
 Plug 'scrooloose/nerdtree'
@@ -57,6 +59,10 @@ Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Use `]t` to go to the tag for a function!  ALE will mostly just work in the background, and should fix files on save, but you can also use 
 * `<leader>ad` to go to definition in a vsplit (Ale Definition)
 * `<leader>ar` to find refererences (Ale Reference)
+
+For testing, you can do (in a test file)
+* `<leader>tt` toggle the test window
+* `<leader>tr` run the tests
 
 ## Python
 ```

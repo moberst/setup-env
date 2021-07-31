@@ -35,6 +35,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Theme
+" Plug 'arcticicestudio/nord-vim'
 Plug 'rafi/awesome-vim-colorschemes'
 
 " Neovim 0.5 features
@@ -48,6 +49,8 @@ call plug#end()
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
+
+let mapleader = ","
 
 " Source for python
 let g:python3_host_prog='/home/moberst/.miniconda3-fresh/bin/python3'
@@ -103,12 +106,6 @@ let g:ultisnips_python_style = "google"
 " GitGutter
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
-
-" function! GitStatus()
-"   let [a,m,r] = GitGutterGetHunkSummary()
-"   return printf('+%d ~%d -%d', a, m, r)
-" endfunction
-" set statusline+=%{GitStatus()}
  
 " Quickfix mapping
 let g:toggle_list_no_mappings = v:false
@@ -116,7 +113,12 @@ nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
 
 " No fancy cursor nonsense, we do it old school
 set guicursor=
-colorscheme nord
+
+if has("termguicolors")
+	set termguicolors
+endif
+
+colorscheme solarized8_flat
 
 " Sweet search options!
 set incsearch
@@ -133,10 +135,6 @@ set updatetime=100
 " Alias some stupid bugs
 :command W w
 :command Xa xa
-
-if $TERM == 'screen'
-  set t_Co=256
-endif
 
 set wrap linebreak nolist 
 
@@ -168,16 +166,6 @@ set conceallevel=2
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toc_autofit = 1
-
-" Setup for JamshedVesuna/vim-markdown-preview
-" Map markdown preview to CTRL-M
-let vim_markdown_preview_hotkey='<C-M>'
-" Display images
-let vim_markdown_preview_toggle=1
-" Use grip for markdown preview
-let vim_markdown_preview_github=1
-" Remove temp file after loading in browser
-let vim_markdown_preview_temp_file=1
 
 " Use spaces instead of tabs, and keep the whitespace small
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
