@@ -115,6 +115,8 @@ nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
 set guicursor=
 
 if has("termguicolors")
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 	set termguicolors
 endif
 
@@ -232,7 +234,7 @@ let g:compe.source.buffer = v:false " Buffer gets annoying
 let g:compe.source.calc = v:false
 let g:compe.source.nvim_lsp = v:true
 let g:compe.source.nvim_lua = v:true
-let g:compe.source.vsnip = v:true
+let g:compe.source.vsnip = v:false
 let g:compe.source.ultisnips = v:true
 
 inoremap <silent><expr> <C-Space> compe#complete()
