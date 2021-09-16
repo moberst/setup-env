@@ -19,6 +19,7 @@ Plug 'moberst/vim-snippets' " My custom snippets
 
 " Linting and testing
 Plug 'vim-scripts/taglist.vim'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'dense-analysis/ale'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
@@ -29,6 +30,12 @@ Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 " Markdown / Latex
 Plug 'godlygeek/tabular'
 Plug 'lervag/vimtex'
+Plug 'plasticboy/vim-markdown'
+
+" Personal management
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+Plug 'tools-life/taskwiki'
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 " Git integrations
 Plug 'tpope/vim-fugitive'
@@ -84,6 +91,7 @@ nmap <leader>ar <Plug>(ale_find_references)
 
 " Tag list toggle
 nnoremap <silent> <F8> :TlistToggle<CR>
+let g:gutentags_ctags_tagfile = '.git/tags'
 
 " Setup for pydocstring
 let g:pydocstring_formatter='google'
@@ -163,6 +171,32 @@ let g:vimtex_compiler_latexmk = {
         \ ],
         \}
 
+" Setup for vimwiki/vimwiki
+let g:vimwiki_list = [{'path': '~/log/wiki/',
+                      \ 'syntax': 'default', 'ext': '.wiki'}]
+
+" Copied from documentation, want to let vimwiki open text files in a new tab
+function! VimwikiLinkHandler(link)
+  " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
+  "   1) [[vfile:~/Code/PythonProject/abc123.py]]
+  "   2) [[vfile:./|Wiki Home]]
+  let link = a:link
+  if link =~# '^vfile:'
+    let link = link[1:]
+  else
+    return 0
+  endif
+  let link_infos = vimwiki#base#resolve_link(link)
+  if link_infos.filename == ''
+    echomsg 'Vimwiki Error: Unable to resolve link!'
+    return 0
+  else
+    exe 'edit ' . fnameescape(link_infos.filename)
+    return 1
+  endif
+endfunction
+
+
 " Setup for plasticboy/vim-markdown
 set conceallevel=2
 let g:vim_markdown_math = 1
@@ -192,11 +226,21 @@ nnoremap <space> za
 " Latex setup
 au BufNewFile,BufRead *.tex
     \ set spell | 
-    \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add
+    \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
+    \ let maplocalleader="\\"
+
+nmap <leader>ll :VimtexCompile<CR>
+nmap <leader>lv :VimtexView<CR>
+
 
 " Override default VIM (see /usr/share/nvim/runtime/ftplugin/python.vim)
 " setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=8
 let g:python_recommended_style=0
+
+" markdown setup
+au BufNewFile,BufRead *.md
+    \ set spell | 
+    \ set spellfile=$HOME/Dropbox/org/md/en.utf-8.add
 
 " python setup
 au BufNewFile,BufRead *.py
@@ -210,6 +254,7 @@ au BufNewFile,BufRead *.py
 
 let python_highlight_all=1
 syntax on
+
 
 " Compe
 set completeopt=menuone,noselect
