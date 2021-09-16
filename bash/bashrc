@@ -107,24 +107,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# Source python, rust, go, and ruby
-if [ -d ~/.miniconda3 ]; then
-  export PATH="$HOME/.miniconda3/bin:$PATH"
-  if [ -d ~/.venv ]; then
-    export WORKON_HOME=$HOME/.venv
-    export PROJECT_HOME=$HOME/repos
-    source $HOME/.miniconda3/bin/virtualenvwrapper.sh
-  fi
-fi
-if [ -d ~/.cargo ]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
-if [ -d ~/.go ]; then
-  export PATH="$HOME/.go/bin:$PATH"
-fi
-if [ -d ~/.neovim ]; then
-  export PATH="$HOME/.neovim/bin:$PATH"
-fi
 if [ -d /usr/local/share/chruby ]; then
   source /usr/local/share/chruby/chruby.sh
   source /usr/local/share/chruby/auto.sh
