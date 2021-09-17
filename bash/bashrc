@@ -8,8 +8,8 @@
 [[ $- != *i* ]] && return
 # [[ -z "$TMUX" ]] && exec tmux
 
-# Use VIM as our default editor
-EDITOR=vim
+# Use NeoVIM as our default editor
+EDITOR=nvim
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -116,3 +116,11 @@ fi
 eval "$(hub alias -s)"
 
 export TERM="screen-256color"
+# Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if [ -d $HOME/.neovim ]; then
+  export PATH="$HOME/.neovim/bin:$PATH"
+fi
