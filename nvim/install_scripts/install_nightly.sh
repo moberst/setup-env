@@ -2,6 +2,7 @@
 
 # Delete any existing builds, and add new build to path
 cd $HOME/repos/setup-env/nvim/neovim-nightly
+rm -rf "$HOME/.neovim-nightly/bin"
 
 rm -rf build
 make distclean 

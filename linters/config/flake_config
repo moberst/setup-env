@@ -1,2 +1,1 @@
 [flake8]
-ignore = E111  # Using 2 indents, not 4

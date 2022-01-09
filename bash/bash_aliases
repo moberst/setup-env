@@ -8,10 +8,15 @@ function mkdircd {
 # Moving over from vim to nvim
 alias vim="nvim"
 
+# Crop all pdfs in this folder
+alias crop_pdfs="find . -name '*.pdf' -print0 | xargs -0 -I _ pdfcrop _ _"
+
 # Aliases for common commands
 alias pg="ps aux | grep"
 alias tf="tail -f -n 100"
-alias gd="git difftool -t vimdiff"
+# Tail the most recent file
+alias tfl="tail -f $(ls -tr1 | tail -n 1)"
+alias gd="git difftool -t vimdiff --symlinks"
 
 # Aliases for directory navigation
 alias ..="cd .."
@@ -52,6 +57,7 @@ alias sl="ls"
 
 # Create tex directory (requires an argument)
 alias newtex="bash $HOME/repos/setup-env/tex/create_base.sh"
+alias newpres="bash $HOME/repos/setup-env/tex/create_pres.sh"
 
 # Wrap common file commands in func that sends to bg and ignores output
 function evince {

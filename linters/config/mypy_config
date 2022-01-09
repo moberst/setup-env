@@ -5,3 +5,6 @@ ignore_missing_imports = True
 
 [mypy-jax.*]
 ignore_missing_imports = True
+
+[mypy-torch.*]
+ignore_missing_imports = True

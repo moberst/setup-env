@@ -2,30 +2,35 @@
 % Custom Packages
 \usepackage{theorems}
 \usepackage{shortcuts}
-% Use this to take manual control, using the copy in the folder
-%\input{shortcuts}
 
 % Normal Packages
 \usepackage{natbib} 
 \usepackage[]{csquotes} 
 \usepackage[]{hyperref} 
+\usepackage{subcaption}
 \usepackage[inline]{enumitem} 
 \usepackage[draft]{fixme}
-\fxsetup{inline,nomargin,theme=color}
+\usepackage{booktabs}
+
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{bayesnet}
 
 % Formatting for notes
 \addtolength{\oddsidemargin}{-1in}
 \addtolength{\evensidemargin}{-1in}
 \addtolength{\textwidth}{2in}
 
-\setlength{\parskip}{\baselineskip}
 \setlength{\parindent}{0pt}
+\setlength{\headheight}{14pt}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{TITLE HERE}
 \rhead{DATE HERE}
+
+\newcommand{\mko}[1]{{\color{red}M\@: #1}}
 
 \begin{document}
 

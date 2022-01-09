@@ -3,6 +3,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Navigation
 Plug 'scrooloose/nerdtree'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
@@ -11,7 +12,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch' " UNIX Shell commands
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'milkypostman/vim-togglelist'
+Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
 
 " Snippets
 Plug 'SirVer/ultisnips' " Enable the use of snippets
@@ -24,17 +25,19 @@ Plug 'dense-analysis/ale'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
+" Notifications
+Plug 'rcarriga/nvim-notify'
+
 " Python
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 " Markdown / Latex
 Plug 'godlygeek/tabular'
-Plug 'lervag/vimtex'
 Plug 'plasticboy/vim-markdown'
+Plug 'lervag/vimtex'
 
 " Personal management
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-Plug 'tools-life/taskwiki'
 Plug 'powerman/vim-plugin-AnsiEsc'
 
 " Git integrations
@@ -46,13 +49,26 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rafi/awesome-vim-colorschemes'
 
 " Neovim 0.5 features
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
+" Completion with nvim-cmp
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'ray-x/lsp_signature.nvim'
+
+" Jupyter Support
+Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
+
 call plug#end()
+
+set completeopt=menu,menuone,noselect
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -60,7 +76,7 @@ filetype off                  " required
 let mapleader = ","
 
 " Source for python
-let g:python3_host_prog='/home/moberst/.miniconda3-fresh/bin/python3'
+let g:python3_host_prog='/home/moberst/.miniconda3-fresh/envs/nvim/bin/python3'
 
 " NERDtree settings
 " Toggle Nerdtree with C-T
@@ -133,7 +149,7 @@ colorscheme solarized8_flat
 " Sweet search options!
 set incsearch
 set hlsearch
-nmap <leader>h :noh<CR>
+nmap <silent><leader>h :noh<CR>
 
 set number
 set encoding=utf-8
@@ -172,8 +188,8 @@ let g:vimtex_compiler_latexmk = {
         \}
 
 " Setup for vimwiki/vimwiki
-let g:vimwiki_list = [{'path': '~/log/wiki/',
-                      \ 'syntax': 'default', 'ext': '.wiki'}]
+let g:vimwiki_list = [{'name': 'Research', 'path': '~/Dropbox/research/wiki/', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, {'name': 'Reflection', 'path': '~/log/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, {'name': 'D&D', 'path': '~/Dropbox/dnd/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}]
+let g:vimwiki_global_ext = 0
 
 " Copied from documentation, want to let vimwiki open text files in a new tab
 function! VimwikiLinkHandler(link)
@@ -199,7 +215,7 @@ endfunction
 
 " Setup for plasticboy/vim-markdown
 set conceallevel=2
-let g:vim_markdown_math = 1
+" let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toc_autofit = 1
 
@@ -233,9 +249,10 @@ nmap <leader>ll :VimtexCompile<CR>
 nmap <leader>lv :VimtexView<CR>
 
 
-" Override default VIM (see /usr/share/nvim/runtime/ftplugin/python.vim)
+" Override default VIM (see /usr/share/nvim/runtime/ftplugin/python.vim) by
+" setting this to zero.  Otherwise, this enforces:
 " setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=8
-let g:python_recommended_style=0
+let g:python_recommended_style=1
 
 " markdown setup
 au BufNewFile,BufRead *.md
@@ -244,91 +261,78 @@ au BufNewFile,BufRead *.md
 
 " python setup
 au BufNewFile,BufRead *.py
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2 |
     \ set textwidth=79 |
-    \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
 
 let python_highlight_all=1
 syntax on
 
+" Magma setup
+nnoremap <silent> <Leader>ri :MagmaInit<CR>
+nnoremap <silent><expr> <Leader>r  :MagmaEvaluateOperator<CR>
+nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
+xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
+nnoremap <silent>       <Leader>rc :MagmaReevaluateCell<CR>
+nnoremap <silent>       <Leader>rd :MagmaDelete<CR>
+nnoremap <silent>       <Leader>ro :MagmaShowOutput<CR>
 
-" Compe
-set completeopt=menuone,noselect
-
-let g:compe = {}
-let g:compe.enabled = v:true
-let g:compe.autocomplete = v:true
-let g:compe.debug = v:false
-let g:compe.min_length = 1
-let g:compe.preselect = 'enable'
-let g:compe.throttle_time = 80
-let g:compe.source_timeout = 200
-let g:compe.incomplete_delay = 400
-let g:compe.max_abbr_width = 100
-let g:compe.max_kind_width = 100
-let g:compe.max_menu_width = 100
-let g:compe.documentation = v:true
-
-let g:compe.source = {}
-let g:compe.source.path = v:true
-let g:compe.source.buffer = v:false " Buffer gets annoying
-let g:compe.source.calc = v:false
-let g:compe.source.nvim_lsp = v:true
-let g:compe.source.nvim_lua = v:true
-let g:compe.source.vsnip = v:false
-let g:compe.source.ultisnips = v:true
-
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+let g:magma_automatically_open_output = v:false
 
 " Taken from https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
 lua << EOF
-local nvim_lsp = require('lspconfig')
+-- Setup nvim-cmp.
+local cmp = require'cmp'
 
--- Use an on_attach function to only map the following keys 
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+cmp.setup({
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    end,
+  },
+  mapping = {
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'ultisnips' }, -- For ultisnips users.
+  }, {
+    { name = 'buffer' },
+  })
+})
 
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+})
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+require('lspconfig').pyright.setup {
+  capabilities = capabilities,
+  require "lsp_signature".on_attach()
+}
 
-end
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { "pyright"}
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
-end
+-- Unreleated, but set up Notifications
+vim.notify = require("notify")
 EOF
