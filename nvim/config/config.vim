@@ -1,7 +1,8 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Navigation
-Plug 'scrooloose/nerdtree'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
@@ -33,8 +34,9 @@ Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 " Markdown / Latex
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+" Plug 'plasticboy/vim-markdown'
 Plug 'lervag/vimtex'
+Plug 'dkarter/bullets.vim'
 
 " Personal management
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
@@ -78,11 +80,12 @@ let mapleader = ","
 " Source for python
 let g:python3_host_prog='/home/moberst/.miniconda3-fresh/envs/nvim/bin/python3'
 
-" NERDtree settings
-" Toggle Nerdtree with C-T
-map <C-T> :NERDTreeToggle<CR>
-" Close Vim if the only window open is nerdtree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-T> :NvimTreeToggle<CR>
+" " NERDtree settings
+" " Toggle Nerdtree with C-T
+" map <C-T> :NERDTreeToggle<CR>
+" " Close Vim if the only window open is nerdtree
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Find files using telescope
 nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
@@ -162,7 +165,7 @@ set updatetime=100
 :command W w
 :command Xa xa
 
-set wrap linebreak nolist 
+set wrap linebreak nolist breakindent
 
 " Set indent guides
 let g:indent_guides_guide_size = 1
@@ -216,8 +219,9 @@ endfunction
 " Setup for plasticboy/vim-markdown
 set conceallevel=2
 " let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_toc_autofit = 1
+" let g:vim_markdown_frontmatter = 1
+" let g:vim_markdown_toc_autofit = 1
+let g:markdown_folding = 1
 
 " Use spaces instead of tabs, and keep the whitespace small
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
@@ -326,13 +330,53 @@ cmp.setup.cmdline(':', {
   })
 })
 
+-- Setup lsp
+local nvim_lsp = require('lspconfig')
+
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+end
+
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 require('lspconfig').pyright.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
   require "lsp_signature".on_attach()
 }
 
+-- Turn off mostly useless type checking diagnostics
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
 -- Unreleated, but set up Notifications
 vim.notify = require("notify")
+
+-- Unrelated, but setup nvim-tree
+require('nvim-tree').setup()
 EOF

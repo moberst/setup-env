@@ -2,7 +2,7 @@
 
 # Delete any existing builds, and add new build to path
 cd $HOME/repos/setup-env/nvim/neovim
-git checkout stable
+rm -rf "$HOME/.neovim"
 
 rm -rf build
 make distclean 
