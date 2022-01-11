@@ -14,6 +14,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch' " UNIX Shell commands
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
+Plug 'folke/which-key.nvim'
+Plug 'kshenoy/vim-signature'
 
 " Snippets
 Plug 'SirVer/ultisnips' " Enable the use of snippets
@@ -45,6 +47,7 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 " Git integrations
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'kdheepak/lazygit.nvim'
 
 " Theme
 " Plug 'arcticicestudio/nord-vim'
@@ -79,6 +82,13 @@ let mapleader = ","
 
 " Source for python
 let g:python3_host_prog='/home/moberst/.miniconda3-fresh/envs/nvim/bin/python3'
+
+" Setup for neovim remote 
+if has('nvim') && executable('nvr')
+  let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
+endif
+
+nnoremap <silent> <leader>gg :LazyGit<CR>
 
 map <C-T> :NvimTreeToggle<CR>
 " " NERDtree settings
@@ -377,6 +387,7 @@ vim.diagnostic.config({
 -- Unreleated, but set up Notifications
 vim.notify = require("notify")
 
--- Unrelated, but setup nvim-tree
+-- Unrelated, but setup other stuff 
 require('nvim-tree').setup()
+require('which-key').setup()
 EOF
