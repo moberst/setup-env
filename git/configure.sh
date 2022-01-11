@@ -22,5 +22,3 @@ git config --global credential.helper cache
 git config --global Core.fileMode false
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 git config --global interactive.diffFilter "diff-so-fancy --patch"
-
-cat gitconfig >> $HOME/.gitconfig
