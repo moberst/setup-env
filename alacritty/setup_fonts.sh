@@ -1,5 +1,5 @@
 #/bin/bash
-FONT=FiraMono
+FONT=FiraCode
 
 cd ~
 echo "[-] Download fonts [-]"
