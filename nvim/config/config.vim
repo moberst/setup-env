@@ -16,6 +16,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
 Plug 'folke/which-key.nvim'
 Plug 'kshenoy/vim-signature'
+Plug 'folke/trouble.nvim' " Quickfix list and diagnostics in a pretty window
 
 " Snippets
 Plug 'SirVer/ultisnips' " Enable the use of snippets
@@ -47,7 +48,6 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 " Git integrations
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'kdheepak/lazygit.nvim'
 
 " Theme
 " Plug 'arcticicestudio/nord-vim'
@@ -58,6 +58,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'romgrk/nvim-treesitter-context'
+Plug 'nvim-treesitter/playground'
 
 " Completion with nvim-cmp
 Plug 'hrsh7th/nvim-cmp'
@@ -66,6 +68,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'kdheepak/cmp-latex-symbols'
 Plug 'ray-x/lsp_signature.nvim'
 
 " Jupyter Support
@@ -102,7 +105,8 @@ nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
 nnoremap <leader>fg <cmd>Telescope git_files theme=get_dropdown<cr>
 nnoremap <leader>fb <cmd>Telescope buffers theme=get_dropdown<cr>
 nnoremap <leader>fs <cmd>Telescope live_grep theme=get_dropdown<cr>
-nnoremap <leader>ft <cmd>Telescope file_browser theme=get_dropdown<cr>
+nnoremap <leader>fh <cmd>Telescope current_buffer_fuzzy_find theme=get_dropdown<cr>
+nnoremap <leader>fd <cmd>Telescope diagnostics theme=get_dropdown<cr>
 
 " Setup for ALE
 let g:ale_linters = {'python': ['flake8', 'pydocstyle', 'mypy', 'pylint'], 'tex': ['chktex']}
@@ -186,6 +190,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:vimtex_fold_enabled = 1
 let g:vimtex_indent_enabled = 1
 let g:vimtex_toc_enabled = 1
+let g:vimtex_quickfix_mode = 0 " Do not open the quickfix window, use Trouble 
 
 let g:vimtex_compiler_method='latexmk'
 let g:tex_flavor = 'latex'
@@ -262,6 +267,12 @@ au BufNewFile,BufRead *.tex
 nmap <leader>ll :VimtexCompile<CR>
 nmap <leader>lv :VimtexView<CR>
 
+" Trouble toggle quickfix
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 
 " Override default VIM (see /usr/share/nvim/runtime/ftplugin/python.vim) by
 " setting this to zero.  Otherwise, this enforces:
@@ -319,6 +330,7 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'ultisnips' }, -- For ultisnips users.
+    { name = "latex_symbols" },
   }, {
     { name = 'buffer' },
   })
@@ -390,4 +402,28 @@ vim.notify = require("notify")
 -- Unrelated, but setup other stuff 
 require('nvim-tree').setup()
 require('which-key').setup()
+require('treesitter-context').setup()
+require('nvim-treesitter.configs').setup {
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  }
+}
+require("trouble").setup({
+  auto_preview = false, 
+})
 EOF
