@@ -1,73 +1,32 @@
 #!/bin/bash
 
-# Make directory and cd into it automatically
-function mkdircd {
-    mkdir -p "$@" && eval cd "\"\$$#\"";
-}
-
-# Moving over from vim to nvim
+# NeoVim
 alias vim="nvim"
 
 # Crop all pdfs in this folder
 alias crop_pdfs="find . -name '*.pdf' -print0 | xargs -0 -I _ pdfcrop _ _"
 
-# Aliases for common commands
-alias pg="ps aux | grep"
-alias tf="tail -f -n 100"
-# Tail the most recent file
-alias tfl="tail -f $(ls -tr1 | tail -n 1)"
-alias gd="git difftool -t vimdiff --symlinks"
-
 # Aliases for directory navigation
 alias ..="cd .."
-alias ..2="cd ../.."
-alias ..3="cd ../../.."
-alias ..4="cd ../../../.."
-alias ..5="cd ../../../../.."
 
 # Alias to pretty-print the current path, dirs
 alias path='echo -e ${PATH//:/\\n}'
 alias dirs='dirs -v'
-
-# some more ls aliases
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-alias lt='ls -t'
-
-# Edit the most recently edited file (Vim Last = vl)
-alias vl="vim $(ls -t | head -n 1)"
 
 # Directory stack navigation
 alias pd="pushd"
 alias pc="pushd +1"
 alias pp="popd"
 
-# Debugging
-alias wtf="python -m pdb -c continue"
 alias tmux="tmux -2"
-
-# Onedrive
-alias ods="systemctl --user start onedrive"
-alias odh="systemctl --user stop onedrive"
-alias odf="journalctl --user-unit onedrive -f"
 
 # Common typos
 alias sl="ls"
 
-# Create tex directory (requires an argument)
+# Create tex directory 
 alias newtex="bash $HOME/repos/setup-env/tex/create_base.sh"
-alias newpres="bash $HOME/repos/setup-env/tex/create_pres.sh"
 
 # Wrap common file commands in func that sends to bg and ignores output
 function evince {
     nohup evince "$@" > /dev/null 2>&1 & disown
-}
-
-function ff {
-    nohup firefox "$@" > /dev/null 2>&1 & disown
-}
-
-function libreoffice {
-    nohup libreoffice "$@" > /dev/null 2>&1 & disown
 }
