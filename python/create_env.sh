@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# This is a template script, to make installation of an env reproducible
+
 # This is a hack to get conda shell commands within the script, see
 # https://github.com/conda/conda/issues/7126
 source $(dirname $CONDA_EXE)/../etc/profile.d/conda.sh
