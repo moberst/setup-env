@@ -14,5 +14,5 @@ git config --global Core.fileMode false
 git config --global pull.rebase false
 
 # Only run these once diff-so-fancy is installed
-# git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
-# git config --global interactive.diffFilter "diff-so-fancy --patch"
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+git config --global interactive.diffFilter "diff-so-fancy --patch"
