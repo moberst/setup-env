@@ -2,7 +2,7 @@
 
 ## Creating a new LaTeX template
 
-The `create_base.sh` command is aliased as `newtex` in my `.bash_alias` file, so that when I want to create (for instance) some notes, I can just use the command `newtex -n <folder_name>` at the command line.  This can similarly be used to create a template for presentations with `newtex -p <folder_name>` or full papers with `newtex -f <folder_name>`.To use in your own setup, you will have to modify `create_base.sh` to put in the absolute path to this directory. 
+The `create_base.sh` command is aliased as `newtex` in my `.bash_alias` file, so that when I want to create (for instance) some notes, I can just use the command `newtex <folder_name>` at the command line. To use in your own setup, you will have to modify `create_base.sh` to put in the absolute path to this directory. 
 
 ## Making custom packages
 
