@@ -82,7 +82,7 @@ filetype off                  " required
 let mapleader = ","
 
 " Source for python
-let g:python3_host_prog='/home/moberst/.miniconda3-fresh/envs/nvim/bin/python3'
+let g:python3_host_prog='/home/moberst/.miniconda3/envs/nvim/bin/python3'
 
 " Setup for neovim remote 
 if has('nvim') && executable('nvr')
