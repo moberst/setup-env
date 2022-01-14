@@ -29,8 +29,11 @@ Plug 'dense-analysis/ale'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
-" Notifications
+" Display
+Plug 'mhinz/vim-startify'
 Plug 'rcarriga/nvim-notify'
+Plug 'feline-nvim/feline.nvim'
+Plug 'akinsho/bufferline.nvim'
 
 " Python
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
@@ -56,6 +59,7 @@ Plug 'rafi/awesome-vim-colorschemes'
 " Neovim 0.5 features
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer',
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'romgrk/nvim-treesitter-context'
@@ -70,6 +74,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'kdheepak/cmp-latex-symbols'
 Plug 'ray-x/lsp_signature.nvim'
+Plug 'onsails/lspkind-nvim'
 
 " Jupyter Support
 Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
@@ -91,22 +96,39 @@ if has('nvim') && executable('nvr')
   let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
 
-nnoremap <silent> <leader>gg :LazyGit<CR>
-
 map <C-T> :NvimTreeToggle<CR>
-" " NERDtree settings
-" " Toggle Nerdtree with C-T
-" map <C-T> :NERDTreeToggle<CR>
-" " Close Vim if the only window open is nerdtree
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:nvim_tree_respect_buf_cwd = 1
+let g:startify_custom_header = startify#center([
+\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+\])
+" let g:startify_custom_header = startify#center([
+"     \'',
+"     \'   ⣴⣶⣤⡤⠦⣤⣀⣤⠆     ⣈⣭⣭⣿⣶⣿⣦⣼⣆         ',
+"     \'    ⠉⠻⢿⣿⠿⣿⣿⣶⣦⠤⠄⡠⢾⣿⣿⡿⠋⠉⠉⠻⣿⣿⡛⣦       ',
+"     \'          ⠈⢿⣿⣟⠦ ⣾⣿⣿⣷⠄⠄⠄⠄⠻⠿⢿⣿⣧⣄     ',
+"     \'           ⣸⣿⣿⢧ ⢻⠻⣿⣿⣷⣄⣀⠄⠢⣀⡀⠈⠙⠿⠄    ',
+"     \'          ⢠⣿⣿⣿⠈  ⠡⠌⣻⣿⣿⣿⣿⣿⣿⣿⣛⣳⣤⣀⣀   ',
+"     \'   ⢠⣧⣶⣥⡤⢄ ⣸⣿⣿⠘⠄ ⢀⣴⣿⣿⡿⠛⣿⣿⣧⠈⢿⠿⠟⠛⠻⠿⠄  ',
+"     \'  ⣰⣿⣿⠛⠻⣿⣿⡦⢹⣿⣷   ⢊⣿⣿⡏  ⢸⣿⣿⡇ ⢀⣠⣄⣾⠄   ',
+"     \' ⣠⣿⠿⠛⠄⢀⣿⣿⣷⠘⢿⣿⣦⡀ ⢸⢿⣿⣿⣄ ⣸⣿⣿⡇⣪⣿⡿⠿⣿⣷⡄  ',
+"     \' ⠙⠃   ⣼⣿⡟  ⠈⠻⣿⣿⣦⣌⡇⠻⣿⣿⣷⣿⣿⣿ ⣿⣿⡇⠄⠛⠻⢷⣄ ',
+"     \'      ⢻⣿⣿⣄   ⠈⠻⣿⣿⣿⣷⣿⣿⣿⣿⣿⡟ ⠫⢿⣿⡆     ',
+"     \'       ⠻⣿⣿⣿⣿⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⡟⢀⣀⣤⣾⡿⠃     ',
+"     \'',
+"     \])
 
 " Find files using telescope
 nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
-nnoremap <leader>fg <cmd>Telescope git_files theme=get_dropdown<cr>
 nnoremap <leader>fb <cmd>Telescope buffers theme=get_dropdown<cr>
 nnoremap <leader>fs <cmd>Telescope live_grep theme=get_dropdown<cr>
 nnoremap <leader>fh <cmd>Telescope current_buffer_fuzzy_find theme=get_dropdown<cr>
 nnoremap <leader>fd <cmd>Telescope diagnostics theme=get_dropdown<cr>
+nnoremap <leader>fc <cmd>Telescope commands theme=get_dropdown<cr>
 
 " Setup for ALE
 let g:ale_linters = {'python': ['flake8', 'pydocstyle', 'mypy', 'pylint'], 'tex': ['chktex']}
@@ -191,6 +213,11 @@ let g:vimtex_fold_enabled = 1
 let g:vimtex_indent_enabled = 1
 let g:vimtex_toc_enabled = 1
 let g:vimtex_quickfix_mode = 0 " Do not open the quickfix window, use Trouble 
+let g:vimtex_toc_config = {
+      \ 'mode' : 1,
+      \ 'layers' : [ 'content' ],
+      \}
+
 
 let g:vimtex_compiler_method='latexmk'
 let g:tex_flavor = 'latex'
@@ -204,6 +231,10 @@ let g:vimtex_compiler_latexmk = {
         \   '-interaction=nonstopmode',
         \ ],
         \}
+
+nmap <leader>ll :VimtexCompile<CR>
+nmap <leader>lv :VimtexView<CR>
+nmap <leader>lt :VimtexTocToggle<CR>
 
 " Setup for vimwiki/vimwiki
 let g:vimwiki_list = [{'name': 'Research', 'path': '~/Dropbox/research/wiki/', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, {'name': 'Reflection', 'path': '~/log/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, {'name': 'D&D', 'path': '~/Dropbox/dnd/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}]
@@ -252,6 +283,10 @@ nnoremap <C-H> <C-W><C-H>
 vnoremap > >gv
 vnoremap < <gv
 
+" Clear all buffers except the current one
+command! BufOnly execute '%bdelete|edit #|normal `"'
+nnoremap <leader>ca :BufOnly<cr>
+
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
@@ -263,9 +298,6 @@ au BufNewFile,BufRead *.tex
     \ set spell | 
     \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
     \ let maplocalleader="\\"
-
-nmap <leader>ll :VimtexCompile<CR>
-nmap <leader>lv :VimtexView<CR>
 
 " Trouble toggle quickfix
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
@@ -293,22 +325,23 @@ au BufNewFile,BufRead *.py
 let python_highlight_all=1
 syntax on
 
-" Magma setup
-nnoremap <silent> <Leader>ri :MagmaInit<CR>
-nnoremap <silent><expr> <Leader>r  :MagmaEvaluateOperator<CR>
-nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
-xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
-nnoremap <silent>       <Leader>rc :MagmaReevaluateCell<CR>
-nnoremap <silent>       <Leader>rd :MagmaDelete<CR>
-nnoremap <silent>       <Leader>ro :MagmaShowOutput<CR>
-
-let g:magma_automatically_open_output = v:false
+" " Magma setup
+" nnoremap <silent> <Leader>ri :MagmaInit<CR>
+" nnoremap <silent><expr> <Leader>r  :MagmaEvaluateOperator<CR>
+" nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
+" xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
+" nnoremap <silent>       <Leader>rc :MagmaReevaluateCell<CR>
+" nnoremap <silent>       <Leader>rd :MagmaDelete<CR>
+" nnoremap <silent>       <Leader>ro :MagmaShowOutput<CR>
+"
+" let g:magma_automatically_open_output = v:false
 
 " Taken from https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
 lua << EOF
 -- Setup nvim-cmp.
 local cmp = require'cmp'
 
+local lspkind = require'lspkind'
 cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
@@ -333,7 +366,20 @@ cmp.setup({
     { name = "latex_symbols" },
   }, {
     { name = 'buffer' },
-  })
+  }),
+  formatting = {
+    format = lspkind.cmp_format({
+      with_text = false, -- do not show text alongside icons
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      -- before = function (entry, vim_item)
+      --   ...
+      --   return vim_item
+      -- end
+    })
+  }
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -365,42 +411,58 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+  require "lsp_signature".on_attach()
 
 end
 
--- Setup lspconfig.
+local lsp_installer = require("nvim-lsp-installer")
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-require('lspconfig').pyright.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  require "lsp_signature".on_attach()
-}
+
+-- Register a handler that will be called for all installed servers.
+-- Alternatively, you may also register handlers on specific server instances instead (see example below).
+lsp_installer.on_server_ready(function(server)
+    local opts = {
+      capabilities = capabilities,
+      on_attach = on_attach,
+    }
+
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
+
+    -- This setup() function is exactly the same as lspconfig's setup function.
+    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+    server:setup(opts)
+end)
 
 -- Turn off mostly useless type checking diagnostics
 vim.diagnostic.config({
-  virtual_text = false,
+  -- virtual_text = false,
 })
 
 -- Unreleated, but set up Notifications
 vim.notify = require("notify")
 
 -- Unrelated, but setup other stuff 
-require('nvim-tree').setup()
+require('nvim-tree').setup {
+  update_cwd = true, 
+  view = {
+    mappings = {
+      custom_only = false,
+      list = {
+        { key = "<C-t>", cb = ":NvimTreeToggle<cr>", mode = "n"},
+      },
+    },
+  }
+}
+
+require('bufferline').setup()
+require('feline').setup()
 require('which-key').setup()
 require('treesitter-context').setup()
 require('nvim-treesitter.configs').setup {
@@ -426,4 +488,5 @@ require('nvim-treesitter.configs').setup {
 require("trouble").setup({
   auto_preview = false, 
 })
+
 EOF
