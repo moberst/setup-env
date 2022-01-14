@@ -23,8 +23,6 @@ Plug 'SirVer/ultisnips' " Enable the use of snippets
 Plug 'moberst/vim-snippets' " My custom snippets
 
 " Linting and testing
-Plug 'vim-scripts/taglist.vim'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'dense-analysis/ale'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
