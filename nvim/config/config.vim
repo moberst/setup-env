@@ -74,8 +74,8 @@ Plug 'kdheepak/cmp-latex-symbols'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'onsails/lspkind-nvim'
 
-" Jupyter Support
-Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
+" " Jupyter Support
+" Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
@@ -397,8 +397,6 @@ cmp.setup.cmdline(':', {
 })
 
 -- Setup lsp
-local nvim_lsp = require('lspconfig')
-
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -421,7 +419,6 @@ local lsp_installer = require("nvim-lsp-installer")
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Register a handler that will be called for all installed servers.
--- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
     local opts = {
       capabilities = capabilities,
