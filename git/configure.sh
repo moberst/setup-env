@@ -12,6 +12,7 @@ git config --global push.default simple
 git config --global credential.helper cache
 git config --global Core.fileMode false
 git config --global pull.rebase false
+git config --global init.defaultBranch main 
 
 # Only run these once diff-so-fancy is installed
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"

@@ -3,7 +3,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Navigation
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope.nvim' " Get my custom version to get local commands
+Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " Editing
@@ -17,6 +18,8 @@ Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
 Plug 'folke/which-key.nvim'
 Plug 'kshenoy/vim-signature'
 Plug 'folke/trouble.nvim' " Quickfix list and diagnostics in a pretty window
+" Plug 'lukas-reineke/indent-blankline.nvim' " Indent guide
+Plug 'AndrewRadev/splitjoin.vim'
 
 " Snippets
 Plug 'SirVer/ultisnips' " Enable the use of snippets
@@ -48,7 +51,8 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 
 " Git integrations
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'sindrets/diffview.nvim'
 
 " Theme
 " Plug 'arcticicestudio/nord-vim'
@@ -84,7 +88,7 @@ set completeopt=menu,menuone,noselect
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-let mapleader = ","
+let mapleader = " "
 
 " Source for python
 let g:python3_host_prog='/home/moberst/.miniconda3/envs/nvim/bin/python3'
@@ -103,7 +107,10 @@ let g:startify_custom_header = startify#center([
 \ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
 \ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
 \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+\ '             Keep your promises to yourself            ',
+\ '                  Unclutter your mind                  ',
 \])
+"\ '             Be prepared to lose everything            ',
 " let g:startify_custom_header = startify#center([
 "     \'',
 "     \'   ⣴⣶⣤⡤⠦⣤⣀⣤⠆     ⣈⣭⣭⣿⣶⣿⣦⣼⣆         ',
@@ -121,21 +128,24 @@ let g:startify_custom_header = startify#center([
 "     \])
 
 " Find files using telescope
-nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
-nnoremap <leader>fb <cmd>Telescope buffers theme=get_dropdown<cr>
-nnoremap <leader>fs <cmd>Telescope live_grep theme=get_dropdown<cr>
-nnoremap <leader>fh <cmd>Telescope current_buffer_fuzzy_find theme=get_dropdown<cr>
-nnoremap <leader>fd <cmd>Telescope diagnostics theme=get_dropdown<cr>
-nnoremap <leader>fc <cmd>Telescope commands theme=get_dropdown<cr>
+"nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fs <cmd>Telescope live_grep<cr>
+nnoremap <leader>fh <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
+nnoremap <leader>fc <cmd>Telescope commands<cr>
+nnoremap <leader>fm <cmd>Telescope marks<cr>
+nnoremap <leader>fu <cmd>Telescope help_tags<cr>
 
 " Setup for ALE
 let g:ale_linters = {'python': ['flake8', 'pydocstyle', 'mypy', 'pylint'], 'tex': ['chktex']}
 let g:ale_fixers = {'python': ['yapf']}
-let g:ale_python_flake8_executable='/home/moberst/.miniconda3-fresh/bin/flake8'
-let g:ale_python_pydocstyle_executable='/home/moberst/.miniconda3-fresh/bin/pydocstyle'
-let g:ale_python_mypy_executable='/home/moberst/.miniconda3-fresh/bin/mypy'
-let g:ale_python_yapf_executable='/home/moberst/.miniconda3-fresh/bin/yapf'
-let g:ale_python_pylint_executable='/home/moberst/.miniconda3-fresh/bin/pylint'
+let g:ale_python_flake8_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/flake8'
+let g:ale_python_pydocstyle_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/pydocstyle'
+let g:ale_python_mypy_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/mypy'
+let g:ale_python_yapf_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/yapf'
+let g:ale_python_pylint_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/pylint'
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
@@ -164,10 +174,6 @@ let g:ultisnips_python_quoting_style = "single"
 let g:ultisnips_python_triple_quoting_style = "double"
 let g:ultisnips_python_style = "google"
 
-" GitGutter
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
- 
 " Quickfix mapping
 let g:toggle_list_no_mappings = v:false
 nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
@@ -235,7 +241,11 @@ nmap <leader>lv :VimtexView<CR>
 nmap <leader>lt :VimtexTocToggle<CR>
 
 " Setup for vimwiki/vimwiki
-let g:vimwiki_list = [{'name': 'Research', 'path': '~/Dropbox/research/wiki/', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, {'name': 'Reflection', 'path': '~/log/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, {'name': 'D&D', 'path': '~/Dropbox/dnd/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}]
+let g:vimwiki_list = [{
+  \ 'name': 'Research', 'path': '~/Dropbox/research/wiki/', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1},
+  \ {'name': 'Reflection', 'path': '~/log/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, 
+  \ {'name': 'Health', 'path': '~/Dropbox/org/health/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, 
+  \ {'name': 'D&D', 'path': '~/Dropbox/dnd/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}]
 let g:vimwiki_global_ext = 0
 
 " Copied from documentation, want to let vimwiki open text files in a new tab
@@ -288,8 +298,8 @@ nnoremap <leader>ca :BufOnly<cr>
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
-" Enable folding with the spacebar
-nnoremap <space> za
+" Enable folding with the ,
+nnoremap , za
 
 " Latex setup
 au BufNewFile,BufRead *.tex
@@ -314,6 +324,10 @@ au BufNewFile,BufRead *.md
     \ set spell | 
     \ set spellfile=$HOME/Dropbox/org/md/en.utf-8.add
 
+au BufNewFile,BufRead *.wiki
+    \ set spell | 
+    \ set spellfile=$HOME/Dropbox/org/md/en.utf-8.add
+
 " python setup
 au BufNewFile,BufRead *.py
     \ set textwidth=79 |
@@ -323,16 +337,16 @@ au BufNewFile,BufRead *.py
 let python_highlight_all=1
 syntax on
 
-" " Magma setup
-" nnoremap <silent> <Leader>ri :MagmaInit<CR>
-" nnoremap <silent><expr> <Leader>r  :MagmaEvaluateOperator<CR>
-" nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
-" xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
-" nnoremap <silent>       <Leader>rc :MagmaReevaluateCell<CR>
-" nnoremap <silent>       <Leader>rd :MagmaDelete<CR>
-" nnoremap <silent>       <Leader>ro :MagmaShowOutput<CR>
-"
-" let g:magma_automatically_open_output = v:false
+" Magma setup
+nnoremap <silent> <Leader>ri :MagmaInit<CR>
+nnoremap <silent><expr> <Leader>r  :MagmaEvaluateOperator<CR>
+nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
+xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
+nnoremap <silent>       <Leader>rc :MagmaReevaluateCell<CR>
+nnoremap <silent>       <Leader>rd :MagmaDelete<CR>
+nnoremap <silent>       <Leader>ro :MagmaShowOutput<CR>
+
+let g:magma_automatically_open_output = v:false
 
 " Taken from https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
 lua << EOF
@@ -356,7 +370,7 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -408,6 +422,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
@@ -456,6 +471,7 @@ require('nvim-tree').setup {
   }
 }
 
+require('gitsigns').setup()
 require('bufferline').setup()
 require('feline').setup()
 require('which-key').setup()
@@ -483,5 +499,5 @@ require('nvim-treesitter.configs').setup {
 require("trouble").setup({
   auto_preview = false, 
 })
-
+require("diffview").setup()
 EOF
