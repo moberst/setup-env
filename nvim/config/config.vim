@@ -141,11 +141,11 @@ nnoremap <leader>fu <cmd>Telescope help_tags<cr>
 " Setup for ALE
 let g:ale_linters = {'python': ['flake8', 'pydocstyle', 'mypy', 'pylint'], 'tex': ['chktex']}
 let g:ale_fixers = {'python': ['yapf']}
-let g:ale_python_flake8_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/flake8'
-let g:ale_python_pydocstyle_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/pydocstyle'
-let g:ale_python_mypy_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/mypy'
-let g:ale_python_yapf_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/yapf'
-let g:ale_python_pylint_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/pylint'
+let g:ale_python_flake8_executable='/home/moberst/.miniconda3/envs/nvim/bin/flake8'
+let g:ale_python_pydocstyle_executable='/home/moberst/.miniconda3/envs/nvim/bin/pydocstyle'
+let g:ale_python_mypy_executable='/home/moberst/.miniconda3/envs/nvim/bin/mypy'
+let g:ale_python_yapf_executable='/home/moberst/.miniconda3/envs/nvim/bin/yapf'
+let g:ale_python_pylint_executable='/home/moberst/.miniconda3/envs/nvim/bin/pylint'
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
