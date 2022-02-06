@@ -32,7 +32,7 @@ Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
 " Display
 Plug 'mhinz/vim-startify'
-" Plug 'rcarriga/nvim-notify'
+Plug 'rcarriga/nvim-notify'
 Plug 'feline-nvim/feline.nvim'
 Plug 'akinsho/bufferline.nvim'
 
@@ -91,7 +91,7 @@ filetype off                  " required
 let mapleader = " "
 
 " Source for python
-let g:python3_host_prog='/home/moberst/.miniconda3/envs/nvim/bin/python3'
+let g:python3_host_prog='/home/moberst/.miniconda3-fresh/envs/nvim/bin/python3'
 
 " Setup for neovim remote 
 if has('nvim') && executable('nvr')
@@ -141,11 +141,11 @@ nnoremap <leader>fu <cmd>Telescope help_tags<cr>
 " Setup for ALE
 let g:ale_linters = {'python': ['flake8', 'pydocstyle', 'mypy', 'pylint'], 'tex': ['chktex']}
 let g:ale_fixers = {'python': ['yapf']}
-let g:ale_python_flake8_executable='/home/moberst/.miniconda3/envs/nvim/bin/flake8'
-let g:ale_python_pydocstyle_executable='/home/moberst/.miniconda3/envs/nvim/bin/pydocstyle'
-let g:ale_python_mypy_executable='/home/moberst/.miniconda3/envs/nvim/bin/mypy'
-let g:ale_python_yapf_executable='/home/moberst/.miniconda3/envs/nvim/bin/yapf'
-let g:ale_python_pylint_executable='/home/moberst/.miniconda3/envs/nvim/bin/pylint'
+let g:ale_python_flake8_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/flake8'
+let g:ale_python_pydocstyle_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/pydocstyle'
+let g:ale_python_mypy_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/mypy'
+let g:ale_python_yapf_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/yapf'
+let g:ale_python_pylint_executable='/home/moberst/.miniconda3-fresh/envs/nvim/bin/pylint'
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
@@ -459,7 +459,7 @@ vim.diagnostic.config({
 })
 
 -- Unreleated, but set up Notifications
--- vim.notify = require("notify")
+vim.notify = require("notify")
 
 -- Unrelated, but setup other stuff 
 require('nvim-tree').setup {
