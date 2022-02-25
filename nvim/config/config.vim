@@ -3,7 +3,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Navigation
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-" Plug 'nvim-telescope/telescope.nvim' " Get my custom version to get local commands
 Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
@@ -18,7 +17,6 @@ Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
 Plug 'folke/which-key.nvim'
 Plug 'kshenoy/vim-signature'
 Plug 'folke/trouble.nvim' " Quickfix list and diagnostics in a pretty window
-" Plug 'lukas-reineke/indent-blankline.nvim' " Indent guide
 Plug 'AndrewRadev/splitjoin.vim'
 
 " Snippets
@@ -32,8 +30,7 @@ Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
 " Display
 Plug 'mhinz/vim-startify'
-" Plug 'rcarriga/nvim-notify'
-Plug 'feline-nvim/feline.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
 
 " Python
@@ -41,7 +38,6 @@ Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 " Markdown / Latex
 Plug 'godlygeek/tabular'
-" Plug 'plasticboy/vim-markdown'
 Plug 'lervag/vimtex'
 Plug 'dkarter/bullets.vim'
 
@@ -57,6 +53,8 @@ Plug 'sindrets/diffview.nvim'
 " Theme
 " Plug 'arcticicestudio/nord-vim'
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'EdenEast/nightfox.nvim'
 
 " Neovim 0.5 features
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -89,6 +87,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 let mapleader = " "
+set sessionoptions+=globals
 
 " Source for python
 let g:python3_host_prog='/home/moberst/.miniconda3/envs/nvim/bin/python3'
@@ -110,6 +109,19 @@ let g:startify_custom_header = startify#center([
 \ '             Keep your promises to yourself            ',
 \ '                  Unclutter your mind                  ',
 \])
+let g:startify_session_delete_buffers = 1
+let g:startify_change_to_vcs_root = 1
+let g:startify_session_persistence = 1
+let g:startify_enable_special = 0
+let g:startify_session_savevars = []
+
+" Buffer Setup, this overwrites e.g., vim-unimpaired [b which does :bprevious
+nnoremap <silent>[b :BufferLineCyclePrev<CR>
+nnoremap <silent>]b :BufferLineCycleNext<CR>
+nnoremap <silent><leader>bp :BufferLinePick<CR>
+nnoremap <silent><leader>bc :BufferLinePickClose<CR>
+nnoremap <silent><leader>[b :BufferLineMovePrev<CR>
+nnoremap <silent><leader>]b :BufferLineMoveNext<CR>
 
 let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
@@ -183,12 +195,11 @@ if has("termguicolors")
 	set termguicolors
 endif
 
-colorscheme solarized8_flat
+colorscheme tokyonight
 
 " Sweet search options!
 set incsearch
 set hlsearch
-nmap <silent><leader>h :noh<CR>
 
 set number
 set encoding=utf-8
@@ -243,6 +254,7 @@ let g:vimwiki_list = [{
   \ {'name': 'Health', 'path': '~/Dropbox/org/health/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, 
   \ {'name': 'D&D', 'path': '~/Dropbox/dnd/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}]
 let g:vimwiki_global_ext = 0
+nmap <leader>wt :VimwikiGenerateTagLinks 
 
 " Copied from documentation, want to let vimwiki open text files in a new tab
 function! VimwikiLinkHandler(link)
@@ -301,7 +313,8 @@ nnoremap , za
 au BufNewFile,BufRead *.tex
     \ set spell | 
     \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
-    \ let maplocalleader="\\"
+    \ let maplocalleader="\\" |
+    \ set colorcolumn=0
 
 " Trouble toggle quickfix
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
@@ -318,11 +331,13 @@ let g:python_recommended_style=1
 " markdown setup
 au BufNewFile,BufRead *.md
     \ set spell | 
-    \ set spellfile=$HOME/Dropbox/org/md/en.utf-8.add
+    \ set spellfile=$HOME/Dropbox/org/md/en.utf-8.add |
+    \ set colorcolumn=0
 
 au BufNewFile,BufRead *.wiki
     \ set spell | 
-    \ set spellfile=$HOME/Dropbox/org/md/en.utf-8.add
+    \ set spellfile=$HOME/Dropbox/org/md/en.utf-8.add |
+    \ set colorcolumn=0
 
 " python setup
 au BufNewFile,BufRead *.py
@@ -335,8 +350,8 @@ syntax on
 
 " Magma setup
 nnoremap <silent> <Leader>ri :MagmaInit<CR>
-nnoremap <silent><expr> <Leader>r  :MagmaEvaluateOperator<CR>
-nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
+" nnoremap <silent><expr> <Leader>r  :MagmaEvaluateOperator<CR>
+" nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
 xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
 nnoremap <silent>       <Leader>rc :MagmaReevaluateCell<CR>
 nnoremap <silent>       <Leader>rd :MagmaDelete<CR>
@@ -470,9 +485,82 @@ require('nvim-tree').setup {
   }
 }
 
-require('gitsigns').setup()
-require('bufferline').setup()
-require('feline').setup()
+require("telescope").setup {
+  pickers = {
+    buffers = {
+      show_all_buffers = true,
+      sort_lastused = true,
+      theme = "dropdown",
+      previewer = false,
+      mappings = {
+        i = {
+          ["<c-d>"] = "delete_buffer",
+        }
+      }
+    }
+  }
+}
+
+require('gitsigns').setup {
+  on_attach = function(bufnr)
+    local function map(mode, lhs, rhs, opts)
+        opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+
+    -- Actions
+    map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
+    map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+    map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
+    map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+    map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+    map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+    map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
+    map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+    map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
+
+    -- Text object
+    map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}
+require('bufferline').setup {
+  offsets = {
+    {
+      filetype = "NvimTree",
+      text = "File Explorer",
+      highlight = "Directory",
+      text_align = "left"
+    }
+  },
+}
+require('lualine').setup {
+  options = {
+    theme = 'tokyonight',
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {"%{fnamemodify(v:this_session,':t')}"},
+    lualine_x = {'filename'},
+    lualine_y = {'fileformat', 'filetype'},
+    lualine_z = {'location'}
+  },
+}
 require('which-key').setup()
 require('treesitter-context').setup()
 require('nvim-treesitter.configs').setup {
