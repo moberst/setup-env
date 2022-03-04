@@ -18,6 +18,7 @@ Plug 'folke/which-key.nvim'
 Plug 'kshenoy/vim-signature'
 Plug 'folke/trouble.nvim' " Quickfix list and diagnostics in a pretty window
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'lambdalisue/suda.vim' " Sudo Save
 
 " Snippets
 Plug 'SirVer/ultisnips' " Enable the use of snippets
@@ -30,6 +31,7 @@ Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
 " Display
 Plug 'mhinz/vim-startify'
+Plug 'airblade/vim-rooter'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
 
@@ -107,19 +109,22 @@ let g:startify_custom_header = startify#center([
 \ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
 \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
 \ '             Keep your promises to yourself            ',
-\ '                  Unclutter your mind                  ',
+\ '               Focus on what is important              ',
 \])
 let g:startify_session_delete_buffers = 1
-let g:startify_change_to_vcs_root = 1
+" let g:startify_change_to_vcs_root = 1
 let g:startify_session_persistence = 1
 let g:startify_enable_special = 0
 let g:startify_session_savevars = []
+let g:rooter_patterns = ['.git', 'index.wiki']
 
 " Buffer Setup, this overwrites e.g., vim-unimpaired [b which does :bprevious
 nnoremap <silent>[b :BufferLineCyclePrev<CR>
 nnoremap <silent>]b :BufferLineCycleNext<CR>
 nnoremap <silent><leader>bp :BufferLinePick<CR>
+nnoremap <silent><leader>bf :BufferLinePick<CR>
 nnoremap <silent><leader>bc :BufferLinePickClose<CR>
+nnoremap <silent><leader>bd :BufferLinePickClose<CR>
 nnoremap <silent><leader>[b :BufferLineMovePrev<CR>
 nnoremap <silent><leader>]b :BufferLineMoveNext<CR>
 
@@ -254,6 +259,7 @@ let g:vimwiki_list = [{
   \ {'name': 'Health', 'path': '~/Dropbox/org/health/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}, 
   \ {'name': 'D&D', 'path': '~/Dropbox/dnd/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}]
 let g:vimwiki_global_ext = 0
+let g:vimwiki_auto_chdir = 1
 nmap <leader>wt :VimwikiGenerateTagLinks 
 
 " Copied from documentation, want to let vimwiki open text files in a new tab
@@ -341,9 +347,9 @@ au BufNewFile,BufRead *.wiki
 
 " python setup
 au BufNewFile,BufRead *.py
-    \ set textwidth=79 |
-    \ set autoindent |
-    \ set fileformat=unix
+    \ setlocal textwidth=79 |
+    \ setlocal autoindent |
+    \ setlocal fileformat=unix
 
 let python_highlight_all=1
 syntax on
