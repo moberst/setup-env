@@ -12,12 +12,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch' " UNIX Shell commands
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
 Plug 'folke/which-key.nvim'
-Plug 'kshenoy/vim-signature'
-Plug 'folke/trouble.nvim' " Quickfix list and diagnostics in a pretty window
-Plug 'AndrewRadev/splitjoin.vim'
 Plug 'lambdalisue/suda.vim' " Sudo Save
 
 " Snippets
@@ -25,21 +21,21 @@ Plug 'SirVer/ultisnips' " Enable the use of snippets
 Plug 'moberst/vim-snippets' " My custom snippets
 
 " Linting and testing
-Plug 'dense-analysis/ale'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
 " Display
-Plug 'mhinz/vim-startify'
-Plug 'airblade/vim-rooter'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
+
+" Start Screen and rooter
+Plug 'mhinz/vim-startify'
+Plug 'airblade/vim-rooter'
 
 " Python
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 " Markdown / Latex
-Plug 'godlygeek/tabular'
 Plug 'lervag/vimtex'
 Plug 'dkarter/bullets.vim'
 
@@ -162,12 +158,10 @@ let g:ale_python_pylint_executable='/home/moberst/.miniconda3/envs/nvim/bin/pyli
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
-nmap <leader>ad <Plug>(ale_go_to_definition_in_vsplit)
-nmap <leader>ar <Plug>(ale_find_references)
 
-" Tag list toggle
-nnoremap <silent> <F8> :TlistToggle<CR>
-let g:gutentags_ctags_tagfile = '.git/tags'
+" Diffview
+nnoremap <silent><leader>do :DiffviewOpen<CR>
+nnoremap <silent><leader>dc :DiffviewClose<CR>
 
 " Setup for pydocstring
 let g:pydocstring_formatter='google'
@@ -373,11 +367,7 @@ local cmp = require'cmp'
 local lspkind = require'lspkind'
 cmp.setup({
   snippet = {
-    -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
       vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
   },
@@ -385,9 +375,9 @@ cmp.setup({
     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    ['<C-y>'] = cmp.config.disable, 
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = false }), 
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -398,27 +388,18 @@ cmp.setup({
   }),
   formatting = {
     format = lspkind.cmp_format({
-      with_text = false, -- do not show text alongside icons
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-
-      -- The function below will be called before any actual modifications from lspkind
-      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-      -- before = function (entry, vim_item)
-      --   ...
-      --   return vim_item
-      -- end
+      with_text = false, 
+      maxwidth = 50, 
     })
   }
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
   sources = {
     { name = 'buffer' }
   }
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
     { name = 'path' }
@@ -459,14 +440,6 @@ lsp_installer.on_server_ready(function(server)
       capabilities = capabilities,
       on_attach = on_attach,
     }
-
-    -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
-
-    -- This setup() function is exactly the same as lspconfig's setup function.
-    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
     server:setup(opts)
 end)
 
@@ -474,9 +447,6 @@ end)
 vim.diagnostic.config({
   -- virtual_text = false,
 })
-
--- Unreleated, but set up Notifications
--- vim.notify = require("notify")
 
 -- Unrelated, but setup other stuff 
 require('nvim-tree').setup {
@@ -589,8 +559,5 @@ require('nvim-treesitter.configs').setup {
     },
   }
 }
-require("trouble").setup({
-  auto_preview = false, 
-})
 require("diffview").setup()
 EOF
