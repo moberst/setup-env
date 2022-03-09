@@ -186,4 +186,25 @@
 \newcommand{\seqn}[1]{{#1}_1, \ldots, {#1}_n}
 \newcommand{\seq}[2]{{#1}_1, \ldots, {#1}_{#2}}
 
-\newcommand{\eps}{\epsilon}
+% Add support for tags, see https://tex.stackexchange.com/questions/53690/tagging-under-an-equation-using-underbrace
+\makeatletter
+\newcommand{\mytag}[2]{%
+  \text{#1}%
+  \@bsphack
+  \begingroup
+    \@onelevel@sanitize\@currentlabelname
+    \edef\@currentlabelname{%
+      \expandafter\strip@period\@currentlabelname\relax.\relax\@@@%
+    }%
+    \protected@write\@auxout{}{%
+      \string\newlabel{#2}{%
+        {#1}%
+        {\thepage}%
+        {\@currentlabelname}%
+        {\@currentHref}{}%
+      }%
+    }%
+  \endgroup
+  \@esphack
+}
+\makeatother

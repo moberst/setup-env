@@ -17,8 +17,8 @@ echo "Creating directory structure for $NAME"
 mkdir $NAME
 
 echo "Moving basic files"
-sed 1,1d $SCRIPT_HOME/custom-pkg/shortcuts.sty > $NAME/shortcuts.tex
-sed 1,1d $SCRIPT_HOME/custom-pkg/theorems.sty > $NAME/theorems.tex
+cp $SCRIPT_HOME/custom-pkg/shortcuts.sty > $NAME/shortcuts.sty
 cp $SCRIPT_HOME/example_notes.tex $NAME/notes.tex
 cp $SCRIPT_HOME/example_references.bib $NAME/references.bib
-cp $SCRIPT_HOME/icml2019.bst $NAME
+cp $SCRIPT_HOME/paperSpecificShortcuts.tex $NAME
+cp $SCRIPT_HOME/icml2022.bst $NAME

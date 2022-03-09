@@ -1,15 +1,34 @@
 \documentclass[11pt]{article}
-% Custom Packages
-\usepackage{theorems}
+
+% Custom Shortcuts
 \usepackage{shortcuts}
+
+% Define new shortcuts here
+\input{paperSpecificShortcuts}
+
+% Get math tools and define theorems
+\usepackage{amssymb,amsmath,amsthm,amsfonts,mathtools,dsfont,thmtools}
+
+% All share the same numbering by section, in ICML 2022 style
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
 
 % Normal Packages
 \usepackage{natbib} 
-\usepackage[]{csquotes} 
-\usepackage[]{hyperref} 
+\usepackage{csquotes} 
+\usepackage{hyperref} 
 \usepackage{subcaption}
 \usepackage[inline]{enumitem} 
-\usepackage[draft]{fixme}
 \usepackage{booktabs}
 
 \usepackage{tikz}
@@ -30,8 +49,6 @@
 \lhead{TITLE HERE}
 \rhead{DATE HERE}
 
-\newcommand{\mko}[1]{{\color{red}M\@: #1}}
-
 \begin{document}
 
 \section*{Title of some notes}
@@ -40,7 +57,7 @@
 Lorem Ipsum.
 
 % Uncomment for a bibliography
-% \bibliographystyle{icml2019}
+% \bibliographystyle{icml2022}
 % \bibliography{references}
 
 \end{document}
