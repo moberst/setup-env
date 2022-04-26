@@ -5,6 +5,7 @@ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nanotee/zoxide.vim'
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
@@ -21,12 +22,14 @@ Plug 'SirVer/ultisnips' " Enable the use of snippets
 Plug 'moberst/vim-snippets' " My custom snippets
 
 " Linting and testing
+Plug 'dense-analysis/ale'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
 " Display
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
+Plug 'kevinhwang91/nvim-bqf'
 
 " Start Screen and rooter
 Plug 'mhinz/vim-startify'
@@ -69,9 +72,10 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'kdheepak/cmp-latex-symbols'
-Plug 'ray-x/lsp_signature.nvim'
+" Plug 'ray-x/lsp_signature.nvim'
 Plug 'onsails/lspkind-nvim'
 
 " Jupyter Support
@@ -104,8 +108,7 @@ let g:startify_custom_header = startify#center([
 \ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
 \ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
 \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-\ '             Keep your promises to yourself            ',
-\ '               Focus on what is important              ',
+\ '          Focus on the process, not the outcome        ',
 \])
 let g:startify_session_delete_buffers = 1
 " let g:startify_change_to_vcs_root = 1
@@ -363,26 +366,27 @@ let g:magma_automatically_open_output = v:false
 lua << EOF
 -- Setup nvim-cmp.
 local cmp = require'cmp'
-
 local lspkind = require'lspkind'
+
 cmp.setup({
   snippet = {
     expand = function(args)
       vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
   },
-  mapping = {
+  mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-y>'] = cmp.config.disable, 
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }), 
-  },
+  }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'ultisnips' }, -- For ultisnips users.
+    { name = 'ultisnips' }, 
     { name = "latex_symbols" },
+    { name = 'nvim_lsp_signature_help' },
   }, {
     { name = 'buffer' },
   }),
@@ -426,7 +430,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
-  require "lsp_signature".on_attach()
+  -- require "lsp_signature".on_attach()
 
 end
 
