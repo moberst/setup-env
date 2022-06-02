@@ -257,6 +257,7 @@ let g:vimwiki_list = [{
   \ {'name': 'D&D', 'path': '~/Dropbox/dnd/wiki', 'syntax': 'default', 'ext': '.wiki', 'links_space_char': '-', 'auto_tags': 1}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_auto_chdir = 1
+let g:vimwiki_folding = 'expr'
 nmap <leader>wt :VimwikiGenerateTagLinks 
 
 " Copied from documentation, want to let vimwiki open text files in a new tab
@@ -399,12 +400,14 @@ cmp.setup({
 })
 
 cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = 'buffer' }
   }
 })
 
 cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = 'path' }
   }, {

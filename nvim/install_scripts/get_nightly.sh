@@ -3,9 +3,9 @@ sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake c
 
 # Create the repository if it does not exist
 cd $HOME/repos/setup-env/nvim
-git submodule add https://github.com/neovim/neovim.git neovim-nightly
+git submodule add https://github.com/neovim/neovim.git neovim
 git submodule update --init --recursive
 
-# Use the latest version, i.e., do not checkout a release
-cd $HOME/repos/setup-env/nvim/neovim-nightly
-git co nightly
+# Use the latest version
+cd $HOME/repos/setup-env/nvim/neovim
+git co latest
