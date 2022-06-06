@@ -5,43 +5,8 @@
 
 % Define new shortcuts here
 \input{paperSpecificShortcuts}
-
-% Get math tools and define theorems
-\usepackage{amssymb,amsmath,amsthm,amsfonts,mathtools,dsfont,thmtools}
-
-% All share the same numbering by section, in ICML 2022 style
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
-\newtheorem{example}[theorem]{Example}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-
-% Normal Packages
-\usepackage{natbib} 
-\usepackage{csquotes} 
-\usepackage{hyperref} 
-\usepackage{subcaption}
-\usepackage[inline]{enumitem} 
-\usepackage{booktabs}
-
-\usepackage{tikz}
-\usepackage{tikz-qtree}
-\usetikzlibrary{bayesnet}
-
-% Formatting for notes
-\addtolength{\oddsidemargin}{-1in}
-\addtolength{\evensidemargin}{-1in}
-\addtolength{\textwidth}{2in}
-
-\setlength{\parindent}{0pt}
-\setlength{\headheight}{14pt}
+\input{packages}
+\input{formatting}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}

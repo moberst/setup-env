@@ -21,4 +21,6 @@ cp $SCRIPT_HOME/custom-pkg/shortcuts.sty $NAME/shortcuts.sty
 cp $SCRIPT_HOME/example_notes.tex $NAME/notes.tex
 cp $SCRIPT_HOME/example_references.bib $NAME/references.bib
 cp $SCRIPT_HOME/paperSpecificShortcuts.tex $NAME
+cp $SCRIPT_HOME/packages.tex $NAME
+cp $SCRIPT_HOME/formatting.tex $NAME
 cp $SCRIPT_HOME/icml2022.bst $NAME
