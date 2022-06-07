@@ -24,7 +24,7 @@ pip install --upgrade pip
 pip install --upgrade pynvim
 
 # Library required for ueberzug
-sudo apt-get install libxext-dev
+# sudo apt-get install libxext-dev
 # These are for Magma, running Jupyter in Vim
 pip install --upgrade jupyter-client
 pip install --upgrade ueberzug

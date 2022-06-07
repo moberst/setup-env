@@ -91,8 +91,11 @@ filetype off                  " required
 let mapleader = " "
 set sessionoptions+=globals
 
-" Source for python
-let g:python3_host_prog='/opt/conda/moberst/bin/python'
+let g:python3_host_prog='/opt/conda/moberst/envs/nvim/bin/python'
+
+if !empty($CONDA_PREFIX)
+  let g:python3_host_prog = $CONDA_PREFIX . '/bin/python'
+endif
 
 " Setup for neovim remote 
 if has('nvim') && executable('nvr')
@@ -152,12 +155,12 @@ map <leader>cd :lcd %:h<CR>
 
 " Setup for ALE
 let g:ale_linters = {'python': ['flake8', 'pydocstyle', 'mypy', 'pylint'], 'tex': ['chktex']}
-let g:ale_fixers = {'python': ['yapf']}
-let g:ale_python_flake8_executable='/home/moberst/.miniconda3/envs/nvim/bin/flake8'
-let g:ale_python_pydocstyle_executable='/home/moberst/.miniconda3/envs/nvim/bin/pydocstyle'
-let g:ale_python_mypy_executable='/home/moberst/.miniconda3/envs/nvim/bin/mypy'
-let g:ale_python_yapf_executable='/home/moberst/.miniconda3/envs/nvim/bin/yapf'
-let g:ale_python_pylint_executable='/home/moberst/.miniconda3/envs/nvim/bin/pylint'
+" let g:ale_fixers = {'python': ['yapf']}
+let g:ale_python_flake8_executable='/opt/conda/moberst/envs/nvim/bin/flake8'
+let g:ale_python_pydocstyle_executable='/opt/conda/moberst/envs/nvim/bin/pydocstyle'
+let g:ale_python_mypy_executable='/opt/conda/moberst/envs/nvim/bin/mypy'
+let g:ale_python_yapf_executable='/opt/conda/moberst/envs/nvim/bin/yapf'
+let g:ale_python_pylint_executable='/opt/conda/moberst/envs/nvim/bin/pylint'
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
