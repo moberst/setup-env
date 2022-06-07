@@ -105,14 +105,14 @@ export LD_LIBRARY_PATH=$CUDA_ROOT/lib64:$LD_LIBRARY_PATH
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/conda/moberst/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/opt/conda/moberst/etc/profile.d/conda.sh" ]; then
+        . "/opt/conda/moberst/etc/profile.d/conda.sh"
     else
-        export PATH="/anaconda3/bin:$PATH"
+        export PATH="/opt/conda/moberst/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -124,7 +124,15 @@ fi
 
 if [ -d $HOME/.local ]; then
   export PATH="$HOME/.local/bin:$PATH"
-  eval $(zoxide init bash)
+fi
+
+if [ -d $HOME/.exa ]; then
+  export PATH="$HOME/.exa/bin:$PATH"
+  alias ls='exa'
+fi
+
+if [ -d $HOME/.cargo ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 # Fuzzyfinder
@@ -138,5 +146,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 eval "$(starship init bash)"
+eval "$(zoxide init bash)"
 
 EDITOR=nvim
