@@ -1,7 +1,5 @@
 format = """$conda\
 $time\
-$username\
-$hostname\
 $directory\
 $git_branch\
 $git_state\
@@ -11,6 +9,7 @@ $ruby\
 $battery\
 $memory\
 $sudo\
+$hostname\
 $linebreak
 $character\
 """
@@ -42,6 +41,12 @@ vicmd_symbol = "[❮](green)"
 [git_branch]
 format = "[$branch]($style)"
 style = "bright-black"
+
+[hostname]
+ssh_only = true
+ssh_symbol = "🌐"
+format = "on [$ssh_symbol$hostname]($style)"
+disabled = false
 
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
