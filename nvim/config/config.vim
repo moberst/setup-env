@@ -94,13 +94,16 @@ set sessionoptions+=globals
 " Source for python
 let g:python3_host_prog='/home/moberst/.miniconda3/envs/nvim/bin/python3'
 
+if !empty($CONDA_PREFIX)
+  let g:python3_host_prog = $CONDA_PREFIX . '/bin/python'
+endif
+
 " Setup for neovim remote 
 if has('nvim') && executable('nvr')
   let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
 
 map <C-T> :NvimTreeToggle<CR>
-let g:nvim_tree_respect_buf_cwd = 1
 let g:startify_custom_header = startify#center([
 \ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
 \ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
@@ -458,6 +461,7 @@ vim.diagnostic.config({
 -- Unrelated, but setup other stuff 
 require('nvim-tree').setup {
   update_cwd = true, 
+  respect_buf_cwd = true,
   view = {
     mappings = {
       custom_only = false,
@@ -473,8 +477,6 @@ require("telescope").setup {
     buffers = {
       show_all_buffers = true,
       sort_lastused = true,
-      theme = "dropdown",
-      previewer = false,
       mappings = {
         i = {
           ["<c-d>"] = "delete_buffer",
