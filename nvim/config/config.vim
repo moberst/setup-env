@@ -32,6 +32,8 @@ Plug 'moberst/vim-snippets' " My custom snippets
 
 " Linting and testing
 Plug 'dense-analysis/ale'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'folke/trouble.nvim'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
@@ -153,21 +155,12 @@ nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader>fu <cmd>Telescope help_tags<cr>
 map <leader>cd :lcd %:h<CR>
 
-" Setup for ALE
-let g:ale_linters = {'python': ['flake8', 'pydocstyle', 'mypy', 'pylint'], 'tex': ['chktex']}
-let g:ale_fixers = {'python': ['yapf']}
-let g:ale_python_flake8_executable='/home/moberst/.miniconda3/envs/nvim/bin/flake8'
-let g:ale_python_pydocstyle_executable='/home/moberst/.miniconda3/envs/nvim/bin/pydocstyle'
-let g:ale_python_mypy_executable='/home/moberst/.miniconda3/envs/nvim/bin/mypy'
-let g:ale_python_yapf_executable='/home/moberst/.miniconda3/envs/nvim/bin/yapf'
-let g:ale_python_pylint_executable='/home/moberst/.miniconda3/envs/nvim/bin/pylint'
-
-" Set this variable to 1 to fix files when you save them.
-let g:ale_fix_on_save = 1
-
+let g:ale_linters = {'tex': ['chktex']}
 " Diffview
 nnoremap <silent><leader>do :DiffviewOpen<CR>
 nnoremap <silent><leader>dc :DiffviewClose<CR>
+nnoremap <leader>dd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " Setup for pydocstring
 let g:pydocstring_formatter='google'
@@ -348,7 +341,7 @@ au BufNewFile,BufRead *.wiki
 
 " python setup
 au BufNewFile,BufRead *.py
-    \ setlocal textwidth=79 |
+    \ setlocal textwidth=89 |
     \ setlocal autoindent |
     \ setlocal fileformat=unix
 
@@ -569,4 +562,37 @@ require('nvim-treesitter.configs').setup {
   }
 }
 require("diffview").setup()
+require("trouble").setup()
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+require('null-ls').setup({
+  debug = true,
+  on_attach = function(client, bufnr)
+      if client.supports_method("textDocument/formatting") then
+          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+          vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                  -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                  vim.lsp.buf.formatting_sync()
+              end,
+          })
+      end
+  end,
+  sources = {
+    require('null-ls').builtins.formatting.black.with({
+      command = '/home/moberst/.miniconda3/envs/nvim/bin/black'
+    }),
+    require('null-ls').builtins.diagnostics.flake8.with({
+      command = '/home/moberst/.miniconda3/envs/nvim/bin/flake8'
+    }),
+    require('null-ls').builtins.diagnostics.mypy.with({
+      command = '/home/moberst/.miniconda3/envs/nvim/bin/mypy'
+    }),
+    require('null-ls').builtins.diagnostics.pylint.with({
+      command = '/home/moberst/.miniconda3/envs/nvim/bin/pylint'
+    }),
+  }
+})
 EOF
