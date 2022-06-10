@@ -1,5 +1,14 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Neovim Basics
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer',
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'romgrk/nvim-treesitter-context'
+Plug 'nvim-treesitter/playground'
+
 " Navigation
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
@@ -56,15 +65,6 @@ Plug 'sindrets/diffview.nvim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'EdenEast/nightfox.nvim'
-
-" Neovim 0.5 features
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer',
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'romgrk/nvim-treesitter-context'
-Plug 'nvim-treesitter/playground'
 
 " Completion with nvim-cmp
 Plug 'hrsh7th/nvim-cmp'
