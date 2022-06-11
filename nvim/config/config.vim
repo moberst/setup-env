@@ -155,7 +155,10 @@ nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader>fu <cmd>Telescope help_tags<cr>
 map <leader>cd :lcd %:h<CR>
 
+autocmd DiagnosticChanged * lua vim.diagnostic.setqflist({open = false })
+
 let g:ale_linters = {'tex': ['chktex']}
+let g:ale_linters_explicit = 1  " Only run for the specified linters, no python
 " Diffview
 nnoremap <silent><leader>do :DiffviewOpen<CR>
 nnoremap <silent><leader>dc :DiffviewClose<CR>
@@ -341,7 +344,8 @@ au BufNewFile,BufRead *.wiki
 
 " python setup
 au BufNewFile,BufRead *.py
-    \ setlocal textwidth=89 |
+    \ setlocal textwidth=88 |
+    \ setlocal colorcolumn=89 |
     \ setlocal autoindent |
     \ setlocal fileformat=unix
 
