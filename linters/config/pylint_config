@@ -117,6 +117,7 @@ disable=abstract-method,
         range-builtin-not-iterating,
         raw_input-builtin,
         rdiv-method,
+        redefined-outer-name, # added
         reduce-builtin,
         relative-import,
         reload-builtin,
@@ -149,6 +150,7 @@ disable=abstract-method,
         wrong-import-order,
         xrange-builtin,
         zip-builtin-not-iterating,
+        
 
 
 [REPORTS]
