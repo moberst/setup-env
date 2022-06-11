@@ -36,6 +36,7 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+Plug 'j-hui/fidget.nvim'
 
 " Display
 Plug 'nvim-lualine/lualine.nvim'
@@ -568,6 +569,7 @@ require('nvim-treesitter.configs').setup {
 }
 require("diffview").setup()
 require("trouble").setup()
+require("fidget").setup()
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require('null-ls').setup({
