@@ -419,6 +419,20 @@ cmp.setup.cmdline(':', {
 -- Setup lsp
 local nvim_lsp = require('lspconfig')
 
+-- Configure particular language servers
+nvim_lsp.jedi_language_server.setup{
+  settings = {
+    jedi_language_server = {
+      diagnostics = {
+        enable = false
+      }
+    }
+  }
+}
+
+local lsp_installer = require("nvim-lsp-installer")
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -439,9 +453,6 @@ local on_attach = function(client, bufnr)
 
 end
 
-local lsp_installer = require("nvim-lsp-installer")
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
@@ -451,11 +462,6 @@ lsp_installer.on_server_ready(function(server)
     }
     server:setup(opts)
 end)
-
--- Turn off mostly useless type checking diagnostics
-vim.diagnostic.config({
-  -- virtual_text = false,
-})
 
 -- Unrelated, but setup other stuff 
 require('nvim-tree').setup {
