@@ -426,6 +426,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
@@ -487,8 +488,8 @@ require('gitsigns').setup {
     end
 
     -- Navigation
-    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+    map('n', ']h', "<cmd>Gitsigns next_hunk<CR>")
+    map('n', '[h', "<cmd>Gitsigns prev_hunk<CR>")
 
     -- Actions
     map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
@@ -593,6 +594,7 @@ require('null-ls').setup({
     require('null-ls').builtins.diagnostics.pylint.with({
       command = '/home/moberst/.miniconda3/envs/nvim/bin/pylint'
     }),
+    require('null-ls').builtins.code_actions.gitsigns,
   }
 })
 EOF
