@@ -596,6 +596,9 @@ require('null-ls').setup({
       command = '/home/moberst/.miniconda3/envs/nvim/bin/pylint',
       extra_args = {'--rcfile=/home/moberst/.config/pylintrc'},
     }),
+    require('null-ls').builtins.diagnostics.gitlint.with({
+      command = '/home/moberst/.miniconda3/envs/nvim/bin/gitlint',
+      extra_args = {'--config=/home/moberst/.config/gitlint'},
     }),
     require('null-ls').builtins.code_actions.gitsigns,
   }
