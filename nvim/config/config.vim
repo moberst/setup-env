@@ -586,13 +586,16 @@ require('null-ls').setup({
       command = '/home/moberst/.miniconda3/envs/nvim/bin/black'
     }),
     require('null-ls').builtins.diagnostics.flake8.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/flake8'
+      command = '/home/moberst/.miniconda3/envs/nvim/bin/flake8',
+      extra_args = {'--config=/home/moberst/.config/flake8'},
     }),
     require('null-ls').builtins.diagnostics.mypy.with({
       command = '/home/moberst/.miniconda3/envs/nvim/bin/mypy'
     }),
     require('null-ls').builtins.diagnostics.pylint.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/pylint'
+      command = '/home/moberst/.miniconda3/envs/nvim/bin/pylint',
+      extra_args = {'--rcfile=/home/moberst/.config/pylintrc'},
+    }),
     }),
     require('null-ls').builtins.code_actions.gitsigns,
   }
