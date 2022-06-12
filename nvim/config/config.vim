@@ -419,17 +419,6 @@ cmp.setup.cmdline(':', {
 -- Setup lsp
 local nvim_lsp = require('lspconfig')
 
--- Configure particular language servers
-nvim_lsp.jedi_language_server.setup{
-  settings = {
-    jedi_language_server = {
-      diagnostics = {
-        enable = false
-      }
-    }
-  }
-}
-
 local lsp_installer = require("nvim-lsp-installer")
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -594,6 +583,10 @@ require('null-ls').setup({
       end
   end,
   sources = {
+    require('null-ls').builtins.formatting.isort.with({
+      command = '/home/moberst/.miniconda3/envs/nvim/bin/isort',
+      extra_args = {'--profile=black'},
+    }),
     require('null-ls').builtins.formatting.black.with({
       command = '/home/moberst/.miniconda3/envs/nvim/bin/black'
     }),
