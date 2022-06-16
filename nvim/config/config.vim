@@ -16,6 +16,7 @@ Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nanotee/zoxide.vim'
 Plug 'stevearc/aerial.nvim'
+Plug 'vimpostor/vim-tpipeline'
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
