@@ -117,6 +117,7 @@ disable=abstract-method,
         range-builtin-not-iterating,
         raw_input-builtin,
         rdiv-method,
+        redefined-outer-name, # added
         reduce-builtin,
         relative-import,
         reload-builtin,
@@ -149,6 +150,7 @@ disable=abstract-method,
         wrong-import-order,
         xrange-builtin,
         zip-builtin-not-iterating,
+        
 
 
 [REPORTS]
@@ -268,7 +270,7 @@ generated-members=
 [FORMAT]
 
 # Maximum number of characters on a single line.
-max-line-length=80
+max-line-length=88
 
 # TODO(https://github.com/PyCQA/pylint/issues/3352): Direct pylint to exempt
 # lines made too long by directives to pytype.
