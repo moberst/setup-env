@@ -84,9 +84,6 @@ Plug 'kdheepak/cmp-latex-symbols'
 " Plug 'ray-x/lsp_signature.nvim'
 Plug 'onsails/lspkind-nvim'
 
-" Jupyter Support
-Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
-
 call plug#end()
 
 set completeopt=menu,menuone,noselect
@@ -166,8 +163,13 @@ let g:ale_linters_explicit = 1  " Only run for the specified linters, no python
 " Diffview
 nnoremap <silent><leader>do :DiffviewOpen<CR>
 nnoremap <silent><leader>dc :DiffviewClose<CR>
+
+" Diagnostics
 nnoremap <leader>dd <cmd>TroubleToggle document_diagnostics<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+
+" Toggle Terminal (see lua for config)
+xnoremap <leader>r <cmd>ToogleTermSendVisualSelection<cr>
 
 " Setup for pydocstring
 let g:pydocstring_formatter='google'
@@ -356,17 +358,6 @@ au BufNewFile,BufRead *.py
 
 let python_highlight_all=1
 syntax on
-
-" Magma setup
-nnoremap <silent> <Leader>ri :MagmaInit<CR>
-" nnoremap <silent><expr> <Leader>r  :MagmaEvaluateOperator<CR>
-" nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
-xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
-nnoremap <silent>       <Leader>rc :MagmaReevaluateCell<CR>
-nnoremap <silent>       <Leader>rd :MagmaDelete<CR>
-nnoremap <silent>       <Leader>ro :MagmaShowOutput<CR>
-
-let g:magma_automatically_open_output = v:false
 
 " Taken from https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
 lua << EOF
