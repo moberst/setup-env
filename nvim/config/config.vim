@@ -15,6 +15,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nanotee/zoxide.vim'
+Plug 'stevearc/aerial.nvim'
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
@@ -440,7 +441,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
-  -- require "lsp_signature".on_attach()
+  require("aerial").on_attach(client, bufnr)
 
 end
 
@@ -634,6 +635,13 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
 end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+require("aerial").setup({
+  on_attach = function(bufnr)
+    -- Toggle the aerial window with <leader>a
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>a', '<cmd>AerialToggle!<CR>', {})
+  end
+})
 
 require("diffview").setup()
 require("trouble").setup()
