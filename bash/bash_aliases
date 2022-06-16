@@ -20,11 +20,13 @@ alias pp="popd"
 
 alias tmux="tmux -2"
 
-# Common typos
-alias sl="ls"
-
 # Create tex directory 
 alias newtex="bash $HOME/repos/setup-env/tex/create_base.sh"
+
+# Exa
+alias ls="exa --git --icons"
+alias sl="exa --git --icons"
+alias ll="exa --git --icons --long -h"
 
 # Wrap common file commands in func that sends to bg and ignores output
 function evince {
