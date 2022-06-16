@@ -93,7 +93,7 @@ filetype off                  " required
 let mapleader = " "
 set sessionoptions+=globals
 
-let g:python3_host_prog='/opt/conda/moberst/envs/nvim/bin/python'
+let g:python3_host_prog='/scratch/conda/moberst/envs/nvim/bin/python'
 
 if !empty($CONDA_PREFIX)
   let g:python3_host_prog = $CONDA_PREFIX . '/bin/python'
@@ -581,16 +581,16 @@ require('null-ls').setup({
   end,
   sources = {
     require('null-ls').builtins.formatting.black.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/black'
+      command = '/scratch/conda/moberst/envs/nvim/bin/black'
     }),
     require('null-ls').builtins.diagnostics.flake8.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/flake8'
+      command = '/scratch/conda/moberst/envs/nvim/bin/flake8'
     }),
     require('null-ls').builtins.diagnostics.mypy.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/mypy'
+      command = '/scratch/conda/moberst/envs/nvim/bin/mypy'
     }),
     require('null-ls').builtins.diagnostics.pylint.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/pylint'
+      command = '/scratch/conda/moberst/envs/nvim/bin/pylint'
     }),
   }
 })
