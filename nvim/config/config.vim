@@ -36,6 +36,7 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+Plug 'j-hui/fidget.nvim'
 
 " Display
 Plug 'nvim-lualine/lualine.nvim'
@@ -154,7 +155,10 @@ nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader>fu <cmd>Telescope help_tags<cr>
 map <leader>cd :lcd %:h<CR>
 
+autocmd DiagnosticChanged * lua vim.diagnostic.setqflist({open = false })
+
 let g:ale_linters = {'tex': ['chktex']}
+let g:ale_linters_explicit = 1  " Only run for the specified linters, no python
 " Diffview
 nnoremap <silent><leader>do :DiffviewOpen<CR>
 nnoremap <silent><leader>dc :DiffviewClose<CR>
@@ -220,10 +224,11 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:vimtex_fold_enabled = 1
 let g:vimtex_indent_enabled = 1
 let g:vimtex_toc_enabled = 1
-let g:vimtex_quickfix_mode = 0 " Do not open the quickfix window, use Trouble 
+let g:vimtex_quickfix_mode = 0 
 let g:vimtex_toc_config = {
       \ 'mode' : 1,
       \ 'layers' : [ 'content' ],
+      \ 'tocdepth' : 2,
       \}
 
 
@@ -340,7 +345,8 @@ au BufNewFile,BufRead *.wiki
 
 " python setup
 au BufNewFile,BufRead *.py
-    \ setlocal textwidth=89 |
+    \ setlocal textwidth=88 |
+    \ setlocal colorcolumn=89 |
     \ setlocal autoindent |
     \ setlocal fileformat=unix
 
@@ -413,6 +419,9 @@ cmp.setup.cmdline(':', {
 -- Setup lsp
 local nvim_lsp = require('lspconfig')
 
+local lsp_installer = require("nvim-lsp-installer")
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -425,15 +434,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
   -- require "lsp_signature".on_attach()
 
 end
-
-local lsp_installer = require("nvim-lsp-installer")
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
@@ -444,11 +451,6 @@ lsp_installer.on_server_ready(function(server)
     }
     server:setup(opts)
 end)
-
--- Turn off mostly useless type checking diagnostics
-vim.diagnostic.config({
-  -- virtual_text = false,
-})
 
 -- Unrelated, but setup other stuff 
 require('nvim-tree').setup {
@@ -486,8 +488,8 @@ require('gitsigns').setup {
     end
 
     -- Navigation
-    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+    map('n', ']h', "<cmd>Gitsigns next_hunk<CR>")
+    map('n', '[h', "<cmd>Gitsigns prev_hunk<CR>")
 
     -- Actions
     map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
@@ -562,6 +564,7 @@ require('nvim-treesitter.configs').setup {
 }
 require("diffview").setup()
 require("trouble").setup()
+require("fidget").setup()
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require('null-ls').setup({
@@ -580,18 +583,29 @@ require('null-ls').setup({
       end
   end,
   sources = {
+    require('null-ls').builtins.formatting.isort.with({
+      command = '/scratch/conda/moberst/envs/nvim/bin/isort',
+      extra_args = {'--profile=black'},
+    }),
     require('null-ls').builtins.formatting.black.with({
       command = '/scratch/conda/moberst/envs/nvim/bin/black'
     }),
     require('null-ls').builtins.diagnostics.flake8.with({
-      command = '/scratch/conda/moberst/envs/nvim/bin/flake8'
+      command = '/scratch/conda/moberst/envs/nvim/bin/flake8',
+      extra_args = {'--config=/home/moberst/.config/flake8'},
     }),
     require('null-ls').builtins.diagnostics.mypy.with({
       command = '/scratch/conda/moberst/envs/nvim/bin/mypy'
     }),
     require('null-ls').builtins.diagnostics.pylint.with({
-      command = '/scratch/conda/moberst/envs/nvim/bin/pylint'
+      command = '/scratch/conda/moberst/envs/nvim/bin/pylint',
+      extra_args = {'--rcfile=/home/moberst/.config/pylintrc'},
     }),
+    require('null-ls').builtins.diagnostics.gitlint.with({
+      command = '/scratch/conda/moberst/envs/nvim/bin/gitlint',
+      extra_args = {'--config=/home/moberst/.config/gitlint'},
+    }),
+    require('null-ls').builtins.code_actions.gitsigns,
   }
 })
 EOF
