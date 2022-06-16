@@ -225,10 +225,11 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:vimtex_fold_enabled = 1
 let g:vimtex_indent_enabled = 1
 let g:vimtex_toc_enabled = 1
-let g:vimtex_quickfix_mode = 0 " Do not open the quickfix window, use Trouble 
+let g:vimtex_quickfix_mode = 0 
 let g:vimtex_toc_config = {
       \ 'mode' : 1,
       \ 'layers' : [ 'content' ],
+      \ 'tocdepth' : 2,
       \}
 
 
