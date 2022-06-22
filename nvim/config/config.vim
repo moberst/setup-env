@@ -51,7 +51,7 @@ Plug 'mhinz/vim-startify'
 Plug 'airblade/vim-rooter'
 
 " Python
-Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
+Plug 'danymat/neogen'
 
 " Markdown / Latex
 Plug 'lervag/vimtex'
@@ -171,9 +171,6 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 " Toggle Terminal (see lua for config)
 xnoremap <leader>r <cmd>ToggleTermSendVisualSelection<cr>
 
-" Setup for pydocstring
-let g:pydocstring_formatter='google'
-nmap <leader>ds :Pydocstring<CR>
 
 " Setup for vim-test
 let test#strategy = 'neovim'
@@ -638,5 +635,16 @@ require("aerial").setup({
 require("diffview").setup()
 require("trouble").setup()
 require("fidget").setup()
-
+require("neogen").setup {
+    enabled = true,
+    languages = {
+        python = {
+            template = {
+                annotation_convention = "reST" 
+                }
+        },
+    }
+}
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<Leader>ds", ":lua require('neogen').generate()<CR>", opts)
 EOF
