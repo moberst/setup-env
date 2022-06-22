@@ -169,7 +169,7 @@ nnoremap <leader>dd <cmd>TroubleToggle document_diagnostics<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " Toggle Terminal (see lua for config)
-xnoremap <leader>r <cmd>ToggleTermSendVisualSelection<cr>
+xnoremap <silent> <leader>r :<C-u>ToggleTermSendVisualLines<cr>
 
 
 " Setup for vim-test
