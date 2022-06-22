@@ -119,6 +119,8 @@ if [ -f ~/.bash_bindings ]; then
     bind -f ~/.bash_bindings
 fi
 
+export R_VERSION=4.1.3
+
 # # Starship
 # My personal hack version that gets rid of new lines
 # eval "$(~/repos/utilities/starship/target/debug/starship init bash)"
