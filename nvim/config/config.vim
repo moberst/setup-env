@@ -94,7 +94,7 @@ filetype off                  " required
 let mapleader = " "
 set sessionoptions+=globals
 
-let g:python3_host_prog='/scratch/conda/moberst/envs/nvim/bin/python'
+let g:python3_host_prog='/opt/conda/moberst/envs/nvim/bin/python'
 
 if !empty($CONDA_PREFIX)
   let g:python3_host_prog = $CONDA_PREFIX . '/bin/python'
@@ -584,25 +584,25 @@ require('null-ls').setup({
   end,
   sources = {
     require('null-ls').builtins.formatting.isort.with({
-      command = '/scratch/conda/moberst/envs/nvim/bin/isort',
+      command = '/opt/conda/moberst/envs/nvim/bin/isort',
       extra_args = {'--profile=black'},
     }),
     require('null-ls').builtins.formatting.black.with({
-      command = '/scratch/conda/moberst/envs/nvim/bin/black'
+      command = '/opt/conda/moberst/envs/nvim/bin/black'
     }),
     require('null-ls').builtins.diagnostics.flake8.with({
-      command = '/scratch/conda/moberst/envs/nvim/bin/flake8',
+      command = '/opt/conda/moberst/envs/nvim/bin/flake8',
       extra_args = {'--config=/home/moberst/.config/flake8'},
     }),
     require('null-ls').builtins.diagnostics.mypy.with({
-      command = '/scratch/conda/moberst/envs/nvim/bin/mypy'
+      command = '/opt/conda/moberst/envs/nvim/bin/mypy'
     }),
     require('null-ls').builtins.diagnostics.pylint.with({
-      command = '/scratch/conda/moberst/envs/nvim/bin/pylint',
+      command = '/opt/conda/moberst/envs/nvim/bin/pylint',
       extra_args = {'--rcfile=/home/moberst/.config/pylintrc'},
     }),
     require('null-ls').builtins.diagnostics.gitlint.with({
-      command = '/scratch/conda/moberst/envs/nvim/bin/gitlint',
+      command = '/opt/conda/moberst/envs/nvim/bin/gitlint',
       extra_args = {'--config=/home/moberst/.config/gitlint'},
     }),
     require('null-ls').builtins.code_actions.gitsigns,
