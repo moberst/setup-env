@@ -15,6 +15,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nanotee/zoxide.vim'
+Plug 'stevearc/aerial.nvim'
+Plug 'vimpostor/vim-tpipeline'
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
@@ -42,13 +44,14 @@ Plug 'j-hui/fidget.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
 Plug 'kevinhwang91/nvim-bqf'
+Plug 'akinsho/toggleterm.nvim'
 
 " Start Screen and rooter
 Plug 'mhinz/vim-startify'
 Plug 'airblade/vim-rooter'
 
 " Python
-Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
+Plug 'danymat/neogen'
 
 " Markdown / Latex
 Plug 'lervag/vimtex'
@@ -80,9 +83,6 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'kdheepak/cmp-latex-symbols'
 " Plug 'ray-x/lsp_signature.nvim'
 Plug 'onsails/lspkind-nvim'
-
-" Jupyter Support
-Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
@@ -162,12 +162,14 @@ let g:ale_linters_explicit = 1  " Only run for the specified linters, no python
 " Diffview
 nnoremap <silent><leader>do :DiffviewOpen<CR>
 nnoremap <silent><leader>dc :DiffviewClose<CR>
+
+" Diagnostics
 nnoremap <leader>dd <cmd>TroubleToggle document_diagnostics<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
-" Setup for pydocstring
-let g:pydocstring_formatter='google'
-nmap <leader>ds :Pydocstring<CR>
+" Toggle Terminal (see lua for config)
+xnoremap <silent> <leader>r :<C-u>ToggleTermSendVisualLines<cr>
+
 
 " Setup for vim-test
 let test#strategy = 'neovim'
@@ -353,17 +355,6 @@ au BufNewFile,BufRead *.py
 let python_highlight_all=1
 syntax on
 
-" Magma setup
-nnoremap <silent> <Leader>ri :MagmaInit<CR>
-" nnoremap <silent><expr> <Leader>r  :MagmaEvaluateOperator<CR>
-" nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
-xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
-nnoremap <silent>       <Leader>rc :MagmaReevaluateCell<CR>
-nnoremap <silent>       <Leader>rd :MagmaDelete<CR>
-nnoremap <silent>       <Leader>ro :MagmaShowOutput<CR>
-
-let g:magma_automatically_open_output = v:false
-
 " Taken from https://github.com/neovim/nvim-lspconfig#Keybindings-and-completion
 lua << EOF
 -- Setup nvim-cmp.
@@ -438,7 +429,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
-  -- require "lsp_signature".on_attach()
+  require("aerial").on_attach(client, bufnr)
 
 end
 
@@ -562,10 +553,6 @@ require('nvim-treesitter.configs').setup {
     },
   }
 }
-require("diffview").setup()
-require("trouble").setup()
-require("fidget").setup()
-
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require('null-ls').setup({
   debug = true,
@@ -608,4 +595,55 @@ require('null-ls').setup({
     require('null-ls').builtins.code_actions.gitsigns,
   }
 })
+
+require("toggleterm").setup{
+  size = function(term)
+    if term.direction == "horizontal" then
+      return 20 
+    elseif term.direction == "vertical" then
+      return vim.o.columns * 0.4
+    end
+  end,
+  open_mapping = [[<c-\>]],
+  start_in_insert = true,
+  insert_mappings = true, 
+  terminal_mappings = true, 
+  persist_size = true,
+  direction = 'horizontal',
+  close_on_exit = true, 
+}
+
+function _G.set_terminal_keymaps()
+  local opts = {noremap = true}
+  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+end
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+require("aerial").setup({
+  on_attach = function(bufnr)
+    -- Toggle the aerial window with <leader>a
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>a', '<cmd>AerialToggle!<CR>', {})
+  end
+})
+
+require("diffview").setup()
+require("trouble").setup()
+require("fidget").setup()
+require("neogen").setup {
+    enabled = true,
+    languages = {
+        python = {
+            template = {
+                annotation_convention = "reST" 
+                }
+        },
+    }
+}
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<Leader>ds", ":lua require('neogen').generate()<CR>", opts)
 EOF
