@@ -17,6 +17,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nanotee/zoxide.vim'
 Plug 'stevearc/aerial.nvim'
 Plug 'vimpostor/vim-tpipeline'
+Plug 'anuvyklack/hydra.nvim'
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
@@ -647,4 +648,26 @@ require("neogen").setup {
 }
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<Leader>ds", ":lua require('neogen').generate()<CR>", opts)
+
+local Hydra = require('hydra')
+
+
+Hydra({
+	name = "Resize Window",
+	mode = { "n" },
+	body = "<C-w>",
+	config = {},
+	heads = {
+		-- resizing window
+		{ "<", "<C-w>3<" },
+		{ ">", "<C-w>3>" },
+		{ "+", "<C-w>2+" },
+		{ "-", "<C-w>2-" },
+
+		-- exit this Hydra
+		{ "q", nil, { exit = true, nowait = true } },
+		{ ";", nil, { exit = true, nowait = true } },
+		{ "<Esc>", nil, { exit = true, nowait = true } },
+	},
+})
 EOF
