@@ -19,6 +19,7 @@ Plug 'stevearc/aerial.nvim'
 Plug 'vimpostor/vim-tpipeline'
 Plug 'anuvyklack/hydra.nvim'
 Plug 'ggandor/leap.nvim'
+Plug 'folke/todo-comments.nvim'
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
@@ -155,6 +156,7 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fs <cmd>Telescope live_grep<cr>
 nnoremap <leader>fh <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
+nnoremap <leader>ft <cmd>TodoTelescope<cr>
 nnoremap <leader>fc <cmd>Telescope commands<cr>
 nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader>fu <cmd>Telescope help_tags<cr>
@@ -649,6 +651,7 @@ require("aerial").setup({
 require("diffview").setup()
 require("trouble").setup()
 require("fidget").setup()
+require("todo-comments").setup()
 require("leap").set_default_keymaps()
 require("neogen").setup {
     enabled = true,
