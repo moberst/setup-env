@@ -18,6 +18,7 @@ Plug 'nanotee/zoxide.vim'
 Plug 'stevearc/aerial.nvim'
 Plug 'vimpostor/vim-tpipeline'
 Plug 'anuvyklack/hydra.nvim'
+Plug 'ggandor/leap.nvim'
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
@@ -642,6 +643,7 @@ require("aerial").setup({
 require("diffview").setup()
 require("trouble").setup()
 require("fidget").setup()
+require("leap").set_default_keymaps()
 require("neogen").setup {
     enabled = true,
     languages = {
