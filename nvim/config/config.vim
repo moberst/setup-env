@@ -39,7 +39,9 @@ Plug 'dense-analysis/ale'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'vim-test/vim-test'
-Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'nvim-neotest/neotest'
+Plug 'nvim-neotest/neotest-python'
 Plug 'j-hui/fidget.nvim'
 
 " Display
@@ -172,12 +174,6 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " Toggle Terminal (see lua for config)
 xnoremap <silent> <leader>r :<C-u>ToggleTermSendVisualLines<cr>
-
-
-" Setup for vim-test
-let test#strategy = 'neovim'
-nmap <leader>tt <Plug>(ultest-summary-toggle)
-nmap <leader>tr <Plug>(ultest-run-file)
 
 " Setup for snippets
 let g:UltiSnipsExpandTrigger = "<c-j>"
@@ -604,6 +600,16 @@ require('null-ls').setup({
     require('null-ls').builtins.code_actions.gitsigns,
   }
 })
+
+require("neotest").setup({
+  adapters = {
+    require("neotest-python")
+  },
+})
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<Leader>tt", ":lua require('neotest').summary.toggle()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>tr", ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>to", ":lua require('neotest').output.open({enter = true})<CR>", opts)
 
 require("toggleterm").setup{
   size = function(term)
