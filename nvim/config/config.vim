@@ -533,7 +533,13 @@ require('lualine').setup {
     lualine_z = {'location'}
   },
 }
-require('which-key').setup()
+require('which-key').setup({
+  plugins = {
+    spelling = {
+      enabled = true,
+    },
+  },
+})
 require('treesitter-context').setup()
 require('nvim-treesitter.configs').setup {
   playground = {
