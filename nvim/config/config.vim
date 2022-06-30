@@ -50,6 +50,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'akinsho/toggleterm.nvim'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " Start Screen and rooter
 Plug 'mhinz/vim-startify'
@@ -651,6 +652,7 @@ require("aerial").setup({
 require("diffview").setup()
 require("trouble").setup()
 require("fidget").setup()
+require("colorizer").setup()
 require("todo-comments").setup()
 require("leap").set_default_keymaps()
 require("neogen").setup {
