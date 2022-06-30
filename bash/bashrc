@@ -149,3 +149,6 @@ eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 
 EDITOR=nvim
+
+# Server-specific configurations
+source ~/.bash_extras
