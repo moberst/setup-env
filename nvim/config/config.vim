@@ -17,6 +17,9 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nanotee/zoxide.vim'
 Plug 'stevearc/aerial.nvim'
 Plug 'vimpostor/vim-tpipeline'
+Plug 'anuvyklack/hydra.nvim'
+Plug 'ggandor/leap.nvim'
+Plug 'folke/todo-comments.nvim'
 
 " Editing
 Plug 'tomtom/tcomment_vim' 
@@ -37,7 +40,9 @@ Plug 'dense-analysis/ale'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'vim-test/vim-test'
-Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'nvim-neotest/neotest'
+Plug 'nvim-neotest/neotest-python'
 Plug 'j-hui/fidget.nvim'
 
 " Display
@@ -45,6 +50,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'akinsho/toggleterm.nvim'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " Start Screen and rooter
 Plug 'mhinz/vim-startify'
@@ -67,10 +73,8 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
 
 " Theme
-" Plug 'arcticicestudio/nord-vim'
-Plug 'rafi/awesome-vim-colorschemes'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'EdenEast/nightfox.nvim'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
 " Completion with nvim-cmp
 Plug 'hrsh7th/nvim-cmp'
@@ -150,6 +154,7 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fs <cmd>Telescope live_grep<cr>
 nnoremap <leader>fh <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
+nnoremap <leader>ft <cmd>TodoTelescope<cr>
 nnoremap <leader>fc <cmd>Telescope commands<cr>
 nnoremap <leader>fm <cmd>Telescope marks<cr>
 nnoremap <leader>fu <cmd>Telescope help_tags<cr>
@@ -169,12 +174,6 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " Toggle Terminal (see lua for config)
 xnoremap <silent> <leader>r :<C-u>ToggleTermSendVisualLines<cr>
-
-
-" Setup for vim-test
-let test#strategy = 'neovim'
-nmap <leader>tt <Plug>(ultest-summary-toggle)
-nmap <leader>tr <Plug>(ultest-run-file)
 
 " Setup for snippets
 let g:UltiSnipsExpandTrigger = "<c-j>"
@@ -198,7 +197,11 @@ if has("termguicolors")
 	set termguicolors
 endif
 
-colorscheme tokyonight
+let g:catppuccin_flavour = "macchiato" " latte, frappe, macchiato, mocha
+colorscheme catppuccin
+
+" let g:tokyonight_style = "storm"
+" colorscheme tokyonight
 
 " Sweet search options!
 set incsearch
@@ -512,9 +515,46 @@ require('bufferline').setup {
     }
   },
 }
+require("catppuccin").setup({
+  integrations = {
+    treesitter = true,
+    native_lsp = {
+      enabled = true,
+      virtual_text = {
+        errors = "italic",
+        hints = "italic",
+        warnings = "italic",
+        information = "italic",
+      },
+      underlines = {
+        errors = "underline",
+        hints = "underline",
+        warnings = "underline",
+        information = "underline",
+      },
+    },
+    cmp = true,
+    gitsigns = true,
+    telescope = true,
+    nvimtree = {
+      enabled = true,
+      show_root = false,
+      transparent_panel = false,
+    },
+    which_key = true,
+    indent_blankline = {
+      enabled = true,
+      colored_indent_levels = false,
+    },
+    dashboard = true,
+    bufferline = true,
+    notify = true,
+  },
+})
+
 require('lualine').setup {
   options = {
-    theme = 'tokyonight',
+    theme = 'catppuccin',
     icons_enabled = true,
     theme = 'auto',
     component_separators = { left = '', right = ''},
@@ -531,7 +571,13 @@ require('lualine').setup {
     lualine_z = {'location'}
   },
 }
-require('which-key').setup()
+require('which-key').setup({
+  plugins = {
+    spelling = {
+      enabled = true,
+    },
+  },
+})
 require('treesitter-context').setup()
 require('nvim-treesitter.configs').setup {
   playground = {
@@ -596,6 +642,16 @@ require('null-ls').setup({
   }
 })
 
+require("neotest").setup({
+  adapters = {
+    require("neotest-python")
+  },
+})
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<Leader>tt", ":lua require('neotest').summary.toggle()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>tr", ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>to", ":lua require('neotest').output.open({enter = true})<CR>", opts)
+
 require("toggleterm").setup{
   size = function(term)
     if term.direction == "horizontal" then
@@ -634,6 +690,9 @@ require("aerial").setup({
 require("diffview").setup()
 require("trouble").setup()
 require("fidget").setup()
+require("colorizer").setup()
+require("todo-comments").setup()
+require("leap").set_default_keymaps()
 require("neogen").setup {
     enabled = true,
     languages = {
@@ -646,4 +705,26 @@ require("neogen").setup {
 }
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<Leader>ds", ":lua require('neogen').generate()<CR>", opts)
+
+local Hydra = require('hydra')
+
+
+Hydra({
+	name = "Resize Window",
+	mode = { "n" },
+	body = "<C-w>",
+	config = {},
+	heads = {
+		-- resizing window
+		{ "<", "<C-w>3<" },
+		{ ">", "<C-w>3>" },
+		{ "+", "<C-w>2+" },
+		{ "-", "<C-w>2-" },
+
+		-- exit this Hydra
+		{ "q", nil, { exit = true, nowait = true } },
+		{ ";", nil, { exit = true, nowait = true } },
+		{ "<Esc>", nil, { exit = true, nowait = true } },
+	},
+})
 EOF
