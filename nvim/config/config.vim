@@ -73,10 +73,8 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
 
 " Theme
-" Plug 'arcticicestudio/nord-vim'
-Plug 'rafi/awesome-vim-colorschemes'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'EdenEast/nightfox.nvim'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
 " Completion with nvim-cmp
 Plug 'hrsh7th/nvim-cmp'
@@ -200,7 +198,11 @@ if has("termguicolors")
 	set termguicolors
 endif
 
-colorscheme tokyonight
+let g:catppuccin_flavour = "macchiato" " latte, frappe, macchiato, mocha
+colorscheme catppuccin
+
+" let g:tokyonight_style = "storm"
+" colorscheme tokyonight
 
 " Sweet search options!
 set incsearch
@@ -514,9 +516,46 @@ require('bufferline').setup {
     }
   },
 }
+require("catppuccin").setup({
+  integrations = {
+    treesitter = true,
+    native_lsp = {
+      enabled = true,
+      virtual_text = {
+        errors = "italic",
+        hints = "italic",
+        warnings = "italic",
+        information = "italic",
+      },
+      underlines = {
+        errors = "underline",
+        hints = "underline",
+        warnings = "underline",
+        information = "underline",
+      },
+    },
+    cmp = true,
+    gitsigns = true,
+    telescope = true,
+    nvimtree = {
+      enabled = true,
+      show_root = false,
+      transparent_panel = false,
+    },
+    which_key = true,
+    indent_blankline = {
+      enabled = true,
+      colored_indent_levels = false,
+    },
+    dashboard = true,
+    bufferline = true,
+    notify = true,
+  },
+})
+
 require('lualine').setup {
   options = {
-    theme = 'tokyonight',
+    theme = 'catppuccin',
     icons_enabled = true,
     theme = 'auto',
     component_separators = { left = '', right = ''},
