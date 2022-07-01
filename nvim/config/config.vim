@@ -72,6 +72,7 @@ Plug 'danymat/neogen'
 " Markdown / Latex
 Plug 'lervag/vimtex'
 Plug 'dkarter/bullets.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 " Personal management
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
