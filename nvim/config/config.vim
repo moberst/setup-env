@@ -73,6 +73,7 @@ Plug 'danymat/neogen'
 Plug 'lervag/vimtex'
 Plug 'dkarter/bullets.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'preservim/vim-markdown'
 
 " Personal management
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
@@ -300,9 +301,7 @@ endfunction
 
 " Setup for plasticboy/vim-markdown
 set conceallevel=2
-" let g:vim_markdown_math = 1
-" let g:vim_markdown_frontmatter = 1
-" let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_math = 1
 let g:markdown_folding = 1
 
 " Use spaces instead of tabs, and keep the whitespace small
