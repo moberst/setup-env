@@ -19,8 +19,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
-  require("aerial").on_attach(client, bufnr)
-
 end
 
 -- Register a handler that will be called for all installed servers.
@@ -32,13 +30,6 @@ lsp_installer.on_server_ready(function(server)
     }
     server:setup(opts)
 end)
-
-require("aerial").setup({
-  on_attach = function(bufnr)
-    -- Toggle the aerial window with <leader>a
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>a', '<cmd>AerialToggle!<CR>', {})
-  end
-})
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require('null-ls').setup({
