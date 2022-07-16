@@ -360,13 +360,5 @@ let python_highlight_all=1
 syntax on
 
 lua << EOF
-require("config.cmp")
-require("config.lsp")
-require("config.icon-picker")
-require("config.display")
-require("config.nav")
-require("config.dap")
-require("config.git")
-require("config.test")
-require("config.misc")
+require("config")
 EOF
