@@ -31,6 +31,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch' " UNIX Shell commands
 Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
 Plug 'lambdalisue/suda.vim' " Sudo Save
+Plug 'mbbill/undotree'
 
 " Icons
 Plug 'stevearc/dressing.nvim'
@@ -118,6 +119,20 @@ let g:python3_host_prog='/home/moberst/.miniconda3/envs/nvim/bin/python3'
 " Setup for neovim remote 
 if has('nvim') && executable('nvr')
   let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
+endif
+
+nnoremap <F5> :UndotreeToggle<CR>
+if has("persistent_undo")
+   let target_path = expand('~/.undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
 endif
 
 map <C-T> :NvimTreeToggle<CR>
