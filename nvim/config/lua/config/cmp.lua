@@ -22,6 +22,7 @@ cmp.setup({
     { name = 'nvim_lsp_signature_help' },
   }, {
     { name = 'buffer' },
+    { name = 'omni' },
   }),
   formatting = {
     format = lspkind.cmp_format({
