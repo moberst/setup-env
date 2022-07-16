@@ -7,7 +7,7 @@ Plug 'williamboman/nvim-lsp-installer',
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'romgrk/nvim-treesitter-context'
-Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " Navigation
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
