@@ -14,6 +14,8 @@ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'nanotee/zoxide.vim'
 Plug 'vimpostor/vim-tpipeline'
 Plug 'anuvyklack/hydra.nvim'
@@ -151,15 +153,15 @@ let g:startify_bookmarks = [
       \ ]
 
 " Find files using telescope
-"nnoremap <leader>ff <cmd>Telescope find_files theme=get_dropdown<cr>
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fx <cmd>Telescope file_browser<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fs <cmd>Telescope live_grep<cr>
 nnoremap <leader>fh <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
 nnoremap <leader>ft <cmd>TodoTelescope<cr>
 nnoremap <leader>fc <cmd>Telescope commands<cr>
-nnoremap <leader>fm <cmd>Telescope marks<cr>
+nnoremap <leader>fm <cmd>Telescope media_files<cr>
 nnoremap <leader>fu <cmd>Telescope help_tags<cr>
 map <leader>cd :lcd %:h<CR>
 

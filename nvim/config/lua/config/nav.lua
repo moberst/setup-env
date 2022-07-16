@@ -12,6 +12,11 @@ require('nvim-tree').setup {
 }
 
 require("telescope").setup {
+  extensions = {
+    file_browser = {
+      hijack_netrw = true,
+    }
+  },
   pickers = {
     buffers = {
       show_all_buffers = true,
@@ -24,5 +29,7 @@ require("telescope").setup {
     }
   }
 }
+require("telescope").load_extension("file_browser")
+require('telescope').load_extension('media_files')
 
 require("leap").set_default_keymaps()
