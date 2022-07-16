@@ -1,5 +1,6 @@
--- TODO: Make this into a global variable we set for the python path
-require('dap-python').setup('/home/moberst/.miniconda3/envs/nvim/bin/python')
+-- NOTE: This defaults to "python3", so in a poetry project one should start
+-- VIM from within the poetry shell!
+require('dap-python').setup()
 require('dap-python').test_runner = "pytest"
 require('nvim-dap-virtual-text').setup({commented = true})
 require('dapui').setup()
@@ -61,6 +62,8 @@ local keymap = {
     q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
     r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
     c = { "<cmd>lua require'dap'.continue()<cr>", "Start/Continue" },
+    m = { "<cmd>lua require'dap-python'.test_method()<cr>", "Test Method" },
+    f = { "<cmd>lua require'dap-python'.test_class()<cr>", "Test Class" },
     t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
     x = { "<cmd>lua require'dap'.terminate()<cr>", "Terminate" },
     u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
