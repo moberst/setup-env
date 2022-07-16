@@ -20,6 +20,7 @@ Plug 'nanotee/zoxide.vim'
 Plug 'vimpostor/vim-tpipeline'
 Plug 'anuvyklack/hydra.nvim'
 Plug 'ggandor/leap.nvim'
+Plug 'ThePrimeagen/harpoon'
 Plug 'folke/todo-comments.nvim'
 
 " Editing
@@ -359,6 +360,11 @@ au BufNewFile,BufRead *.py
 
 let python_highlight_all=1
 syntax on
+
+nnoremap <leader>ja <cmd>lua require("harpoon.mark").add_file()<cr>
+nnoremap <leader>jt <cmd>Telescope harpoon marks<cr>
+nnoremap <leader>jn <cmd>lua require("harpoon.ui").nav_next()<cr>
+nnoremap <leader>jp <cmd>lua require("harpoon.ui").nav_prev()<cr>
 
 lua << EOF
 require("config")
