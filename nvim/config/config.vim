@@ -30,7 +30,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch' " UNIX Shell commands
 Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
-Plug 'folke/which-key.nvim'
 Plug 'lambdalisue/suda.vim' " Sudo Save
 
 " Icons
@@ -63,6 +62,7 @@ Plug 'akinsho/bufferline.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'folke/which-key.nvim'
 
 " Start Screen and rooter
 Plug 'mhinz/vim-startify'
@@ -100,7 +100,6 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'hrsh7th/cmp-omni'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'kdheepak/cmp-latex-symbols'
-" Plug 'ray-x/lsp_signature.nvim'
 Plug 'onsails/lspkind-nvim'
 
 call plug#end()
@@ -115,10 +114,6 @@ set sessionoptions+=globals
 
 " Source for python
 let g:python3_host_prog='/home/moberst/.miniconda3/envs/nvim/bin/python3'
-
-if !empty($CONDA_PREFIX)
-  let g:python3_host_prog = $CONDA_PREFIX . '/bin/python'
-endif
 
 " Setup for neovim remote 
 if has('nvim') && executable('nvr')
@@ -166,8 +161,6 @@ nnoremap <leader>fm <cmd>Telescope media_files<cr>
 nnoremap <leader>fu <cmd>Telescope help_tags<cr>
 map <leader>cd :lcd %:h<CR>
 
-autocmd DiagnosticChanged * lua vim.diagnostic.setqflist({open = false })
-
 let g:ale_linters = {'tex': ['chktex']}
 let g:ale_linters_explicit = 1  " Only run for the specified linters, no python
 " Diffview
@@ -176,9 +169,6 @@ nnoremap <silent><leader>gdc :DiffviewClose<CR>
 
 " Diagnostics
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
-
-" Toggle Terminal (see lua for config)
-xnoremap <silent> <leader>r :<C-u>ToggleTermSendVisualLines<cr>
 
 " Setup for snippets
 let g:UltiSnipsExpandTrigger = "<c-j>"
@@ -240,7 +230,6 @@ let g:vimtex_toc_config = {
       \ 'layers' : [ 'content' ],
       \ 'tocdepth' : 2,
       \}
-
 
 let g:vimtex_compiler_method='latexmk'
 let g:tex_flavor = 'latex'
@@ -307,6 +296,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Get rid of <C-A> for increment, easy mistake when using this as tmux prefix
+nnoremap <C-A> <C-W>
+
 " Keep visual mode after indent
 vnoremap > >gv
 vnoremap < <gv
@@ -357,6 +349,8 @@ au BufNewFile,BufRead *.py
     \ setlocal colorcolumn=89 |
     \ setlocal autoindent |
     \ setlocal fileformat=unix
+
+au TermOpen * setlocal nospell
 
 let python_highlight_all=1
 syntax on
