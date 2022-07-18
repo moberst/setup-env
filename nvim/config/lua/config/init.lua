@@ -8,3 +8,6 @@ require("config.git")
 require("config.test")
 require("config.term")
 require("config.misc")
+
+-- Set up mappings
+require("config.mappings")

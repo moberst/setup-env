@@ -9,17 +9,6 @@ require('bufferline').setup {
   },
 }
 
-vim.cmd([[
-nnoremap <silent>[b :BufferLineCyclePrev<CR>
-nnoremap <silent>]b :BufferLineCycleNext<CR>
-nnoremap <silent><leader>bp :BufferLinePick<CR>
-nnoremap <silent><leader>bf :BufferLinePick<CR>
-nnoremap <silent><leader>bc :BufferLinePickClose<CR>
-nnoremap <silent><leader>bd :BufferLinePickClose<CR>
-nnoremap <silent><leader>[b :BufferLineMovePrev<CR>
-nnoremap <silent><leader>]b :BufferLineMoveNext<CR>
-]])
-
 require("catppuccin").setup({
   integrations = {
     treesitter = true,

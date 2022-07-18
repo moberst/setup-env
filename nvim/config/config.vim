@@ -104,11 +104,6 @@ Plug 'onsails/lspkind-nvim'
 
 call plug#end()
 
-set completeopt=menu,menuone,noselect
-
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
 let mapleader = " "
 set sessionoptions+=globals
 
@@ -137,19 +132,6 @@ endif
 map <C-T> :NvimTreeToggle<CR>
 let g:rooter_patterns = ['.git', 'index.wiki']
 
-" Find files using telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fx <cmd>Telescope file_browser<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fs <cmd>Telescope live_grep<cr>
-nnoremap <leader>fh <cmd>Telescope current_buffer_fuzzy_find<cr>
-nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
-nnoremap <leader>ft <cmd>TodoTelescope<cr>
-nnoremap <leader>fc <cmd>Telescope commands<cr>
-nnoremap <leader>fm <cmd>Telescope media_files<cr>
-nnoremap <leader>fu <cmd>Telescope help_tags<cr>
-map <leader>cd :lcd %:h<CR>
-
 let g:ale_linters = {'tex': ['chktex']}
 let g:ale_linters_explicit = 1  " Only run for the specified linters, no python
 " Diffview
@@ -170,7 +152,6 @@ let g:ultisnips_python_style = "google"
 
 " Quickfix mapping
 let g:toggle_list_no_mappings = v:false
-nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
 
 " No fancy cursor nonsense, we do it old school
 set guicursor=
