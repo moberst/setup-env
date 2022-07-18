@@ -65,8 +65,7 @@ Plug 'akinsho/toggleterm.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/which-key.nvim'
 
-" Start Screen and rooter
-Plug 'mhinz/vim-startify'
+" Rooter
 Plug 'airblade/vim-rooter'
 
 " Python
@@ -136,32 +135,7 @@ if has("persistent_undo")
 endif
 
 map <C-T> :NvimTreeToggle<CR>
-let g:startify_custom_header = startify#center([
-\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-\ '          Focus on the process, not the outcome        ',
-\])
-let g:startify_session_delete_buffers = 1
-" let g:startify_change_to_vcs_root = 1
-let g:startify_session_persistence = 1
-let g:startify_enable_special = 0
-let g:startify_session_savevars = []
 let g:rooter_patterns = ['.git', 'index.wiki']
-
-let g:startify_lists = [
-      \ { 'type': 'sessions',  'header': ['   Sessions']       },
-      \ { 'type': 'files',     'header': ['   MRU']            },
-      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-      \ ]
-
-let g:startify_bookmarks = [ 
-      \ {'t': '~/Dropbox/thesis'},  
-      \ {'c': '~/repos/setup-env/nvim/config/config.vim' },
-      \ ]
 
 " Find files using telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
