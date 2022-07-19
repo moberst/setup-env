@@ -34,3 +34,4 @@ require("telescope").load_extension('harpoon')
 require('telescope').load_extension('media_files')
 
 require("leap").set_default_keymaps()
+require('icon-picker')

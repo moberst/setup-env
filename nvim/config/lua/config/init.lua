@@ -1,6 +1,5 @@
 require("config.cmp")
 require("config.lsp")
-require("config.icon-picker")
 require("config.display")
 require("config.nav")
 require("config.dap")
