@@ -20,6 +20,7 @@ wk.register({
     c = { "<cmd>Telescope commands<cr>", "[c]ommands" },
     m = { "<cmd>Telescope media_files<cr>", "[m]edia files" },
     h = { "<cmd>Telescope help_tags<cr>", "[h]elp" },
+    z = {	"<cmd>lua require'telescope'.extensions.zoxide.list{}<CR>", "[z]oxide"}
   },
   ["<leader>r"] = {
     name = "+[r]un tests",

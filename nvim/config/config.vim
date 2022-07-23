@@ -16,6 +16,7 @@ Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
+Plug 'jvgrootveld/telescope-zoxide'
 Plug 'nanotee/zoxide.vim'
 Plug 'vimpostor/vim-tpipeline'
 Plug 'anuvyklack/hydra.nvim'
