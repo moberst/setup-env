@@ -24,17 +24,19 @@
   #TERM: alacritty
 
 window:
+  opacity: 0.9
+
   dimensions:
-   columns: 180
-   lines: 45
+   columns: 175
+   lines: 50
 
   # Window position (changes require restart)
   #
   # Specified in number of pixels.
   # If the position is not set, the window manager will handle the placement.
-  position:
-   x: 60
-   y: 60
+  # position:
+  #  x: 55
+  #  y: 55
 
   # Window padding (changes require restart)
   #
@@ -347,12 +349,6 @@ font:
   #     args: ["Hello, World!"]
   #
   #command: None
-
-# Background opacity
-#
-# Window opacity as a floating point number from `0.0` to `1.0`.
-# The value `0.0` is completely transparent and `1.0` is opaque.
-#background_opacity: 1.0
 
 #selection:
   # This string contains all characters that are used as separators for
