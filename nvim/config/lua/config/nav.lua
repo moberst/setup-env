@@ -3,6 +3,9 @@ require('auto-session').setup({
       auto_session_suppress_dirs = {'~/'}
     })
 
+require('session-lens').setup()
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+
 require('nvim-tree').setup {
   update_cwd = true,
   respect_buf_cwd = true,
@@ -38,6 +41,7 @@ require("telescope").load_extension("file_browser")
 require("telescope").load_extension('harpoon')
 require('telescope').load_extension('media_files')
 require('telescope').load_extension('zoxide')
+require('telescope').load_extension('session-lens')
 
 require("leap").set_default_keymaps()
 require('icon-picker')

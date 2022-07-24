@@ -10,6 +10,7 @@ wk.register({
   ["<leader>f"] = {
     name = "+[f]ind",
     f = { "<cmd>Telescope find_files<cr>", "[f]ile search" },
+    s = { "<cmd>Telescope session-lens search_session<cr>", "[s]ession" },
     w = { "<cmd>Telescope file_browser<cr>", "file bro[w]ser" },
     b = { "<cmd>Telescope buffers<cr>", "[b]uffers" },
     g = { "<cmd>Telescope live_grep<cr>", "[g]lobal string" },
