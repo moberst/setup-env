@@ -69,6 +69,7 @@ Plug 'xiyaowong/nvim-transparent'
 
 " Rooter
 Plug 'airblade/vim-rooter'
+Plug 'rmagatti/auto-session'
 
 " Python
 Plug 'danymat/neogen'

@@ -58,7 +58,7 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {"%{fnamemodify(v:this_session,':t')}"},
+    lualine_c = {require('auto-session-library').current_session_name},
     lualine_x = {'filename'},
     lualine_y = {'fileformat', 'filetype'},
     lualine_z = {'location'}

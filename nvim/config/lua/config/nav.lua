@@ -1,3 +1,8 @@
+require('auto-session').setup({
+      log_level = 'info',
+      auto_session_suppress_dirs = {'~/'}
+    })
+
 require('nvim-tree').setup {
   update_cwd = true,
   respect_buf_cwd = true,
