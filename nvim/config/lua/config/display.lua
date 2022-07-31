@@ -10,21 +10,22 @@ require('bufferline').setup {
 }
 
 require("catppuccin").setup({
+  transparent_background = false,
   integrations = {
     treesitter = true,
     native_lsp = {
       enabled = true,
       virtual_text = {
-        errors = "italic",
-        hints = "italic",
-        warnings = "italic",
-        information = "italic",
+        errors = {"italic"},
+        hints = {"italic"},
+        warnings = {"italic"},
+        information = {"italic"},
       },
       underlines = {
-        errors = "underline",
-        hints = "underline",
-        warnings = "underline",
-        information = "underline",
+        errors = {"underline"},
+        hints = {"underline"},
+        warnings = {"underline"},
+        information = {"underline"},
       },
     },
     cmp = true,
@@ -43,6 +44,7 @@ require("catppuccin").setup({
     dashboard = true,
     bufferline = true,
     notify = true,
+    vimwiki = true,
   },
 })
 

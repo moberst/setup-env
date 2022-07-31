@@ -166,11 +166,11 @@ if has("termguicolors")
 	set termguicolors
 endif
 
-let g:catppuccin_flavour = "macchiato" " latte, frappe, macchiato, mocha
-colorscheme catppuccin
+" let g:catppuccin_flavour = "macchiato" " latte, frappe, macchiato, mocha
+" colorscheme catppuccin
 
-" let g:tokyonight_style = "storm"
-" colorscheme tokyonight
+let g:tokyonight_style = "storm"
+colorscheme tokyonight
 
 " Sweet search options!
 set incsearch
