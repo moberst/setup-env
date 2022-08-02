@@ -67,6 +67,7 @@ Plug 'folke/which-key.nvim'
 Plug 'xiyaowong/nvim-transparent'
 Plug 'Pocco81/true-zen.nvim'
 Plug 'folke/twilight.nvim'
+Plug 'p00f/nvim-ts-rainbow'
 
 " Rooter
 Plug 'airblade/vim-rooter'
