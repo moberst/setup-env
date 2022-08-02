@@ -3,7 +3,6 @@
 require('dap-python').setup()
 require('dap-python').test_runner = "pytest"
 require('nvim-dap-virtual-text').setup({commented = true})
-require('dapui').setup()
 
 local dap_breakpoint = {
   error = {
