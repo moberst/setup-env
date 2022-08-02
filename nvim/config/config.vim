@@ -143,6 +143,8 @@ let g:ale_linters_explicit = 1  " Only run for the specified linters, no python
 " Diffview
 nnoremap <silent><leader>gdo :DiffviewOpen<CR>
 nnoremap <silent><leader>gdc :DiffviewClose<CR>
+nnoremap <silent><leader>gho :DiffviewFileHistory %<CR>
+nnoremap <silent><leader>ghc :DiffviewClose<CR>
 
 " Diagnostics
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
@@ -286,8 +288,6 @@ nnoremap <leader>ca :BufOnly<cr>
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
-" Enable folding with the ,
-nnoremap , za
 
 " Latex setup
 au BufNewFile,BufRead *.tex
@@ -335,6 +335,8 @@ nnoremap <leader>ja <cmd>lua require("harpoon.mark").add_file()<cr>
 nnoremap <leader>jt <cmd>Telescope harpoon marks<cr>
 nnoremap <leader>jn <cmd>lua require("harpoon.ui").nav_next()<cr>
 nnoremap <leader>jp <cmd>lua require("harpoon.ui").nav_prev()<cr>
+
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 lua << EOF
 require("config")
