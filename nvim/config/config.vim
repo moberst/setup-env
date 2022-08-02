@@ -66,6 +66,8 @@ Plug 'akinsho/toggleterm.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/which-key.nvim'
 Plug 'xiyaowong/nvim-transparent'
+Plug 'Pocco81/true-zen.nvim'
+Plug 'folke/twilight.nvim'
 
 " Rooter
 Plug 'airblade/vim-rooter'

@@ -72,6 +72,7 @@ require("trouble").setup()
 require("fidget").setup()
 require("colorizer").setup()
 require("todo-comments").setup()
+require("twilight").setup()
 
 local Hydra = require('hydra')
 Hydra({

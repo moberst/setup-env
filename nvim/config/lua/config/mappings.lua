@@ -64,3 +64,20 @@ wk.register({
     h = { "<cmd>Gitsigns next_hunk<cr>", "[h]unk" },
   },
 })
+
+wk.register({
+  ["<leader>z"] = {
+    name = "+[z]en mode",
+    n = { "<cmd>TZNarrow<cr>", "[n]arrow" },
+    f = { "<cmd>TZFocus<cr>", "[f]ocus" },
+    m = { "<cmd>TZMinimalist<cr>", "[m]inimalist" },
+    a = { "<cmd>TZAtaraxis<cr>", "[a]taraxis" },
+  },
+}, {mode = 'n'})
+
+wk.register({
+  ["<leader>z"] = {
+    name = "+[z]en mode",
+    n = { "<cmd>TZNarrow<cr>", "[n]arrow" },
+  },
+}, {mode = 'v'})
