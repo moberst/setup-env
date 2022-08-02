@@ -11,7 +11,6 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " Navigation
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
 Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
@@ -135,7 +134,6 @@ if has("persistent_undo")
     set undofile
 endif
 
-map <C-T> :NvimTreeToggle<CR>
 let g:rooter_patterns = ['.git', 'index.wiki']
 
 let g:ale_linters = {'tex': ['chktex']}

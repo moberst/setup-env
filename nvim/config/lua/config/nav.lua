@@ -6,19 +6,6 @@ require('auto-session').setup({
 require('session-lens').setup()
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 
-require('nvim-tree').setup {
-  update_cwd = true,
-  respect_buf_cwd = true,
-  view = {
-    mappings = {
-      custom_only = false,
-      list = {
-        { key = "<C-t>", cb = ":NvimTreeToggle<cr>", mode = "n"},
-      },
-    },
-  }
-}
-
 require("telescope").setup {
   extensions = {
     file_browser = {
