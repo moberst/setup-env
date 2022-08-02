@@ -82,6 +82,7 @@ Plug 'lervag/vimtex'
 Plug 'dkarter/bullets.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'preservim/vim-markdown'
+Plug 'godlygeek/tabular'
 
 " Personal management
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
