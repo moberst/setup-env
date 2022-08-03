@@ -150,10 +150,8 @@ disable=abstract-method,
         wrong-import-order,
         xrange-builtin,
         zip-builtin-not-iterating,
-        W0611 # added, bc redundant with flake8
-        E0602 # added, bc redundant with flake8
-        
-
+        W0611, # added, bc redundant with flake8
+        E0602, # added, bc redundant with flake8
 
 [REPORTS]
 
