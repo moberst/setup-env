@@ -45,6 +45,9 @@ require("catppuccin").setup({
     bufferline = true,
     notify = true,
     vimwiki = true,
+    markdown = true,
+    leap = true,
+    ts_rainbow = true,
   },
 })
 
