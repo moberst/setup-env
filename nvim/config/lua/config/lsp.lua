@@ -1,5 +1,3 @@
-local nvim_lsp = require('lspconfig')
-
 local lsp_installer = require("nvim-lsp-installer")
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -101,3 +99,18 @@ require('nvim-treesitter.configs').setup({
     -- termcolors = {} -- table of colour name strings
   }
 })
+
+require("lsp_lines").setup()
+-- Off by default, but the command below will toggle between the two
+vim.diagnostic.config({ virtual_lines = false })
+-- Define command for toggling lsp_lines versus normal mode
+vim.api.nvim_create_user_command(
+  'ToggleLSPLines',
+  function(opts)
+    local new_text = not vim.diagnostic.config().virtual_text
+    local new_lines = not vim.diagnostic.config().virtual_lines
+    vim.diagnostic.config({ virtual_lines = new_lines})
+    vim.diagnostic.config({ virtual_text = new_text })
+  end,
+  {}
+)

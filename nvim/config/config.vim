@@ -107,6 +107,7 @@ Plug 'hrsh7th/cmp-omni'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'kdheepak/cmp-latex-symbols'
 Plug 'onsails/lspkind-nvim'
+Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 
 call plug#end()
 

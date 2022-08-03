@@ -43,6 +43,12 @@ wk.register({
     c = { "<cmd>lua require'dap-python'.test_class()<cr>", "test [c]lass" },
     t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "[t]oggle breakpoint" },
   },
+  ["<leader>t"] = {
+    name = "+[t]oggle",
+    b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "[b]lame" },
+    d = { "<cmd>Gitsigns toggle_deleted<cr>", "[d]eleted" },
+    l = { "<cmd>ToggleLSPLines<cr>", "[l]ine diagnostics" },
+  },
   ["<leader>b"] = {
     name = "+[b]ufferline",
     o = { "<cmd>BufferLinePick<cr>", "[o]pen (pick)" },
