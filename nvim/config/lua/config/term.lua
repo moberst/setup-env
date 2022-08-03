@@ -13,6 +13,7 @@ require("toggleterm").setup{
   persist_size = true,
   direction = 'horizontal',
   close_on_exit = true,
+  shade_terminals = true,
 }
 
 function _G.set_terminal_keymaps()
