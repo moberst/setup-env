@@ -4,7 +4,7 @@ require('auto-session').setup({
     })
 
 require('session-lens').setup()
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,globals"
 
 require("telescope").setup {
   extensions = {

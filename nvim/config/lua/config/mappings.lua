@@ -53,8 +53,8 @@ wk.register({
     name = "+[b]ufferline",
     o = { "<cmd>BufferLinePick<cr>", "[o]pen (pick)" },
     d = { "<cmd>BufferLinePickClose<cr>", "[d]elete (pick)" },
-    l = { "<cmd>BufferLineMovePrev<cr>", "move (right)" },
-    h = { "<cmd>BufferLineMoveNext<cr>", "move (left)" },
+    h = { "<cmd>BufferLineMovePrev<cr>", "move (left)" },
+    l = { "<cmd>BufferLineMoveNext<cr>", "move (right)" },
   },
   ["<leader>q"] = { "<cmd>call ToggleQuickfixList()<CR>", "[q]flist toggle"},
   ["["] = {
