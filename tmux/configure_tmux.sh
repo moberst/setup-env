@@ -5,5 +5,5 @@ if [ ! -d ~/.tmux/plugins/tpm ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
-cat tmux_tokyonight.conf tmux.conf > $HOME/.tmux.conf
-# cat tmux_catppuccin.conf tmux.conf > $HOME/.tmux.conf
+# cat tmux_tokyonight.conf tmux.conf > $HOME/.tmux.conf
+cat tmux_catppuccin.conf tmux.conf > $HOME/.tmux.conf
