@@ -44,10 +44,10 @@ Plug 'moberst/vim-snippets' " My custom snippets
 Plug 'dense-analysis/ale'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'folke/trouble.nvim'
-Plug 'vim-test/vim-test'
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'nvim-neotest/neotest'
 Plug 'nvim-neotest/neotest-python'
+Plug 'andythigpen/nvim-coverage'
 Plug 'j-hui/fidget.nvim'
 
 " Debugging

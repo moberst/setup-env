@@ -3,3 +3,11 @@ require("neotest").setup({
     require("neotest-python")
   },
 })
+
+require("coverage").setup({
+	signs = {
+		-- use your own highlight groups or text markers
+		covered = { hl = "CoverageCovered", text = "▎" },
+		uncovered = { hl = "CoverageUcovered", text = "❌" },
+	},
+})

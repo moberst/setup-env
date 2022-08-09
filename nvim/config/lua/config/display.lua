@@ -9,6 +9,7 @@ require('bufferline').setup {
   },
 }
 
+local colors = require("catppuccin.palettes").get_palette()
 require("catppuccin").setup({
   transparent_background = true,
   integrations = {
@@ -48,6 +49,10 @@ require("catppuccin").setup({
     markdown = true,
     leap = true,
     ts_rainbow = true,
+    custom_highlights = {
+      CoverageCovered = { fg = colors.green },
+      CoverageUcovered = { fg = colors.red },
+    }
   },
 })
 
