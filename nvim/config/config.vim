@@ -11,7 +11,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " Navigation
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'moberst/telescope.nvim' " Get my custom version to get local commands
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
