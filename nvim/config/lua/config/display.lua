@@ -10,7 +10,7 @@ require('bufferline').setup {
 }
 
 require("catppuccin").setup({
-  transparent_background = false,
+  transparent_background = true,
   integrations = {
     treesitter = true,
     native_lsp = {
@@ -85,7 +85,7 @@ require("todo-comments").setup({
       alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
       -- signs = false, -- configure signs for some keywords individually
     },
-    TODO = { icon = " ", color = "info" },
+    TODO = { icon = " ", color = "info" },
     HACK = { icon = " ", color = "warning" },
     WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
     PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
@@ -98,7 +98,7 @@ require("todo-comments").setup({
   -- * after: highlights after the keyword (todo text)
   highlight = {
     before = "", -- "fg" or "bg" or empty
-    keyword = "wide", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+    keyword = "bg", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
     after = "fg", -- "fg" or "bg" or empty
     pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlightng (vim regex)
     comments_only = true, -- uses treesitter to match keywords in comments only
