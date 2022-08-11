@@ -43,7 +43,6 @@ Plug 'moberst/vim-snippets' " My custom snippets
 " Linting and testing
 Plug 'dense-analysis/ale'
 Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'folke/trouble.nvim'
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'nvim-neotest/neotest'
 Plug 'nvim-neotest/neotest-python'
@@ -144,9 +143,6 @@ nnoremap <silent><leader>gdo :DiffviewOpen<CR>
 nnoremap <silent><leader>gdc :DiffviewClose<CR>
 nnoremap <silent><leader>gho :DiffviewFileHistory %<CR>
 nnoremap <silent><leader>ghc :DiffviewClose<CR>
-
-" Diagnostics
-nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " Setup for snippets
 let g:UltiSnipsExpandTrigger = "<c-j>"
@@ -290,13 +286,6 @@ au BufNewFile,BufRead *.tex
     \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
     \ let maplocalleader="\\" |
     \ set colorcolumn=0
-
-" Trouble toggle quickfix
-nnoremap <leader>xx <cmd>TroubleToggle<cr>
-nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
-nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
-nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 
 " Override default VIM (see /usr/share/nvim/runtime/ftplugin/python.vim) by
 " setting this to zero.  Otherwise, this enforces:

@@ -76,7 +76,6 @@ require('lualine').setup {
 }
 
 require("diffview").setup()
-require("trouble").setup()
 require("fidget").setup()
 require("colorizer").setup()
 require("todo-comments").setup({

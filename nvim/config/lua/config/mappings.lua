@@ -17,11 +17,12 @@ wk.register({
     l = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "[l]ocal string" },
     d = { "<cmd>Telescope lsp_workspace_symbols<cr>", "[d]efinitions" },
     r = { "<cmd>Telescope lsp_references<cr>", "[r]eferences (under cursor)" },
-    o = { "<cmd>TodoTelescope<cr>", "t[o]do" },
+    i = { "<cmd>Telescope diagnostics<cr>", "d[i]agnostics" },
     t = { "<cmd>Telescope tags<cr>", "[t]ags" },
     c = { "<cmd>Telescope commands<cr>", "[c]ommands" },
     m = { "<cmd>Telescope media_files<cr>", "[m]edia files" },
     h = { "<cmd>Telescope help_tags<cr>", "[h]elp" },
+    o = { "<cmd>TodoTelescope<cr>", "t[o]do" },
     z = {	"<cmd>lua require'telescope'.extensions.zoxide.list{}<CR>", "[z]oxide"}
   },
   ["<leader>r"] = {
