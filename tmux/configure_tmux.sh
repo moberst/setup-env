@@ -6,4 +6,5 @@ if [ ! -d ~/.tmux/plugins/tpm ]; then
 fi
 
 # cat tmux_tokyonight.conf tmux.conf > $HOME/.tmux.conf
-cat tmux_catppuccin.conf tmux.conf > $HOME/.tmux.conf
+cat ./themes/tmux_catppuccin.conf tmux.conf > $HOME/.tmux.conf
+cp ./layouts/driver.yml $HOME/.config/tmuxinator/driver.yml
