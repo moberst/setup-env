@@ -3,13 +3,16 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Neovim Basics
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
+" TODO: Switch this to mason.nvim
 Plug 'williamboman/nvim-lsp-installer',
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+
+" Treesitter augmentations 
 Plug 'romgrk/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
-" Navigation
+" Telescope and file navigation
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.*' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -17,7 +20,8 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'jvgrootveld/telescope-zoxide'
 Plug 'nanotee/zoxide.vim'
-Plug 'anuvyklack/hydra.nvim'
+
+" Buffer navigation
 Plug 'ggandor/leap.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'folke/todo-comments.nvim'
@@ -57,6 +61,7 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'rcarriga/nvim-dap-ui'
 
 " Display
+Plug 'anuvyklack/hydra.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
