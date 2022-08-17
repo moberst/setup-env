@@ -28,6 +28,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch' " UNIX Shell commands
+Plug 'windwp/nvim-autopairs'
 Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
 Plug 'lambdalisue/suda.vim' " Sudo Save
 Plug 'mbbill/undotree'
