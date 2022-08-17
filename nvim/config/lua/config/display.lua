@@ -10,7 +10,7 @@ require('bufferline').setup {
 }
 
 require("catppuccin").setup({
-  transparent_background = true,
+  transparent_background = false,
   integrations = {
     treesitter = true,
     native_lsp = {
