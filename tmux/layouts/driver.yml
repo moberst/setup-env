@@ -49,11 +49,9 @@ windows:
       layout: 8263,248x69,0,0{119x69,0,0,0,128x69,120,0[128x30,120,0,3,128x7,120,31,4,128x30,120,39{104x30,120,39,5,23x30,225,39,6}]}
       panes:
         - vim
-        - watch timew sum :ids
+        - watch 'timew sum :ids | tail -f -n 30'
         - watch timew
         - task
         - watch bash ~/Dropbox/org/tracker/summarize.sh
   - work:
-  - config: 
-    - cd ~/repos/setup-env/nvim
-    - ^L
+  - config: cd ~/repos/setup-env/nvim
