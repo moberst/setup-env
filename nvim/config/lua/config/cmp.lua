@@ -51,6 +51,15 @@ cmp.setup.cmdline(':', {
   })
 })
 
+-- Set up filetypes 
+cmp.setup.filetype('vimwiki', {
+  sources = cmp.config.sources({
+    { name = 'ultisnips' },
+  }, {
+    { name = 'omni' },
+  }),
+})
+
 -- Autopairs
 cmp.event:on(
   'confirm_done',
