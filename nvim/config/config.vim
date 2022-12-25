@@ -332,6 +332,9 @@ nnoremap <leader>jp <cmd>lua require("harpoon.ui").nav_prev()<cr>
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+" Wipe out all registers
+command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
+
 lua << EOF
 require("config")
 EOF
