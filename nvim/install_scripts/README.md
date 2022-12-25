@@ -1,8 +1,5 @@
-# Installation
+# Installing Neovim
 
-To download and install stable, run the following
-* `get_stable.sh`
-* `install_stable.sh`
+Just go to the releases page and download the latest stable binary.
 
-Replace `_stable` with `_nightly` for the nightly version.  Remember to modify your `.bashrc` file as well.  Run `dependencies.sh` for main deps, and `plugin_dependencies.sh` for plugin deps.
-
+https://github.com/neovim/neovim/releases/tag/stable
