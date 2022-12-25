@@ -6,6 +6,7 @@ wk.register({
   ["<leader><leader>"] = {
     name = "+insert",
     i = { "<cmd>PickIcons<cr>", "[i]cons" },
+    d = { "<cmd>lua require('neogen').generate()<cr>", "[d]ocstring" },
   },
   ["<leader>f"] = {
     name = "+[f]ind",
