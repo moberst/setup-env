@@ -234,6 +234,8 @@ let g:vimwiki_list = [{
 let g:vimwiki_global_ext = 0
 let g:vimwiki_auto_chdir = 1
 let g:vimwiki_folding = 'expr'
+nnoremap <BS> <nop>
+nnoremap q: <nop>
 nmap <leader>wt :VimwikiGenerateTagLinks 
 
 " Copied from documentation, want to let vimwiki open text files in a new tab
