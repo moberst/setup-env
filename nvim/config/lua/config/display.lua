@@ -30,14 +30,16 @@ db.custom_center = {
   }
 
 require('bufferline').setup {
-  offsets = {
-    {
-      filetype = "NvimTree",
-      text = "File Explorer",
-      highlight = "Directory",
-      text_align = "left"
-    }
-  },
+  options = {
+    offsets = {
+      {
+        filetype = "NvimTree",
+        text = "File Explorer",
+        highlight = "Directory",
+        text_align = "left"
+      }
+    },
+  }
 }
 
 require("catppuccin").setup({
