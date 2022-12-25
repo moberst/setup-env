@@ -7,7 +7,7 @@ require("toggleterm").setup{
     end
   end,
   open_mapping = [[<c-\>]],
-  start_in_insert = true,
+  start_in_insert = false,
   insert_mappings = true,
   terminal_mappings = true,
   persist_size = true,

@@ -55,7 +55,7 @@ wk.register({
   ["<leader>b"] = {
     name = "+[b]ufferline",
     o = { "<cmd>BufferLinePick<cr>", "[o]pen (pick)" },
-    d = { "<cmd>BufferLinePickClose<cr>", "[d]elete (pick)" },
+    c = { "<cmd>BufferLinePickClose<cr>", "[c]lose (pick)" },
     h = { "<cmd>BufferLineMovePrev<cr>", "move (left)" },
     l = { "<cmd>BufferLineMoveNext<cr>", "move (right)" },
   },
