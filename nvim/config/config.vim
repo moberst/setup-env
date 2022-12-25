@@ -36,6 +36,7 @@ Plug 'windwp/nvim-autopairs'
 Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
 Plug 'lambdalisue/suda.vim' " Sudo Save
 Plug 'mbbill/undotree'
+Plug 'jbyuki/venn.nvim'
 
 " Icons
 Plug 'stevearc/dressing.nvim'
