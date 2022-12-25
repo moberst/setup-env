@@ -52,4 +52,3 @@ windows:
         - watch 'timew sum :ids | tail -f -n 30'
         - watch bash ~/Dropbox/org/tracker/summarize.sh
   - work:
-  - config: cd ~/repos/setup-env/nvim
