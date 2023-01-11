@@ -76,8 +76,6 @@ Plug 'p00f/nvim-ts-rainbow'
 
 " Rooter
 Plug 'airblade/vim-rooter'
-Plug 'rmagatti/auto-session'
-Plug 'rmagatti/session-lens'
 
 " Python
 Plug 'danymat/neogen'

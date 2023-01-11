@@ -15,10 +15,6 @@ db.custom_center = {
     desc = 'Research Log                        ',
     shortcut = 'SPC w SPC w',
     action ='VimwikiMakeDiaryNote'},
-    {icon = '  ',
-    desc = 'Find session                            ',
-    action =  'Telescope session-lens search_session',
-    shortcut = 'SPC f e'},
     {icon = '  ',
     desc = 'Find  File                              ',
     action = 'Telescope find_files find_command=rg,--hidden,--files',
@@ -96,7 +92,6 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {require('auto-session-library').current_session_name},
     lualine_x = {'filename'},
     lualine_y = {'fileformat', 'filetype'},
     lualine_z = {'location'}
