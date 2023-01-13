@@ -26,11 +26,6 @@ lspconfig.jedi_language_server.setup({
   capabilities = capabilities
 })
 
-lspconfig.sumneko_lua.setup({
-  on_attach = on_attach,
-  capabilities = capabilities
-})
-
 lspconfig.r_language_server.setup({
   on_attach = on_attach,
   capabilities = capabilities
