@@ -19,7 +19,11 @@ wk.register({
     r = { "<cmd>Telescope lsp_references<cr>", "[r]eferences (under cursor)" },
     i = { "<cmd>Telescope diagnostics<cr>", "d[i]agnostics" },
     t = { "<cmd>Telescope tags<cr>", "[t]ags" },
-    w = { "<cmd>cd $HOME/Dropbox/research/wiki<cr><cmd>lua require'telescope.builtin'.tags({ctags_file='$HOME/Dropbox/research/wiki/.vimwiki_tags'})<cr>", "[w]iki tags" },
+    w = {
+      name = "+[w]iki tags",
+      ['1'] =  { "<cmd>cd $HOME/Dropbox/research/wiki<cr><cmd>lua require'telescope.builtin'.tags({ctags_file='$HOME/Dropbox/research/wiki/.vimwiki_tags'})<cr>", "Research" },
+      ['2'] =  { "<cmd>cd $HOME/.notes/log/wiki<cr><cmd>lua require'telescope.builtin'.tags({ctags_file='$HOME/.notes/log/wiki/.vimwiki_tags'})<cr>", "Reflection" },
+    },
     c = { "<cmd>Telescope commands<cr>", "[c]ommands" },
     m = { "<cmd>Telescope media_files<cr>", "[m]edia files" },
     h = { "<cmd>Telescope help_tags<cr>", "[h]elp" },
