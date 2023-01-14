@@ -90,6 +90,7 @@ Plug 'godlygeek/tabular'
 " Personal management
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'mickael-menu/zk-nvim'
 
 " Git integrations
 Plug 'tpope/vim-fugitive'

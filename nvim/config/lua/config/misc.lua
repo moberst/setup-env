@@ -1,3 +1,5 @@
+require("zk").setup()
+
 require("neogen").setup {
     enabled = true,
     languages = {
