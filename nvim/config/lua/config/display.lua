@@ -38,6 +38,19 @@ require('bufferline').setup {
   }
 }
 
+-- require('bufferline').setup {
+--   options = {
+--     offsets = {
+--       {
+--         filetype = "NvimTree",
+--         text = "File Explorer",
+--         highlight = "Directory",
+--         text_align = "left"
+--       }
+--     },
+--   }
+-- }
+
 require("catppuccin").setup({
   transparent_background = false,
   integrations = {
@@ -71,7 +84,7 @@ require("catppuccin").setup({
       colored_indent_levels = false,
     },
     dashboard = true,
-    bufferline = true,
+    -- bufferline = true,
     notify = true,
     vimwiki = true,
     markdown = true,

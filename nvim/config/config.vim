@@ -65,7 +65,7 @@ Plug 'rcarriga/nvim-dap-ui'
 Plug 'anuvyklack/hydra.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'akinsho/bufferline.nvim'
+" Plug 'akinsho/bufferline.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.*' }
 Plug 'norcalli/nvim-colorizer.lua'
