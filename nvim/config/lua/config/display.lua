@@ -1,42 +1,40 @@
 -- require('alpha').setup(require'alpha.themes.dashboard'.config)
 local home = os.getenv('HOME')
 local db = require('dashboard')
--- linux
--- db.preview_command = 'ueberzug'
--- db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
--- db.preview_file_height = 12
--- db.preview_file_width = 80
-db.custom_center = {
-    {icon = '  ',
-    desc = 'New File                                     ',
-    shortcut = 'e',
-    action ='DashboardNewFile'},
-    {icon = 'ﴬ  ',
-    desc = 'Research Log                        ',
-    shortcut = 'SPC w SPC w',
-    action ='VimwikiMakeDiaryNote'},
-    {icon = '  ',
-    desc = 'Find  File                              ',
-    action = 'Telescope find_files find_command=rg,--hidden,--files',
-    shortcut = 'SPC f f'},
-    {icon = '  ',
-    desc = 'Find  string                            ',
-    action = 'Telescope live_grep',
-    shortcut = 'SPC f s'},
-  }
 
-require('bufferline').setup {
-  options = {
-    offsets = {
+db.setup({
+  theme = 'hyper',
+  config = {
+    shortcut = {
       {
-        filetype = "NvimTree",
-        text = "File Explorer",
-        highlight = "Directory",
-        text_align = "left"
-      }
+        desc= '  New File',
+        key = 'e',
+        action ='enew'
+      },
+      {
+        desc= 'ﴬ  Research Log',
+        key = 'w',
+        action ='1VimwikiMakeDiaryNote'
+      },
+      {
+        desc= 'ﴬ  Reflection',
+        key = 'r',
+        action ='2VimwikiMakeDiaryNote'
+      },
+      {
+        desc= 'Quit',
+        key = 'q',
+        action ='q'
+      },
     },
+    project = {
+      limit = 0
+    },
+    mru = {
+      limit = 5
+    }
   }
-}
+})
 
 -- require('bufferline').setup {
 --   options = {
