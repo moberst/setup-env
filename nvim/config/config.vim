@@ -55,12 +55,6 @@ Plug 'nvim-neotest/neotest-python'
 Plug 'andythigpen/nvim-coverage'
 Plug 'j-hui/fidget.nvim'
 
-" Debugging
-Plug 'mfussenegger/nvim-dap'
-Plug 'mfussenegger/nvim-dap-python'
-Plug 'theHamsta/nvim-dap-virtual-text'
-Plug 'rcarriga/nvim-dap-ui'
-
 " Display
 Plug 'anuvyklack/hydra.nvim'
 Plug 'glepnir/dashboard-nvim'
