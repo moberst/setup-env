@@ -23,7 +23,6 @@ Plug 'nanotee/zoxide.vim'
 
 " Buffer navigation
 Plug 'ggandor/leap.nvim'
-Plug 'ThePrimeagen/harpoon'
 Plug 'folke/todo-comments.nvim'
 
 " Editing
@@ -34,9 +33,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch' " UNIX Shell commands
 Plug 'windwp/nvim-autopairs'
 Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
-Plug 'lambdalisue/suda.vim' " Sudo Save
 Plug 'mbbill/undotree'
-Plug 'jbyuki/venn.nvim'
 
 " Icons
 Plug 'stevearc/dressing.nvim'
