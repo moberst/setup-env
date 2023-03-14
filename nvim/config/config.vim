@@ -137,6 +137,7 @@ let g:rooter_patterns = ['.git', 'index.wiki']
 
 let g:ale_linters = {'tex': ['chktex']}
 let g:ale_linters_explicit = 1  " Only run for the specified linters, no python
+let g:ale_use_neovim_diagnostics_api = 1
 " Diffview
 nnoremap <silent><leader>gdo :DiffviewOpen<CR>
 nnoremap <silent><leader>gdc :DiffviewClose<CR>
