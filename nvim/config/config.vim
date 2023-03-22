@@ -58,12 +58,15 @@ Plug 'glepnir/dashboard-nvim'
 Plug 'nvim-lualine/lualine.nvim'
 " Plug 'akinsho/bufferline.nvim'
 Plug 'kevinhwang91/nvim-bqf'
-Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.*' }
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/which-key.nvim'
 Plug 'Pocco81/true-zen.nvim'
 Plug 'folke/twilight.nvim'
 Plug 'p00f/nvim-ts-rainbow'
+
+" Terminal
+Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.*' }
+Plug 'willothy/flatten.nvim'
 
 " Rooter
 Plug 'airblade/vim-rooter'
