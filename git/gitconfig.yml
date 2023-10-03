@@ -20,3 +20,13 @@
 	diffFilter = diff-so-fancy --patch
 [init]
 	defaultBranch = main
+[http]
+	proxy = http://proxy.cmu.edu:3128
+[https]
+	proxy = http://proxy.cmu.edu:3128
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/moberst/.local/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/moberst/.local/bin/gh auth git-credential
