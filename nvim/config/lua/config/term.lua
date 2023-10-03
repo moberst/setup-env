@@ -59,6 +59,8 @@ end
 
 vim.api.nvim_set_keymap("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 
+vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>ToggleTerm direction=vertical<CR>", {noremap = true, silent = true})
+
 require("flatten").setup({
   window = {
     open = "current"

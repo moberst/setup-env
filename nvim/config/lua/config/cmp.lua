@@ -11,11 +11,10 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-y>'] = cmp.config.disable,
-    ['<C-e>'] = cmp.mapping.close(),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
   }),
   sources = cmp.config.sources({
@@ -25,7 +24,6 @@ cmp.setup({
     { name = 'nvim_lsp_signature_help' },
   }, {
     { name = 'buffer' },
-    { name = 'omni' },
   }),
   formatting = {
     format = lspkind.cmp_format({
@@ -58,6 +56,14 @@ cmp.setup.filetype('vimwiki', {
   }, {
     { name = 'omni' },
   }),
+})
+
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('yaml', {
+  sources = cmp.config.sources({
+    { name = 'papis' },
+  })
 })
 
 -- Autopairs

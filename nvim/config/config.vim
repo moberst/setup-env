@@ -13,13 +13,14 @@ Plug 'romgrk/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " Telescope and file navigation
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.*' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'jvgrootveld/telescope-zoxide'
 Plug 'nanotee/zoxide.vim'
+Plug 'kevinhwang91/rnvimr'
 
 " Buffer navigation
 Plug 'ggandor/leap.nvim'
@@ -34,6 +35,7 @@ Plug 'tpope/vim-eunuch' " UNIX Shell commands
 Plug 'windwp/nvim-autopairs'
 Plug 'milkypostman/vim-togglelist' " <leader>q to toggle quickfix
 Plug 'mbbill/undotree'
+Plug 'AndrewRadev/linediff.vim'
 
 " Icons
 Plug 'stevearc/dressing.nvim'
@@ -50,7 +52,6 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'nvim-neotest/neotest'
 Plug 'nvim-neotest/neotest-python'
 Plug 'andythigpen/nvim-coverage'
-Plug 'j-hui/fidget.nvim'
 
 " Display
 Plug 'anuvyklack/hydra.nvim'
@@ -103,11 +104,16 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'hrsh7th/cmp-omni'
+" Plug 'hrsh7th/cmp-omni'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'kdheepak/cmp-latex-symbols'
 Plug 'onsails/lspkind-nvim'
 Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+
+" Required files for papis
+Plug 'kkharji/sqlite.lua'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'moberst/papis.nvim'
 
 call plug#end()
 
@@ -231,6 +237,7 @@ let g:vimwiki_auto_chdir = 1
 let g:vimwiki_folding = 'expr'
 nnoremap <BS> <nop>
 nnoremap q: <nop>
+nmap <leader>ww <Plug>VimwikiMakeDiaryNote
 nmap <leader>wt :VimwikiGenerateTagLinks 
 
 " Copied from documentation, want to let vimwiki open text files in a new tab
@@ -356,6 +363,16 @@ if v:version >= 700
     autocmd BufLeave * call AutoSaveWinView()
     autocmd BufEnter * call AutoRestoreWinView()
 endif
+
+" Customize the initial layout
+let g:rnvimr_layout = {
+            \ 'relative': 'editor',
+            \ 'width': float2nr(round(0.9 * &columns)),
+            \ 'height': float2nr(round(0.9 * &lines)),
+            \ 'col': float2nr(round(0.05 * &columns)),
+            \ 'row': float2nr(round(0.05 * &lines)),
+            \ 'style': 'minimal'
+            \ }
 
 
 lua << EOF

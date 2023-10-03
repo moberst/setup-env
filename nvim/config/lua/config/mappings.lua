@@ -11,7 +11,7 @@ wk.register({
   ["<leader>f"] = {
     name = "+[f]ind",
     f = { "<cmd>Telescope find_files<cr>", "[f]ile search" },
-    x = { "<cmd>Telescope file_browser<cr>", "[x] file browser" },
+    x = { "<cmd>RnvimrToggle<cr>", "[x] file browser" },
     b = { "<cmd>Telescope buffers<cr>", "[b]uffers" },
     s = { "<cmd>Telescope live_grep<cr>", "global [s]tring" },
     l = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "[l]ocal string" },
