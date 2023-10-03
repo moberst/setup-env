@@ -110,11 +110,6 @@ Plug 'kdheepak/cmp-latex-symbols'
 Plug 'onsails/lspkind-nvim'
 Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 
-" Required files for papis
-Plug 'kkharji/sqlite.lua'
-Plug 'MunifTanjim/nui.nvim'
-Plug 'moberst/papis.nvim'
-
 call plug#end()
 
 let mapleader = " "
