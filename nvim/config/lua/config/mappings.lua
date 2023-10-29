@@ -63,6 +63,13 @@ wk.register({
     h = { "<cmd>BufferLineMovePrev<cr>", "move (left)" },
     l = { "<cmd>BufferLineMoveNext<cr>", "move (right)" },
   },
+  ["<leader>s"] = {
+    name = "+[s]essions",
+    f = { "<cmd>lua require'nvim-possession'.list()<cr>", "[f]ind session" },
+    n = { "<cmd>lua require'nvim-possession'.new()<cr>", "[n]ew session" },
+    u = { "<cmd>lua require'nvim-possession'.update()<cr>", "[u]pdate session" },
+    d = { "<cmd>lua require'nvim-possession'.delete()<cr>", "[d]elete session" },
+  },
   ["<leader>q"] = { "<cmd>call ToggleQuickfixList()<CR>", "[q]flist toggle"},
   ["["] = {
     name = "+previous",

@@ -1,4 +1,3 @@
--- require('alpha').setup(require'alpha.themes.dashboard'.config)
 local home = os.getenv('HOME')
 local db = require('dashboard')
 
@@ -20,6 +19,11 @@ db.setup({
         desc= 'ﴬ  Reflection',
         key = 'r',
         action ='2VimwikiMakeDiaryNote'
+      },
+      {
+        desc= 'ﴬ  Projects',
+        key = 'p',
+        action ="lua require'nvim-possession'.list()"
       },
       {
         desc= 'Quit',
@@ -103,7 +107,15 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_x = {'filename'},
+    lualine_c = {'filename'},
+    lualine_x = {
+      {
+        "require('nvim-possession').status()",
+        cond = function()
+            return require("nvim-possession").status ~= nil
+        end,
+      },
+    },
     lualine_y = {'fileformat', 'filetype'},
     lualine_z = {'location'}
   },

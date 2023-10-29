@@ -26,6 +26,10 @@ Plug 'kevinhwang91/rnvimr'
 Plug 'ggandor/leap.nvim'
 Plug 'folke/todo-comments.nvim'
 
+" Sessions
+Plug 'ibhagwan/fzf-lua'
+Plug 'gennaro-tedesco/nvim-possession'
+
 " Editing
 Plug 'tomtom/tcomment_vim' 
 Plug 'tpope/vim-surround'
