@@ -16,7 +16,12 @@ db.setup({
         action ='1VimwikiMakeDiaryNote'
       },
       {
-        desc= 'ﴬ  Reflection',
+        desc= 'ﴬ  Research Tags',
+        key = 't',
+        action = "cd /home/moberst/Dropbox/research/wiki | lua require'telescope.builtin'.tags({ctags_file = '/home/moberst/Dropbox/research/wiki/.vimwiki_tags'})"
+      },
+      {
+        desc= 'ﴬ  Reflection Log',
         key = 'r',
         action ='2VimwikiMakeDiaryNote'
       },
