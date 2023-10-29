@@ -212,14 +212,8 @@ let g:vimtex_toc_config = {
 let g:vimtex_compiler_method='latexmk'
 let g:tex_flavor = 'latex'
 let g:vimtex_compiler_latexmk = {
-        \ 'build_dir' : './tex',
-        \ 'options' : [
-        \   '-pdf',
-        \   '-verbose',
-        \   '-file-line-error',
-        \   '-synctex=1',
-        \   '-interaction=nonstopmode',
-        \ ],
+        \ 'out_dir' : './tex',
+        \ 'aux_dir' : './tex',
         \}
 
 nmap <leader>ll :VimtexCompile<CR>
