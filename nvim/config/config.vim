@@ -69,6 +69,7 @@ Plug 'Pocco81/true-zen.nvim'
 Plug 'folke/twilight.nvim'
 Plug 'p00f/nvim-ts-rainbow'
 
+
 " Terminal
 Plug 'akinsho/toggleterm.nvim', { 'tag': 'v2.*' }
 Plug 'willothy/flatten.nvim'
@@ -118,6 +119,10 @@ Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 Plug 'kkharji/sqlite.lua'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'moberst/papis.nvim'
+
+" Notifications
+Plug 'rcarriga/nvim-notify'
+Plug 'folke/noice.nvim'
 
 call plug#end()
 
