@@ -58,6 +58,13 @@ cmp.setup.filetype('vimwiki', {
   }),
 })
 
+cmp.setup.filetype('tex', {
+  sources = cmp.config.sources({
+    { name = 'ultisnips' },
+  }, {
+    { name = 'omni' },
+  }),
+})
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('yaml', {
