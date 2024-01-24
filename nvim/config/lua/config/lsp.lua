@@ -37,6 +37,9 @@ lspconfig.texlab.setup({
 })
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+require("mason-null-ls").setup({
+    handlers = {},
+})
 require('null-ls').setup({
   debug = true,
   on_attach = function(client, bufnr)
@@ -54,25 +57,25 @@ require('null-ls').setup({
   end,
   sources = {
     require('null-ls').builtins.formatting.isort.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/isort',
+      -- command = '/home/moberst/.miniconda3/envs/nvim/bin/isort',
       extra_args = {'--profile=black'},
     }),
-    require('null-ls').builtins.formatting.black.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/black'
-    }),
+    -- require('null-ls').builtins.formatting.black.with({
+    --   command = '/home/moberst/.miniconda3/envs/nvim/bin/black'
+    -- }),
     require('null-ls').builtins.diagnostics.flake8.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/flake8',
+      -- command = '/home/moberst/.miniconda3/envs/nvim/bin/flake8',
       extra_args = {'--config=/home/moberst/.config/flake8'},
     }),
-    require('null-ls').builtins.diagnostics.mypy.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/mypy'
-    }),
+    -- require('null-ls').builtins.diagnostics.mypy.with({
+    --   command = '/home/moberst/.miniconda3/envs/nvim/bin/mypy'
+    -- }),
     require('null-ls').builtins.diagnostics.pylint.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/pylint',
+      -- command = '/home/moberst/.miniconda3/envs/nvim/bin/pylint',
       extra_args = {'--rcfile=/home/moberst/.config/pylintrc'},
     }),
     require('null-ls').builtins.diagnostics.gitlint.with({
-      command = '/home/moberst/.miniconda3/envs/nvim/bin/gitlint',
+      -- command = '/home/moberst/.miniconda3/envs/nvim/bin/gitlint',
       extra_args = {'--config=/home/moberst/.config/gitlint'},
     }),
     require('null-ls').builtins.code_actions.gitsigns,
