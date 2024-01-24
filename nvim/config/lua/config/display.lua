@@ -1,4 +1,3 @@
--- require('alpha').setup(require'alpha.themes.dashboard'.config)
 local home = os.getenv('HOME')
 local db = require('dashboard')
 
@@ -17,9 +16,19 @@ db.setup({
         action ='1VimwikiMakeDiaryNote'
       },
       {
-        desc= 'ﴬ  Reflection',
+        desc= 'ﴬ  Research Tags',
+        key = 't',
+        action = "cd /home/moberst/Dropbox/research/wiki | lua require'telescope.builtin'.tags({ctags_file = '/home/moberst/Dropbox/research/wiki/.vimwiki_tags'})"
+      },
+      {
+        desc= 'ﴬ  Reflection Log',
         key = 'r',
         action ='2VimwikiMakeDiaryNote'
+      },
+      {
+        desc= 'ﴬ  Projects',
+        key = 'p',
+        action ="lua require'nvim-possession'.list()"
       },
       {
         desc= 'Quit',
@@ -103,7 +112,15 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_x = {'filename'},
+    lualine_c = {'filename'},
+    lualine_x = {
+      {
+        "require('nvim-possession').status()",
+        cond = function()
+            return require("nvim-possession").status ~= nil
+        end,
+      },
+    },
     lualine_y = {'fileformat', 'filetype'},
     lualine_z = {'location'}
   },
@@ -195,4 +212,28 @@ require('which-key').setup({
       enabled = true,
     },
   },
+})
+
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false, -- add a border to hover docs and signature help
+  },
+})
+
+require("notify").setup({
+  timeout = 1000,
+  topdown = false,
 })

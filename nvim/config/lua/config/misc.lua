@@ -60,3 +60,9 @@ require("papis").setup({
     norg = "{= %s}",
   },
 })
+
+require("nvim-possession").setup({
+  autoswitch = {
+    enable = true 
+  }
+})
