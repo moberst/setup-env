@@ -1,5 +1,7 @@
 # Python
 
+NOTE: This should be replaced now by using MASON in nvim
+
 Linters:
 * `flake8`: General purpose
 * `pylint`: General purpose
@@ -11,3 +13,4 @@ Fixers:
 
 Config:
 * `pylintrc`: Google version
+

@@ -5,6 +5,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/mason.nvim',
 Plug 'williamboman/mason-lspconfig.nvim',
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'jay-babu/mason-null-ls.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
@@ -51,7 +53,6 @@ Plug 'moberst/vim-snippets' " My custom snippets
 
 " Linting and testing
 Plug 'dense-analysis/ale'
-Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'nvim-neotest/neotest'
 Plug 'nvim-neotest/neotest-python'
