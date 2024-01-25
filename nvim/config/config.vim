@@ -88,6 +88,10 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'preservim/vim-markdown'
 Plug 'godlygeek/tabular'
 
+" Lean
+Plug 'Julian/lean.nvim'
+Plug 'andrewradev/switch.vim'
+
 " Personal management
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 Plug 'powerman/vim-plugin-AnsiEsc'
