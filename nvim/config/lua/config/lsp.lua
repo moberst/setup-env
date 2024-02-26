@@ -1,5 +1,3 @@
-require("mason").setup()
-
 local function on_attach(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
@@ -36,10 +34,19 @@ lspconfig.texlab.setup({
   capabilities = capabilities
 })
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+require("mason").setup()
+
+local null_ls = require 'null-ls'
 require("mason-null-ls").setup({
-    handlers = {},
+    automatic_installation = false,
+    handlers = {
+      ruff = function(source_name, methods)
+        null_ls.register(null_ls.builtins.formatting.ruff)
+        null_ls.register(null_ls.builtins.diagnostics.ruff)
+      end,
+  },
 })
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require('null-ls').setup({
   debug = true,
   on_attach = function(client, bufnr)
@@ -55,33 +62,6 @@ require('null-ls').setup({
           })
       end
   end,
-  sources = {
-    require('null-ls').builtins.formatting.isort.with({
-      -- command = '/home/moberst/.miniconda3/envs/nvim/bin/isort',
-      extra_args = {'--profile=black'},
-    }),
-    -- require('null-ls').builtins.formatting.black.with({
-    --   command = '/home/moberst/.miniconda3/envs/nvim/bin/black'
-    -- }),
-    require('null-ls').builtins.diagnostics.flake8.with({
-      -- command = '/home/moberst/.miniconda3/envs/nvim/bin/flake8',
-      extra_args = {'--config=/home/moberst/.config/flake8'},
-    }),
-    -- require('null-ls').builtins.diagnostics.mypy.with({
-    --   command = '/home/moberst/.miniconda3/envs/nvim/bin/mypy'
-    -- }),
-    require('null-ls').builtins.diagnostics.pylint.with({
-      -- command = '/home/moberst/.miniconda3/envs/nvim/bin/pylint',
-      extra_args = {'--rcfile=/home/moberst/.config/pylintrc'},
-    }),
-    require('null-ls').builtins.diagnostics.gitlint.with({
-      -- command = '/home/moberst/.miniconda3/envs/nvim/bin/gitlint',
-      extra_args = {'--config=/home/moberst/.config/gitlint'},
-    }),
-    require('null-ls').builtins.code_actions.gitsigns,
-    -- This throws too many errors with null-ls
-    -- require('null-ls').builtins.diagnostics.chktex,
-  }
 })
 
 require('treesitter-context').setup()

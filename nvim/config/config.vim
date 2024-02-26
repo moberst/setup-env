@@ -5,10 +5,13 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/mason.nvim',
 Plug 'williamboman/mason-lspconfig.nvim',
-Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'jay-babu/mason-null-ls.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+
+" Null-LS
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'nvimtools/none-ls.nvim'
+Plug 'jay-babu/mason-null-ls.nvim'
 
 " Treesitter augmentations 
 Plug 'romgrk/nvim-treesitter-context'
@@ -161,6 +164,7 @@ let g:rooter_patterns = ['.git', 'index.wiki']
 let g:ale_linters = {'tex': ['chktex']}
 let g:ale_linters_explicit = 1  " Only run for the specified linters, no python
 let g:ale_use_neovim_diagnostics_api = 1
+let g:ale_echo_cursor = 0
 " Diffview
 nnoremap <silent><leader>gdo :DiffviewOpen<CR>
 nnoremap <silent><leader>gdc :DiffviewClose<CR>
