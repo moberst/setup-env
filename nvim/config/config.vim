@@ -2,14 +2,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Neovim Basics
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/mason.nvim',
-Plug 'williamboman/mason-lspconfig.nvim',
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
 " Null-LS
-Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'williamboman/mason.nvim',
+Plug 'williamboman/mason-lspconfig.nvim',
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvimtools/none-ls.nvim'
 Plug 'jay-babu/mason-null-ls.nvim'
 

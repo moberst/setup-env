@@ -16,36 +16,28 @@ local function on_attach(client, bufnr)
 
 end
 
-local lspconfig = require("lspconfig")
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.jedi_language_server.setup({
-  on_attach = on_attach,
-  capabilities = capabilities
-})
-
-lspconfig.r_language_server.setup({
-  on_attach = on_attach,
-  capabilities = capabilities
-})
-
-lspconfig.texlab.setup({
-  on_attach = on_attach,
-  capabilities = capabilities
-})
-
 require("mason").setup()
-
-local null_ls = require 'null-ls'
-require("mason-null-ls").setup({
-    automatic_installation = false,
-    handlers = {
-      ruff = function(source_name, methods)
-        null_ls.register(null_ls.builtins.formatting.ruff)
-        null_ls.register(null_ls.builtins.diagnostics.ruff)
-      end,
+require("mason-lspconfig").setup({
+  ensure_installed = { 
+    'ruff_lsp' 
   },
 })
+
+local lspconfig = require("lspconfig")
+lspconfig.ruff_lsp.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+require("mason-null-ls").setup({
+  ensure_installed = {
+    "black", "isort", 
+  },
+  handlers = {},
+})
+
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require('null-ls').setup({
   debug = true,
@@ -56,7 +48,6 @@ require('null-ls').setup({
               group = augroup,
               buffer = bufnr,
               callback = function()
-                  -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
                   vim.lsp.buf.format({ bufnr = bufnr })
               end,
           })
