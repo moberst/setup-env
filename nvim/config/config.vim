@@ -104,7 +104,6 @@ Plug 'mickael-menu/zk-nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
-Plug 'pwntester/octo.nvim'
 
 " Theme
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
