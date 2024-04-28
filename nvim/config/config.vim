@@ -57,9 +57,9 @@ Plug 'moberst/vim-snippets' " My custom snippets
 " Linting and testing
 Plug 'dense-analysis/ale'
 Plug 'antoinemadec/FixCursorHold.nvim'
-Plug 'nvim-neotest/neotest'
-Plug 'nvim-neotest/neotest-python'
-Plug 'andythigpen/nvim-coverage'
+" Plug 'nvim-neotest/neotest'
+" Plug 'nvim-neotest/neotest-python'
+" Plug 'andythigpen/nvim-coverage'
 
 " Display
 Plug 'anuvyklack/hydra.nvim'
@@ -91,10 +91,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'preservim/vim-markdown'
 Plug 'godlygeek/tabular'
 
-" Lean
-Plug 'Julian/lean.nvim'
-Plug 'andrewradev/switch.vim'
-
 " Personal management
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 Plug 'powerman/vim-plugin-AnsiEsc'
@@ -104,7 +100,6 @@ Plug 'mickael-menu/zk-nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
-Plug 'pwntester/octo.nvim'
 
 " Theme
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
