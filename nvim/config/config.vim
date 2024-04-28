@@ -335,11 +335,6 @@ au TermOpen * setlocal nospell
 let python_highlight_all=1
 syntax on
 
-nnoremap <leader>ja <cmd>lua require("harpoon.mark").add_file()<cr>
-nnoremap <leader>jt <cmd>Telescope harpoon marks<cr>
-nnoremap <leader>jn <cmd>lua require("harpoon.ui").nav_next()<cr>
-nnoremap <leader>jp <cmd>lua require("harpoon.ui").nav_prev()<cr>
-
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " Wipe out all registers
