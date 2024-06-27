@@ -24,7 +24,6 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'jvgrootveld/telescope-zoxide'
 Plug 'nanotee/zoxide.vim'
-Plug 'kevinhwang91/rnvimr'
 
 " Buffer navigation
 Plug 'ggandor/leap.nvim'
@@ -56,15 +55,11 @@ Plug 'moberst/vim-snippets' " My custom snippets
 " Linting and testing
 Plug 'dense-analysis/ale'
 Plug 'antoinemadec/FixCursorHold.nvim'
-" Plug 'nvim-neotest/neotest'
-" Plug 'nvim-neotest/neotest-python'
-" Plug 'andythigpen/nvim-coverage'
 
 " Display
 Plug 'anuvyklack/hydra.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'nvim-lualine/lualine.nvim'
-" Plug 'akinsho/bufferline.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/which-key.nvim'
@@ -132,7 +127,7 @@ let mapleader = " "
 set sessionoptions+=globals
 
 " Source for python
-let g:python3_host_prog='/home/moberst/.miniconda3/envs/nvim/bin/python3'
+let g:python3_host_prog='/home/moberst/.pyenv/versions/nvim/bin/python3'
 
 " Setup for neovim remote 
 if has('nvim') && executable('nvr')
@@ -365,17 +360,6 @@ if v:version >= 700
     autocmd BufLeave * call AutoSaveWinView()
     autocmd BufEnter * call AutoRestoreWinView()
 endif
-
-" Customize the initial layout
-let g:rnvimr_layout = {
-            \ 'relative': 'editor',
-            \ 'width': float2nr(round(0.9 * &columns)),
-            \ 'height': float2nr(round(0.9 * &lines)),
-            \ 'col': float2nr(round(0.05 * &columns)),
-            \ 'row': float2nr(round(0.05 * &lines)),
-            \ 'style': 'minimal'
-            \ }
-
 
 lua << EOF
 require("config")

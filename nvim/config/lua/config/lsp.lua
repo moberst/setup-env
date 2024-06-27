@@ -32,9 +32,6 @@ lspconfig.ruff_lsp.setup({
 })
 
 require("mason-null-ls").setup({
-  ensure_installed = {
-    "black", "isort", 
-  },
   handlers = {},
 })
 
