@@ -1,4 +1,4 @@
-format = """$conda\
+format = """$python\
 $time\
 $username\
 $hostname\
@@ -19,6 +19,12 @@ add_newline = false
 
 [sudo]
 disabled = false
+
+[python]
+symbol = '👾 '
+pyenv_version_name = true
+style = 'bold green'
+format = '\([${symbol}${pyenv_prefix}(${version})]($style)\) '
 
 [time]
 disabled = true
