@@ -30,12 +30,12 @@ wk.register({
     o = { "<cmd>TodoTelescope<cr>", "t[o]do" },
     z = {	"<cmd>lua require'telescope'.extensions.zoxide.list{}<CR>", "[z]oxide"}
   },
-  ["<leader>r"] = {
-    name = "+[r]un tests",
-    r = { ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>", "[r]un tests"},
-    v = { ":lua require('neotest').output.open({enter = true})<CR>", "[v]iew output"},
-    s = { ":lua require('neotest').summary.toggle()<CR>", "[s]ummary" },
-  },
+  -- ["<leader>r"] = {
+  --   name = "+[r]un tests",
+  --   r = { ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>", "[r]un tests"},
+  --   v = { ":lua require('neotest').output.open({enter = true})<CR>", "[v]iew output"},
+  --   s = { ":lua require('neotest').summary.toggle()<CR>", "[s]ummary" },
+  -- },
   ["<leader>d"] = {
     name = "+[d]ebug",
     s = { "<cmd>lua require'dap'.continue()<cr>", "[s]tart/continue" },

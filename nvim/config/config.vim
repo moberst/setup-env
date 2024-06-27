@@ -56,9 +56,9 @@ Plug 'moberst/vim-snippets' " My custom snippets
 " Linting and testing
 Plug 'dense-analysis/ale'
 Plug 'antoinemadec/FixCursorHold.nvim'
-Plug 'nvim-neotest/neotest'
-Plug 'nvim-neotest/neotest-python'
-Plug 'andythigpen/nvim-coverage'
+" Plug 'nvim-neotest/neotest'
+" Plug 'nvim-neotest/neotest-python'
+" Plug 'andythigpen/nvim-coverage'
 
 " Display
 Plug 'anuvyklack/hydra.nvim'
@@ -89,10 +89,6 @@ Plug 'dkarter/bullets.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'preservim/vim-markdown'
 Plug 'godlygeek/tabular'
-
-" Lean
-Plug 'Julian/lean.nvim'
-Plug 'andrewradev/switch.vim'
 
 " Personal management
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
@@ -227,6 +223,7 @@ let g:vimtex_toc_config = {
 
 let g:vimtex_compiler_method='latexmk'
 let g:tex_flavor = 'latex'
+let g:vimtex_compiler_latexmk_engines = {'_' : '-lualatex'}
 let g:vimtex_compiler_latexmk = {
         \ 'out_dir' : './tex',
         \ 'aux_dir' : './tex',
@@ -336,11 +333,6 @@ au TermOpen * setlocal nospell
 
 let python_highlight_all=1
 syntax on
-
-nnoremap <leader>ja <cmd>lua require("harpoon.mark").add_file()<cr>
-nnoremap <leader>jt <cmd>Telescope harpoon marks<cr>
-nnoremap <leader>jn <cmd>lua require("harpoon.ui").nav_next()<cr>
-nnoremap <leader>jp <cmd>lua require("harpoon.ui").nav_prev()<cr>
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
