@@ -127,7 +127,7 @@ require('lualine').setup {
 }
 
 require("diffview").setup()
-require("colorizer").setup()
+--require("colorizer").setup()
 require("todo-comments").setup({
   signs = true, -- show icons in the signs column
   sign_priority = 8, -- sign priority
