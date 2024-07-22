@@ -61,7 +61,7 @@ Plug 'anuvyklack/hydra.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kevinhwang91/nvim-bqf'
-Plug 'norcalli/nvim-colorizer.lua'
+" Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/which-key.nvim'
 Plug 'Pocco81/true-zen.nvim'
 Plug 'folke/twilight.nvim'
@@ -125,9 +125,6 @@ call plug#end()
 
 let mapleader = " "
 set sessionoptions+=globals
-
-" Source for python
-let g:python3_host_prog='/home/moberst/.pyenv/versions/nvim/bin/python3'
 
 " Setup for neovim remote 
 if has('nvim') && executable('nvr')
@@ -218,7 +215,7 @@ let g:vimtex_toc_config = {
 
 let g:vimtex_compiler_method='latexmk'
 let g:tex_flavor = 'latex'
-let g:vimtex_compiler_latexmk_engines = {'_' : '-lualatex'}
+" let g:vimtex_compiler_latexmk_engines = {'_' : '-lualatex'}
 let g:vimtex_compiler_latexmk = {
         \ 'out_dir' : './tex',
         \ 'aux_dir' : './tex',
@@ -362,6 +359,8 @@ if v:version >= 700
 endif
 
 lua << EOF
+vim.g.python3_host_prog = vim.fn.expand('$HOME/.pyenv/versions/nvim/bin/python3')
+
 require("config")
 EOF
 
