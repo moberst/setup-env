@@ -14,6 +14,18 @@ local function on_attach(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 
+  if client.supports_method("textDocument/formatting") then
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+          group = augroup,
+          buffer = bufnr,
+          callback = function()
+              vim.lsp.buf.format({ bufnr = bufnr })
+          end,
+      })
+  end 
+
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -21,35 +33,42 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = { 
-    'ruff_lsp' 
+    'ruff',
+    'pylsp',
   },
 })
 
 local lspconfig = require("lspconfig")
-lspconfig.ruff_lsp.setup({
+lspconfig.ruff.setup({
+    cmd_env = { RUFF_TRACE = "messages" },
+    init_options = {
+      logLevel = "debug",
+  },
     on_attach = on_attach,
     capabilities = capabilities,
 })
-
+lspconfig.pylsp.setup {
+  settings = {
+    -- See https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+    pylsp = {
+      plugins = {
+        autopep8 = { enabled = false },
+        flake8 = { enabled = false },
+        pycodestyle = { enabled = false },
+        pydocstyle = { enabled = false },
+        pyflakes = { enabled = false },
+        pylint = { enabled = false },
+        yapf = { enabled = false },
+        }
+      }
+    }
+  }
 require("mason-null-ls").setup({
   handlers = {},
 })
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require('null-ls').setup({
   debug = true,
-  on_attach = function(client, bufnr)
-      if client.supports_method("textDocument/formatting") then
-          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-          vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                  vim.lsp.buf.format({ bufnr = bufnr })
-              end,
-          })
-      end
-  end,
 })
 
 require('treesitter-context').setup()
