@@ -186,26 +186,6 @@ require("todo-comments").setup({
 
 require("twilight").setup()
 
-local Hydra = require('hydra')
-Hydra({
-	name = "Resize Window",
-	mode = { "n" },
-	body = "<C-w>",
-	config = {},
-	heads = {
-		-- resizing window
-		{ "<", "<C-w>3<" },
-		{ ">", "<C-w>3>" },
-		{ "+", "<C-w>2+" },
-		{ "-", "<C-w>2-" },
-
-		-- exit this Hydra
-		{ "q", nil, { exit = true, nowait = true } },
-		{ ";", nil, { exit = true, nowait = true } },
-		{ "<Esc>", nil, { exit = true, nowait = true } },
-	},
-})
-
 require('which-key').setup({
   plugins = {
     spelling = {
