@@ -1,5 +1,6 @@
 [user]
 	name = Michael Oberst
+  email = michael.k.oberst@gmail.com
 [alias]
 	st = status
 	ci = commit
@@ -8,14 +9,11 @@
 [core]
 	editor = nvim
 	fileMode = false
-	pager = diff-so-fancy | less --tabs=4 -RFX
 [push]
 	default = simple
 [credential]
 	helper = cache
 [pull]
 	rebase = false
-[interactive]
-	diffFilter = diff-so-fancy --patch
 [init]
 	defaultBranch = main

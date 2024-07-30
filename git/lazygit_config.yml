@@ -1,6 +1,5 @@
 git:
   paging:
     colorArg: always
-    pager: diff-so-fancy
   commit:
     signOff: true
