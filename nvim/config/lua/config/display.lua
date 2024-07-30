@@ -6,27 +6,27 @@ db.setup({
   config = {
     shortcut = {
       {
-        desc= '  New File',
+        desc= '󰧮 New File',
         key = 'e',
         action ='enew'
       },
       {
-        desc= 'ﴬ  Research Log',
+        desc= '󰧮 Research Log',
         key = 'w',
         action ='1VimwikiMakeDiaryNote'
       },
       {
-        desc= 'ﴬ  Research Tags',
+        desc= '󰧮 Research Tags',
         key = 't',
         action = "cd /home/moberst/Dropbox/research/wiki | lua require'telescope.builtin'.tags({ctags_file = '/home/moberst/Dropbox/research/wiki/.vimwiki_tags'})"
       },
       {
-        desc= 'ﴬ  Reflection Log',
+        desc= '󰧮 Reflection Log',
         key = 'r',
         action ='2VimwikiMakeDiaryNote'
       },
       {
-        desc= 'ﴬ  Projects',
+        desc= '󰧮 Projects',
         key = 'p',
         action ="lua require'nvim-possession'.list()"
       },
