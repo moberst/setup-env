@@ -50,28 +50,10 @@ if [ -d $HOME/.cargo ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-if [ -d /usr/local/go ]; then
-  export PATH="/usr/local/go/bin:$PATH"
-fi
-
 if [ -d /usr/local/share/chruby ]; then
   source /usr/local/share/chruby/chruby.sh
   source /usr/local/share/chruby/auto.sh
 fi
-
-if [ -d $HOME/repos/utilities/diff-so-fancy ]; then
-  export PATH="$HOME/repos/utilities/diff-so-fancy:$PATH"
-fi
-
-export GOPATH="$HOME/.go"
-export PATH="$GOPATH/bin:$PATH"
-
-# Setup Node
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export PATH="/usr/local/cuda/bin:$PATH"
 
 # Fuzzyfinder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -91,11 +73,9 @@ if [ -f ~/.bash_bindings ]; then
     bind -f ~/.bash_bindings
 fi
 
-export R_VERSION=4.1.3
-
 # Starship
-# eval "$(starship init bash)"
-# eval "$(zoxide init bash)"
+eval "$(starship init bash)"
+eval "$(zoxide init bash)"
 export SPACESHIP_PROMPT_ADD_NEWLINE=false
 # Use Nvim as default editor and man pager
 export EDITOR=nvim
@@ -112,6 +92,4 @@ _edit_wo_executing() {
 
 bind -x '"\C-x\C-e":_edit_wo_executing'
 
-export HTTP_PROXY=http://proxy.cmu.edu:3128
-export HTTPS_PROXY=http://proxy.cmu.edu:3128
 export PATH="/home/moberst/.local/bin:$PATH"

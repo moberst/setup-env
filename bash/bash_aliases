@@ -8,24 +8,15 @@ alias crop_pdfs="find . -name '*.pdf' -print0 | xargs -0 -I _ pdfcrop _ _"
 
 alias addclip="xclip -selection clip -o > tmp.bib && papis add --from bibtex tmp.bib && rm tmp.bib"
 alias refcopy="papis export --format bibtex | xclip -selection c"
-alias rcupload="rcu --autoconnect --cli --upload-doc"
 
 # Aliases for directory navigation
 alias ..="cd .."
-alias rng=". ranger"
 
 # Alias to pretty-print the current path, dirs
 alias path='echo -e ${PATH//:/\\n}'
 alias dirs='dirs -v'
 
-# Directory stack navigation
-alias pd="pushd"
-alias pc="pushd +1"
-alias pp="popd"
-
 alias tmux="tmux -2"
-alias driver="tmuxinator start driver"
-alias driver_small="tmuxinator start driver-small"
 
 # Typos
 alias tiemw="timew"
@@ -34,7 +25,7 @@ alias tiemw="timew"
 alias fill="timew @2 resize :fill"
 alias sum="bash ~/Dropbox/org/tracker/summarize.sh"
 
-# Create tex directory 
+# Create tex directory
 alias newtex="bash $HOME/repos/setup-env/tex/create_base.sh"
 
 # Exa
