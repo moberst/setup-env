@@ -57,7 +57,6 @@ Plug 'dense-analysis/ale'
 Plug 'antoinemadec/FixCursorHold.nvim'
 
 " Display
-Plug 'anuvyklack/hydra.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kevinhwang91/nvim-bqf'
