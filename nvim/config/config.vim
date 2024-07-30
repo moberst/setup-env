@@ -114,6 +114,8 @@ Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 " Required files for papis
 Plug 'kkharji/sqlite.lua'
 Plug 'MunifTanjim/nui.nvim'
+Plug 'pysan3/pathlib.nvim'
+Plug 'nvim-neotest/nvim-nio'
 Plug 'moberst/papis.nvim'
 
 " Notifications
