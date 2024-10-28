@@ -24,6 +24,7 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'jvgrootveld/telescope-zoxide'
 Plug 'nanotee/zoxide.vim'
+Plug 'mikavilpas/yazi.nvim'
 
 " Buffer navigation
 Plug 'ggandor/leap.nvim'
