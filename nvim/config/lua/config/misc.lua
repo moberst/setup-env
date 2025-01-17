@@ -43,12 +43,11 @@ require("papis").setup({
     dir = "/home/moberst/Dropbox/papis",
     info_name = "info.yaml", -- (when setting papis options `-` is replaced with `_`
                              -- in the keys names)
-    notes_name = [[notes.tex]],
   },
   init_filenames = { "%info_name%", "*.wiki", "*.tex", "*.md", "*.norg" },
   -- Enable the default keymaps
   enable_keymaps = true,
-  enable_fs_watcher = false,
+  enable_fs_watcher = true,
   -- For tables, the first is inserting, and the second is to search refs
   cite_formats = {
     tex = { "\\citep{%s}", "\\cite[tp]?%*?{%s}" },
