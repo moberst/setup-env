@@ -1,0 +1,59 @@
+\documentclass[11pt]{article}
+
+% Formatting for notes
+\addtolength{\oddsidemargin}{-1in}
+\addtolength{\evensidemargin}{-1in}
+\addtolength{\textwidth}{2in}
+
+\include{packages}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=RawSienna,
+  citecolor=gray,
+  urlcolor=cyan,
+}
+
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\setlength{\headheight}{14pt}
+
+\usepackage{lipsum}
+\usepackage[margin=1in]{geometry}
+\usepackage[export]{adjustbox}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}% Clear header/footer
+\fancyfoot[R]{\itshape Page~\thepage~of~\csname @abspage@last\endcsname}
+\renewcommand{\headrulewidth}{0pt}% Remove header rule
+
+\begin{document}
+
+\begin{tabular}[t]{@{} l @{}}
+  \bfseries 
+  Michael Oberst, PhD \\
+  \itshape%
+  Assistant Professor\\
+  \itshape%
+  Department of Computer Science \\
+  \itshape%
+  Johns Hopkins University \\
+  Email: moberst@jhu.edu \\
+\end{tabular}
+\hfill
+\begin{tabular}[t]{@{} r @{}}
+  \includegraphics[height=3\normalbaselineskip,valign=t,halign=r]{whiting.logo.horizontal.blue-crop.pdf} \\
+  \\
+  \textbf{\today} 
+\end{tabular}%
+
+Dear X,
+
+\lipsum[1-4]
+
+Best,
+Michael
+
+
+\end{document}
+
