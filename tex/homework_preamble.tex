@@ -1,0 +1,223 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\usepackage{amssymb,amsmath,amsthm,amsfonts,mathtools,dsfont,thmtools}
+\usepackage{suffix}
+\usepackage{natbib} 
+\usepackage{csquotes} 
+\usepackage{subcaption}
+\usepackage[inline]{enumitem} 
+\usepackage{booktabs}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[breakable]{tcolorbox} 
+\usepackage{wrapfig}
+
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{bayesnet}
+\usepackage{hyperref}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% Formatting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=RawSienna,
+  urlcolor=Cyan,
+  citecolor=gray
+}
+
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\setlength{\headheight}{14pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% Theorems
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{assumption}{Assumption}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+% Clever Ref Configuration, assuming capitalization above
+\Crefname{assumption}{Assumption}{Assumptions}
+\crefname{assumption}{Assumption}{Assumptions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% Shortcuts 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+% Convergence
+\newcommand{\cim}{\stackrel{L_1}{\rightarrow}}
+\newcommand{\cip}{\stackrel{\text{i.p.}}{\rightarrow}}
+\newcommand{\cid}{\stackrel{\text{d}}{\rightarrow}}
+\newcommand{\cas}{\stackrel{\text{a.s.}}{\rightarrow}}
+\newcommand{\eid}{\stackrel{\text{(d)}}{=}}
+
+% Distributions
+\newcommand{\Ptr}{\mathbb{P}_{\text{tr}}}
+\newcommand{\Pte}{\mathbb{P}_{\text{te}}}
+
+% Variance, covariance
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+
+% Such that 
+% \newcommand{\st}{\text{s.t., }}
+
+% Fields
+\def\R{\mathbb{R}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\C{\mathbb{C}}
+\def\Z{\mathbb{Z}}
+\newcommand{\Rd}{\mathbb{R}^d}
+
+% Uppercase caligraphic 
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+% Uppercase bold
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bC}{\mathbf{C}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bE}{\mathbf{E}}
+\newcommand{\bF}{\mathbf{F}}
+\newcommand{\bG}{\mathbf{G}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bJ}{\mathbf{J}}
+\newcommand{\bK}{\mathbf{K}}
+\newcommand{\bL}{\mathbf{L}}
+\newcommand{\bM}{\mathbf{M}}
+\newcommand{\bN}{\mathbf{N}}
+\newcommand{\bO}{\mathbf{O}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\bQ}{\mathbf{Q}}
+\newcommand{\bR}{\mathbf{R}}
+\newcommand{\bS}{\mathbf{S}}
+\newcommand{\bT}{\mathbf{T}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\bV}{\mathbf{V}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bZ}{\mathbf{Z}}
+
+% lowercase bold 
+\newcommand{\ba}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bd}{\mathbf{d}}
+\newcommand{\be}{\mathbf{e}}
+% bf excluded, clash with latex internals
+\newcommand{\bg}{\mathbf{g}}
+\newcommand{\bh}{\mathbf{h}}
+\newcommand{\bi}{\mathbf{i}}
+\newcommand{\bj}{\mathbf{j}}
+\newcommand{\bk}{\mathbf{k}}
+\newcommand{\bl}{\mathbf{l}}
+\newcommand{\bm}{\mathbf{m}}
+\newcommand{\bn}{\mathbf{n}}
+\newcommand{\bo}{\mathbf{o}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\bs}{\mathbf{s}}
+\newcommand{\bt}{\mathbf{t}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bz}{\mathbf{z}}
+
+% hats and stars: Convention to put h, s after other symbol
+\newcommand{\fh}{\hat{f}}
+\newcommand{\fhn}{\hat{f}_n}
+\newcommand{\hfn}{\hat{f}_n}
+\newcommand{\fs}{f^*}
+\newcommand{\thetas}{\theta^{*}}
+\newcommand{\thetah}{\hat{\theta}}
+\newcommand{\lambdah}{\hat{\lambda}}
+\newcommand{\muh}{\hat{\mu}}
+\newcommand{\uh}{\hat{u}}
+\newcommand{\vh}{\hat{v}}
+\newcommand{\buh}{\hat{\bu}}
+\newcommand{\bvh}{\hat{\bv}}
+
+% distributions
+\newcommand{\Unif}{\mathsf{Unif}}
+\newcommand{\Ber}{\mathsf{Ber}}
+\newcommand{\subG}{\mathsf{subG}}
+\newcommand{\subE}{\mathsf{subE}}
+\newcommand{\Rad}{\mathsf{Rad}}
+\newcommand{\Bin}{\mathsf{Bin}}
+
+% Operators, indicators, etc
+%% Expectation and Variance and Probability
+\def\E{\mathbb{E}}
+\def\V{\mathbb{V}}
+\def\P{\mathbb{P}}
+\newcommand{\Pn}{\P_n}
+\newcommand{\En}{\E_n}
+\newcommand{\Xbn}{\bar{X}_n}
+\def\S{\Sigma}
+\def\Sh{\hat{Sigma}}
+
+%% Independence
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+%% Other common commands
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\1}[1]{\mathbf{1}\left\{#1\right\}}
+\newcommand{\dt}[2]{\frac{d}{dt}#1\big|_{#2}}
+
+% Norms and floors
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\srn}{\sqrt{n}}
+
+\newcommand{\seqn}[1]{{#1}_1, \ldots, {#1}_n}
+\newcommand{\seq}[2]{{#1}_1, \ldots, {#1}_{#2}}

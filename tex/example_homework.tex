@@ -1,0 +1,84 @@
+\documentclass[11pt,addpoints,answers]{exam}
+
+% Custom Shortcuts
+\input{preamble}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage{lipsum}
+
+\chead{NAME OF CLASS}
+\date{}
+\pagestyle{headandfoot}
+\begin{document}
+\thispagestyle{headandfoot}
+
+\begin{center}
+  {\Large \bf{Problem Set X: Due \textbf{DATE}}}
+\end{center}
+
+\qformat{\textbf{\Large Question \thequestion\ \dotfill \emph{\totalpoints\ points}}}
+
+\begin{center}
+\fbox{\fbox{\parbox{6.5in}{
+\textbf{Submission Instructions:} \ldots
+\vspace{0.1in}
+
+\textbf{Collaboration Policy:} \ldots
+\vspace{0.1in}
+
+\textbf{Use of Generative AI:} \ldots
+}}}
+\end{center}
+
+\makebox[\textwidth]{Name:\enspace\hrulefill}\vspace{0.2in}
+\makebox[\textwidth]{Email:\enspace\hrulefill}\vspace{0.2in}
+\makebox[\textwidth]{Collaborators (or \enquote{None}):\enspace\hrulefill}
+
+\begin{center}
+This problem set has \numquestions\ questions, for a total of \numpoints\
+points and \numbonuspoints\ bonus points.
+\end{center}
+
+\newpage
+
+\begin{questions}
+  \question%
+\textbf{Question}: \lipsum[2]
+\begin{parts}
+  \part%
+  \textbf{Part 1}: \lipsum[3]
+  \begin{subparts}
+    \subpart[2] \lipsum[1]
+    \begin{solutionorbox}[1in]
+      \lipsum[4]
+    \end{solutionorbox}
+    \subpart[2] \lipsum[5]
+    \begin{solutionorbox}[1in]
+      \lipsum[4]
+    \end{solutionorbox}
+  \end{subparts}
+  \part%
+  \textbf{Part 2}: Some text
+  \begin{subparts}
+    \subpart[2] What is your name?
+    \begin{solutionorbox}[1in]
+      Answer
+    \end{solutionorbox}
+    \subpart[2] What is your quest?
+    \begin{solutionorbox}[1in]
+      Answer
+    \end{solutionorbox}
+  \end{subparts}
+\end{parts}
+
+\newpage
+\question[10]%
+\textbf{Question Title}: \lipsum[1]
+    \begin{solutionorbox}[2in]
+      Answer
+    \end{solutionorbox}
+
+\end{questions}
+
+\end{document}
+
