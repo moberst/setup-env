@@ -148,6 +148,56 @@ end
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	{
+		"vimwiki/vimwiki",
+		lazy = false,
+		init = function()
+			vim.g.vimwiki_list = {
+				{
+					name = "Research",
+					path = "~/Dropbox/research/wiki",
+					syntax = "default",
+					ext = ".wiki",
+					links_space_char = "-",
+					auto_tags = 1,
+				},
+				{
+					name = "Reflection",
+					path = "~/log/wiki",
+					syntax = "default",
+					ext = ".wiki",
+					links_space_char = "-",
+					auto_tags = 1,
+				},
+			}
+			vim.g.vimwiki_global_ext = 0
+			vim.g.vimwiki_auto_chdir = 1
+			vim.g.vimwiki_folding = "expr"
+			vim.keymap.set("n", "<leader>ww", "<Plug>VimwikiMakeDiaryNote")
+			vim.keymap.set("n", "<leader>wt", "<Cmd>VimwikiGenerateTagLinks<CR>")
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			options = {
+				theme = "catppuccin",
+				icons_enabled = true,
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+				disabled_filetypes = {},
+				always_divide_middle = true,
+			},
+			sections = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch", "diff", "diagnostics" },
+				lualine_c = { "filename" },
+				lualine_y = { "fileformat", "filetype" },
+				lualine_z = { "location" },
+			},
+		},
+	},
+	{
 		"folke/snacks.nvim",
 		priority = 1001,
 		lazy = false,
