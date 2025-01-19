@@ -20,7 +20,7 @@ vim.cmd([[set guicursor=]])
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.opt.foldmethod = "indent"
-vim.opt.foldlevel = 0
+vim.opt.foldlevel = 99
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
@@ -78,6 +78,26 @@ vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+	{
+		"lervag/vimtex",
+		lazy = false, -- we don't want to lazy load VimTeX
+		-- tag = "v2.15", -- uncomment to pin to a specific release
+		init = function()
+			-- VimTeX configuration goes here, e.g.
+			vim.g.vimtex_fold_enabled = 1
+			vim.g.vimtex_indent_enabled = 1
+			vim.g.vimtex_toc_enabled = 1
+			vim.g.vimtex_quickfix_mode = 0
+			vim.g.vimtex_toc_config = { mode = 1, layers = { "content" }, tocdepth = 2 }
+
+			vim.g.vimtex_compiler_method = "latexmk"
+			vim.g.tex_flavor = "latex"
+			vim.g.vimtex_compiler_latexmk = { out_dir = "./tex", aux_dir = "./tex" }
+			vim.keymap.set("n", "<leader>ll", "<cmd>VimtexCompile<CR>")
+			vim.keymap.set("n", "<leader>lv", "<cmd>VimtexView<CR>")
+			vim.keymap.set("n", "<leader>lt", "<cmd>VimtexTocToggle<CR>")
+		end,
+	},
 	---@type LazySpec
 	{
 		"mikavilpas/yazi.nvim",
