@@ -16,6 +16,19 @@ vim.opt.signcolumn = "yes"
 vim.cmd([[set guicursor=]])
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
+vim.opt.foldmethod = "indent"
+vim.opt.foldlevel = 99
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+-- Keep visual mode after indent
+vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("n", "<BS>", "<nop>")
+vim.keymap.set("n", "q:", "<nop>")
+vim.cmd([[:command W w]])
+vim.cmd([[:command Xa xa]])
 
 -- vim.schedule(function()
 -- 	vim.opt.clipboard = "unnamedplus"
