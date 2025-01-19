@@ -203,16 +203,56 @@ require("lazy").setup({
 		lazy = false,
 		---@type snacks.Config
 		opts = {
-			dashboard = { enabled = true },
-			-- terminal = { enabled = true },
-		},
-		keys = {
-			{
-				"<leader>lg",
-				function()
-					Snacks.lazygit()
-				end,
-				desc = "Lazygit",
+			dashboard = {
+				enabled = true,
+				preset = {
+					keys = {
+						{
+							icon = " ",
+							key = "f",
+							desc = "Find File",
+							action = ":lua Snacks.dashboard.pick('files')",
+						},
+						{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+						{
+							icon = " ",
+							key = "g",
+							desc = "Find Text",
+							action = ":lua Snacks.dashboard.pick('live_grep')",
+						},
+						{
+							icon = " ",
+							key = "r",
+							desc = "Recent Files",
+							action = ":lua Snacks.dashboard.pick('oldfiles')",
+						},
+						{
+							icon = " ",
+							key = "c",
+							desc = "Config",
+							action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+						},
+						{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
+						{
+							icon = "󰒲 ",
+							key = "L",
+							desc = "Lazy",
+							action = ":Lazy",
+							enabled = package.loaded.lazy ~= nil,
+						},
+						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+					},
+					-- terminal = { enabled = true },
+				},
+			},
+			keys = {
+				{
+					"<leader>lg",
+					function()
+						Snacks.lazygit()
+					end,
+					desc = "Lazygit",
+				},
 			},
 		},
 	},
@@ -494,7 +534,16 @@ require("lazy").setup({
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			-- Useful status updates for LSP.
-			{ "j-hui/fidget.nvim", opts = {} },
+			{
+				"j-hui/fidget.nvim",
+				opts = {
+					notification = {
+						window = {
+							winblend = 0,
+						},
+					},
+				},
+			},
 
 			-- Allows extra capabilities provided by nvim-cmp
 			"hrsh7th/cmp-nvim-lsp",
@@ -851,11 +900,25 @@ require("lazy").setup({
 			require("catppuccin").setup({
 				flavour = "macchiato",
 				transparent_background = false,
+				integrations = {
+					gitsigns = true,
+					markdown = true,
+					mason = true,
+					mini = { enabled = true },
+					noice = true,
+					cmp = true,
+					notify = true,
+					treesitter = true,
+					treesitter_context = true,
+					telescope = { enabled = true },
+					vimwiki = true,
+					fidget = true,
+					which_key = true,
+				},
 			})
 			vim.cmd.colorscheme("catppuccin-macchiato")
 		end,
 	},
-	"tpope/vim-surround",
 	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
