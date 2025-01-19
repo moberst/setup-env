@@ -148,6 +148,25 @@ end
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	{
+		"folke/snacks.nvim",
+		priority = 1001,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			dashboard = { enabled = true },
+			-- terminal = { enabled = true },
+		},
+		keys = {
+			{
+				"<leader>lg",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "Lazygit",
+			},
+		},
+	},
+	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		opts = {
