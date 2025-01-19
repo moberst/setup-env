@@ -125,26 +125,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
-
--- Only used for generic terminals, not lazygit
-function _G.set_terminal_keymaps()
-	local opts = { buffer = 0 }
-	vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-	vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-	vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-	vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-	vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-end
---
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	{
@@ -332,7 +312,12 @@ require("lazy").setup({
 			persist_size = true,
 			direction = "horizontal",
 			on_open = function(term)
-				set_terminal_keymaps()
+				local opts = { buffer = 0 }
+				vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
+				vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
+				vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
+				vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
+				vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
 			end, -- function to run when the terminal opens
 			close_on_exit = true,
 			shade_terminals = true,
