@@ -12,12 +12,15 @@ vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.signcolumn = "yes"
+vim.opt.cursorline = true
+vim.opt.scrolloff = 10
+vim.opt.inccommand = "split"
 -- Mine
 vim.cmd([[set guicursor=]])
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.opt.foldmethod = "indent"
-vim.opt.foldlevel = 99
+vim.opt.foldlevel = 0
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
@@ -30,29 +33,14 @@ vim.keymap.set("n", "q:", "<nop>")
 vim.cmd([[:command W w]])
 vim.cmd([[:command Xa xa]])
 
--- vim.schedule(function()
--- 	vim.opt.clipboard = "unnamedplus"
--- end)
-
 -- Enable break indent
 vim.opt.breakindent = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
--- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
-
--- Show which line your cursor is on
-vim.opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
@@ -97,23 +85,10 @@ require("lazy").setup({
 		keys = {
 			-- 👇 in this section, choose your own keymappings!
 			{
-				"<leader>yh",
+				"<leader>y",
 				mode = { "n", "v" },
-				"<cmd>Yazi<cr>",
-				desc = "Open [y]azi [h]ere: at current file",
-			},
-			{
-				-- Open in the current working directory
-				"<leader>yc",
 				"<cmd>Yazi cwd<cr>",
-				desc = "Open [y]azi in the [c]urrent directory",
-			},
-			{
-				-- NOTE: this requires a version of yazi that includes
-				-- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
-				"<c-up>",
-				"<cmd>Yazi toggle<cr>",
-				desc = "Resume the last yazi session",
+				desc = "Open [Y]azi",
 			},
 		},
 		---@type YaziConfig
@@ -121,7 +96,7 @@ require("lazy").setup({
 			-- if you want to open yazi instead of netrw, see below for more info
 			open_for_directories = false,
 			keymaps = {
-				show_help = "<f1>",
+				show_help = "?",
 			},
 		},
 	},
