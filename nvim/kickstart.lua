@@ -49,6 +49,14 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+vim.cmd([[
+au BufNewFile,BufRead *.tex
+    \ set spell | 
+    \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
+    \ let maplocalleader="\\" |
+    \ set colorcolumn=0
+]])
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -77,6 +85,8 @@ vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+	{ "tpope/vim-unimpaired", lazy = false },
+	{ "kevinhwang91/nvim-bqf", lazy = false },
 	{
 		"lervag/vimtex",
 		lazy = false, -- we don't want to lazy load VimTeX
