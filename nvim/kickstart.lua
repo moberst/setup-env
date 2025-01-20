@@ -451,17 +451,6 @@ require("lazy").setup({
 					F12 = "<F12>",
 				},
 			},
-
-			-- Document existing key chains
-			spec = {
-				{ "<leader>c", group = "[C]ode", mode = { "n", "x" } },
-				{ "<leader>d", group = "[D]ocument" },
-				{ "<leader>r", group = "[R]ename" },
-				{ "<leader>s", group = "[S]earch" },
-				{ "<leader>w", group = "[W]orkspace" },
-				{ "<leader>t", group = "[T]oggle" },
-				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
-			},
 		},
 	},
 
@@ -501,16 +490,39 @@ require("lazy").setup({
 			--  - Insert mode: <c-/>
 			--  - Normal mode: ?
 			require("telescope").setup({
+				defaults = {
+					tiebreak = function()
+						return true
+					end,
+				},
 				extensions = {
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown(),
+					fzf = {
+						fuzzy = true,
+						override_generic_sorter = true,
+						override_file_sorter = true,
+						case_mode = "smart_case",
+					},
+				},
+				pickers = {
+					tags = {
+						only_sort_tags = true,
+						fname_width = 50,
+						-- sorting_strategy = 'ascending',
+					},
+					buffers = {
+						show_all_buffers = true,
+						sort_lastused = true,
+						mappings = {
+							i = {
+								["<c-d>"] = "delete_buffer",
+							},
+						},
 					},
 				},
 			})
 
 			-- Enable Telescope extensions if they are installed
 			pcall(require("telescope").load_extension, "fzf")
-			pcall(require("telescope").load_extension, "ui-select")
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
