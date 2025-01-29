@@ -25,6 +25,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
+vim.opt.linebreak = true
 -- Keep visual mode after indent
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
@@ -32,6 +33,7 @@ vim.keymap.set("n", "<BS>", "<nop>")
 vim.keymap.set("n", "q:", "<nop>")
 vim.cmd([[:command W w]])
 vim.cmd([[:command Xa xa]])
+vim.g.python3_host_prog = vim.fn.expand("$HOME/.pyenv/versions/nvim/bin/python3")
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -49,6 +51,26 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+vim.diagnostic.config({
+	float = true,
+	jump = {
+		float = false,
+		wrap = true,
+	},
+	severity_sort = false,
+	signs = {
+		text = { "", "", "", "" },
+	},
+	underline = true,
+	update_in_insert = false,
+	virtual_lines = false,
+	virtual_text = true,
+})
+vim.keymap.set("n", "<leader>tl", function()
+	local new_config = not vim.diagnostic.config().virtual_lines
+	vim.diagnostic.config({ virtual_lines = new_config })
+end, { desc = "[T]oggle diagnostic [l]ines" })
+
 vim.cmd([[
 au BufNewFile,BufRead *.tex
     \ set spell | 
@@ -56,6 +78,15 @@ au BufNewFile,BufRead *.tex
     \ let maplocalleader="\\" |
     \ set colorcolumn=0
 ]])
+
+vim.filetype.add({
+	extension = {
+		wiki = "vimwiki",
+	},
+	pattern = {
+		["*.wiki"] = "vimwiki",
+	},
+})
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -85,6 +116,93 @@ vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+	{
+		"jghauser/papis.nvim",
+		dependencies = {
+			"kkharji/sqlite.lua",
+			"MunifTanjim/nui.nvim",
+			"pysan3/pathlib.nvim",
+			"nvim-neotest/nvim-nio",
+			"nvim-telescope/telescope.nvim",
+			"hrsh7th/nvim-cmp",
+		},
+		config = function()
+			require("papis").setup({
+				enable_keymaps = true,
+				enable_fs_watcher = true,
+				init_filetypes = { "markdown", "yaml", "vimwiki", "tex" },
+				enable_modules = {
+					["search"] = true, -- Enables/disables the search module
+					["completion"] = true, -- Enables/disables the completion module
+					["at-cursor"] = true, -- Enables/disables the at-cursor module
+					["formatter"] = true, -- Enables/disables the formatter module
+					["colors"] = true, -- Enables/disables default highlight groups (you
+					-- probably want this)
+					["base"] = true, -- Enables/disables the base module (you definitely
+					-- want this)
+					["debug"] = true, -- Enables/disables the debug module (useful to
+					-- troubleshoot and diagnose issues)
+				},
+				cite_formats = {
+					tex = {
+						start_str = [[\citep{]],
+						end_str = "}",
+						separator_str = ", ",
+					},
+					vimwiki = {
+						ref_prefix = "@",
+						separator_str = "; ",
+					},
+					markdown = {
+						ref_prefix = "@",
+						separator_str = "; ",
+					},
+					rmd = {
+						ref_prefix = "@",
+						separator_str = "; ",
+					},
+					plain = {
+						separator_str = ", ",
+					},
+					org = {
+						start_str = "[cite:",
+						end_str = "]",
+						ref_prefix = "@",
+						separator_str = ";",
+					},
+					norg = {
+						start_str = "{= ",
+						end_str = "}",
+						separator_str = "; ",
+					},
+					typst = {
+						ref_prefix = "@",
+						separator_str = " ",
+					},
+				},
+			})
+		end,
+	},
+	{
+		"stevearc/aerial.nvim",
+		config = function()
+			require("aerial").setup({
+				-- optionally use on_attach to set keymaps when aerial has attached to a buffer
+				on_attach = function(bufnr)
+					-- Jump forwards/backwards with '{' and '}'
+					vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+					vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+				end,
+			})
+			-- You probably also want to set a keymap to toggle aerial
+			vim.keymap.set("n", "<leader>ta", "<cmd>AerialToggle!<CR>", { desc = "[T]oggle [A]erial" })
+		end,
+		-- Optional dependencies
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
 	{ "tpope/vim-unimpaired", lazy = false },
 	{ "kevinhwang91/nvim-bqf", lazy = false },
 	{
@@ -102,9 +220,521 @@ require("lazy").setup({
 			vim.g.vimtex_compiler_method = "latexmk"
 			vim.g.tex_flavor = "latex"
 			vim.g.vimtex_compiler_latexmk = { out_dir = "./tex", aux_dir = "./tex" }
-			vim.keymap.set("n", "<leader>ll", "<cmd>VimtexCompile<CR>")
-			vim.keymap.set("n", "<leader>lv", "<cmd>VimtexView<CR>")
-			vim.keymap.set("n", "<leader>lt", "<cmd>VimtexTocToggle<CR>")
+
+			vim.g.vimtex_mappings_enabled = false
+			local augroup = vim.api.nvim_create_augroup("vimtexConfig", {})
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "tex",
+				group = augroup,
+				callback = function(event)
+					local wk = require("which-key")
+					wk.add({
+						buffer = event.buf,
+						{
+							"<localleader>l",
+							group = "VimTeX",
+							icon = { icon = "", color = "green" },
+							mode = "nx",
+						},
+						{
+							mode = "n",
+							{
+								"<localleader>ll",
+								"<plug>(vimtex-compile)",
+								desc = "Compile",
+								icon = { icon = "", color = "green" },
+							},
+							{
+								"<localleader>lL",
+								"<plug>(vimtex-compile-selected)",
+								desc = "Compile selected",
+								icon = { icon = "", color = "green" },
+								mode = "nx",
+							},
+							{
+								"<localleader>li",
+								"<plug>(vimtex-info)",
+								desc = "Information",
+								icon = { icon = "", color = "purple" },
+							},
+							{
+								"<localleader>lI",
+								"<plug>(vimtex-info-full)",
+								desc = "Full information",
+								icon = { icon = "󰙎", color = "purple" },
+							},
+							{
+								"<localleader>lt",
+								"<plug>(vimtex-toc-open)",
+								desc = "Table of Contents",
+								icon = { icon = "󰠶", color = "purple" },
+							},
+							{
+								"<localleader>lT",
+								"<plug>(vimtex-toc-toggle)",
+								desc = "Toggle table of Contents",
+								icon = { icon = "󰠶", color = "purple" },
+							},
+							{
+								"<localleader>lq",
+								"<plug>(vimtex-log)",
+								desc = "Log",
+								icon = { icon = "", color = "purple" },
+							},
+							{
+								"<localleader>lv",
+								"<plug>(vimtex-view)",
+								desc = "View",
+								icon = { icon = "", color = "green" },
+							},
+							{
+								"<localleader>lr",
+								"<plug>(vimtex-reverse-search)",
+								desc = "Reverse search",
+								icon = { icon = "", color = "purple" },
+							},
+							{
+								"<localleader>lk",
+								"<plug>(vimtex-stop)",
+								desc = "Stop",
+								icon = { icon = "", color = "red" },
+							},
+							{
+								"<localleader>lK",
+								"<plug>(vimtex-stop-all)",
+								desc = "Stop all",
+								icon = { icon = "󰓛", color = "red" },
+							},
+							{
+								"<localleader>le",
+								"<plug>(vimtex-errors)",
+								desc = "Errors",
+								icon = { icon = "", color = "red" },
+							},
+							{
+								"<localleader>lo",
+								"<plug>(vimtex-compile-output)",
+								desc = "Compile output",
+								icon = { icon = "", color = "purple" },
+							},
+							{
+								"<localleader>lg",
+								"<plug>(vimtex-status)",
+								desc = "Status",
+								icon = { icon = "󱖫", color = "purple" },
+							},
+							{
+								"<localleader>lG",
+								"<plug>(vimtex-status-full)",
+								desc = "Full status",
+								icon = { icon = "󱖫", color = "purple" },
+							},
+							{
+								"<localleader>lc",
+								"<plug>(vimtex-clean)",
+								desc = "Clean",
+								icon = { icon = "󰃢", color = "orange" },
+							},
+							{
+								"<localleader>lh",
+								"<Cmd>VimtexClearCache ALL<cr>",
+								desc = "Clear all cache",
+								icon = { icon = "󰃢", color = "grey" },
+							},
+							{
+								"<localleader>lC",
+								"<plug>(vimtex-clean-full)",
+								desc = "Full clean",
+								icon = { icon = "󰃢", color = "red" },
+							},
+							{
+								"<localleader>lx",
+								"<plug>(vimtex-reload)",
+								desc = "Reload",
+								icon = { icon = "󰑓", color = "green" },
+							},
+							{
+								"<localleader>lX",
+								"<plug>(vimtex-reload-state)",
+								desc = "Reload state",
+								icon = { icon = "󰑓", color = "cyan" },
+							},
+							{
+								"<localleader>lm",
+								"<plug>(vimtex-imaps-list)",
+								desc = "Input mappings",
+								icon = { icon = "", color = "purple" },
+							},
+							{
+								"<localleader>ls",
+								"<plug>(vimtex-toggle-main)",
+								desc = "Toggle main",
+								icon = { icon = "󱪚", color = "green" },
+							},
+							{
+								"<localleader>la",
+								"<plug>(vimtex-context-menu)",
+								desc = "Context menu",
+								icon = { icon = "󰮫", color = "purple" },
+							},
+							{
+								"ds",
+								group = "+surrounding",
+								icon = { icon = "󰗅", color = "green" },
+							},
+							{
+								"dse",
+								"<plug>(vimtex-env-delete)",
+								desc = "environment",
+								icon = { icon = "", color = "red" },
+							},
+							{
+								"dsc",
+								"<plug>(vimtex-cmd-delete)",
+								desc = "command",
+								icon = { icon = "", color = "red" },
+							},
+							{
+								"ds$",
+								"<plug>(vimtex-env-delete-math)",
+								desc = "math",
+								icon = { icon = "󰿈", color = "red" },
+							},
+							{
+								"dsd",
+								"<plug>(vimtex-delim-delete)",
+								desc = "delimeter",
+								icon = { icon = "󰅩", color = "red" },
+							},
+							{
+								"cs",
+								group = "+surrounding",
+								icon = { icon = "󰗅", color = "green" },
+							},
+							{
+								"cse",
+								"<plug>(vimtex-env-change)",
+								desc = "environment",
+								icon = { icon = "", color = "blue" },
+							},
+							{
+								"csc",
+								"<plug>(vimtex-cmd-change)",
+								desc = "command",
+								icon = { icon = "", color = "blue" },
+							},
+							{
+								"cs$",
+								"<plug>(vimtex-env-change-math)",
+								desc = "math environment",
+								icon = { icon = "󰿈", color = "blue" },
+							},
+							{
+								"csd",
+								"<plug>(vimtex-delim-change-math)",
+								desc = "delimeter",
+								icon = { icon = "󰅩", color = "blue" },
+							},
+							{
+								"ts",
+								group = "+surrounding",
+								icon = { icon = "󰗅", color = "green" },
+								mode = "nx",
+							},
+							{
+								"tsf",
+								"<plug>(vimtex-cmd-toggle-frac)",
+								desc = "fraction",
+								icon = { icon = "󱦒", color = "yellow" },
+								mode = "nx",
+							},
+							{
+								"tsc",
+								"<plug>(vimtex-cmd-toggle-star)",
+								desc = "command",
+								icon = { icon = "", color = "yellow" },
+							},
+							{
+								"tse",
+								"<plug>(vimtex-env-toggle-star)",
+								desc = "environment",
+								icon = { icon = "", color = "yellow" },
+							},
+							{
+								"ts$",
+								"<plug>(vimtex-env-toggle-math)",
+								desc = "math environment",
+								icon = { icon = "󰿈", color = "yellow" },
+							},
+							{
+								"tsb",
+								"<plug>(vimtex-env-toggle-break)",
+								desc = "break",
+								icon = { icon = "󰿈", color = "yellow" },
+							},
+							{
+								"<F6>",
+								"<plug>(vimtex-env-surround-line)",
+								desc = "Surround line with environment",
+								icon = { icon = "", color = "purple" },
+							},
+							{
+								"<F6>",
+								"<plug>(vimtex-env-surround-visual)",
+								desc = "Surround selection with environment",
+								icon = { icon = "", color = "purple" },
+								mode = "x",
+							},
+							{
+								"tsd",
+								"<plug>(vimtex-delim-toggle-modifier)",
+								desc = "delimeter",
+								icon = { icon = "󰅩", color = "yellow" },
+								mode = "nx",
+							},
+							{
+								"tsD",
+								"<plug>(vimtex-delim-toggle-modifier-reverse)",
+								desc = "revers surrounding delimeter",
+								icon = { icon = "󰅩", color = "yellow" },
+								mode = "nx",
+							},
+							{
+								"<F7>",
+								"<plug>(vimtex-cmd-create)",
+								desc = "Create command",
+								icon = { icon = "󰅩", color = "green" },
+								mode = "nxi",
+							},
+							{
+								"]]",
+								"<plug>(vimtex-delim-close)",
+								desc = "Close delimeter",
+								icon = { icon = "󰅩", color = "green" },
+								mode = "i",
+							},
+							{
+								"<F8>",
+								"<plug>(vimtex-delim-add-modifiers)",
+								desc = "Add \\left and \\right",
+								icon = { icon = "󰅩", color = "green" },
+								mode = "n",
+							},
+						},
+						{
+							mode = "xo",
+							{
+								"ac",
+								"<plug>(vimtex-ac)",
+								desc = "command",
+								icon = { icon = "", color = "orange" },
+							},
+							{
+								"ic",
+								"<plug>(vimtex-ic)",
+								desc = "command",
+								icon = { icon = "", color = "orange" },
+							},
+							{
+								"ad",
+								"<plug>(vimtex-ad)",
+								desc = "delimiter",
+								icon = { icon = "󰅩", color = "orange" },
+							},
+							{
+								"id",
+								"<plug>(vimtex-id)",
+								desc = "delimiter",
+								icon = { icon = "󰅩", color = "orange" },
+							},
+							{
+								"ae",
+								"<plug>(vimtex-ae)",
+								desc = "environment",
+								icon = { icon = "", color = "orange" },
+							},
+							{
+								"ie",
+								"<plug>(vimtex-ie)",
+								desc = "environment",
+								icon = { icon = "", color = "orange" },
+							},
+							{
+								"a$",
+								"<plug>(vimtex-a$)",
+								desc = "math",
+								icon = { icon = "󰿈", color = "orange" },
+							},
+							{
+								"i$",
+								"<plug>(vimtex-i$)",
+								desc = "math",
+								icon = { icon = "󰿈", color = "orange" },
+							},
+							{
+								"aP",
+								"<plug>(vimtex-aP)",
+								desc = "section",
+								icon = { icon = "󰚟", color = "orange" },
+							},
+							{
+								"iP",
+								"<plug>(vimtex-iP)",
+								desc = "section",
+								icon = { icon = "󰚟", color = "orange" },
+							},
+							{
+								"am",
+								"<plug>(vimtex-am)",
+								desc = "item",
+								icon = { icon = "", color = "orange" },
+							},
+							{
+								"im",
+								"<plug>(vimtex-im)",
+								desc = "item",
+								icon = { icon = "", color = "orange" },
+							},
+						},
+						{
+							mode = "nxo",
+							{
+								"%",
+								"<plug>(vimtex-%)",
+								desc = "Matching pair",
+								icon = { icon = "󰐱", color = "cyan" },
+							},
+							{
+								"]]",
+								"<plug>(vimtex-]])",
+								desc = "Next end of a section",
+								icon = { icon = "󰚟", color = "cyan" },
+							},
+							{
+								"][",
+								"<plug>(vimtex-][)",
+								desc = "Next beginning of a section",
+								icon = { icon = "󰚟", color = "cyan" },
+							},
+							{
+								"[]",
+								"<plug>(vimtex-[])",
+								desc = "Previous end of a section",
+								icon = { icon = "󰚟", color = "cyan" },
+							},
+							{
+								"[[",
+								"<plug>(vimtex-[[)",
+								desc = "Previous beginning of a section",
+								icon = { icon = "󰚟", color = "cyan" },
+							},
+							{
+								"]m",
+								"<plug>(vimtex-]m)",
+								desc = "Next start of an environment",
+								icon = { icon = "", color = "cyan" },
+							},
+							{
+								"]M",
+								"<plug>(vimtex-]M)",
+								desc = "Next end of an environment",
+								icon = { icon = "", color = "cyan" },
+							},
+							{
+								"[m",
+								"<plug>(vimtex-[m)",
+								desc = "Previous start of an environment",
+								icon = { icon = "", color = "cyan" },
+							},
+							{
+								"[M",
+								"<plug>(vimtex-[M)",
+								desc = "Previous end of an environment",
+								icon = { icon = "", color = "cyan" },
+							},
+							{
+								"]n",
+								"<plug>(vimtex-]n)",
+								desc = "Next start of math",
+								icon = { icon = "󰿈", color = "cyan" },
+							},
+							{
+								"]N",
+								"<plug>(vimtex-]N)",
+								desc = "Next end of math",
+								icon = { icon = "󰿈", color = "cyan" },
+							},
+							{
+								"[n",
+								"<plug>(vimtex-[n)",
+								desc = "Previous start of math",
+								icon = { icon = "󰿈", color = "cyan" },
+							},
+							{
+								"[N",
+								"<plug>(vimtex-[N)",
+								desc = "Previous end of math",
+								icon = { icon = "󰿈", color = "cyan" },
+							},
+							{
+								"]r",
+								"<plug>(vimtex-]r)",
+								desc = "Next start of frame environment",
+								icon = { icon = "󰹉", color = "cyan" },
+							},
+							{
+								"]R",
+								"<plug>(vimtex-]R)",
+								desc = "Next end of frame environment",
+								icon = { icon = "󰹉", color = "cyan" },
+							},
+							{
+								"[r",
+								"<plug>(vimtex-[r)",
+								desc = "Previous start of frame environment",
+								icon = { icon = "󰹉", color = "cyan" },
+							},
+							{
+								"[R",
+								"<plug>(vimtex-[R)",
+								desc = "Previous end of frame environment",
+								icon = { icon = "󰹉", color = "cyan" },
+							},
+							{
+								"]/",
+								"<plug>(vimtex-]/)",
+								desc = "Next start of a comment",
+								icon = { icon = "", color = "cyan" },
+							},
+							{
+								"]*",
+								"<plug>(vimtex-]star)",
+								desc = "Next end of a comment",
+								icon = { icon = "", color = "cyan" },
+							},
+							{
+								"[/",
+								"<plug>(vimtex-[/)",
+								desc = "Previous start of a comment",
+								icon = { icon = "", color = "cyan" },
+							},
+							{
+								"[*",
+								"<plug>(vimtex-[star)",
+								desc = "Previous end of a comment",
+								icon = { icon = "", color = "cyan" },
+							},
+						},
+						{
+							"K",
+							"<plug>(vimtex-doc-package)",
+							desc = "See package documentation",
+							icon = { icon = "󱔗", color = "azure" },
+						},
+						-- see snippet at the top
+					})
+				end,
+			})
 		end,
 	},
 	---@type LazySpec
@@ -130,18 +760,23 @@ require("lazy").setup({
 		},
 	},
 	{
-		"yetone/avante.nvim",
+		-- "moberst/avante.nvim",
+		-- branch = "dev",
+		dir = "~/repos/avante.nvim",
+		dev = true,
 		event = "VeryLazy",
+		priority = 0,
 		lazy = false,
-		version = false,
-		opts = {
-			provider = "claude",
-			-- See https://github.com/yetone/avante.nvim/pull/1072
-			auto_suggestions_provider = "claude",
-			-- add any opts here
-		},
-		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-		build = "make",
+		config = function()
+			require("avante_lib").load()
+			require("avante").setup({
+				provider = "claude",
+				-- See https://github.com/yetone/avante.nvim/pull/1072
+				auto_suggestions_provider = "claude",
+				-- add any opts here
+			})
+		end,
+		build = "make BUILD_FROM_SOURCE=true",
 		dependencies = {
 			"stevearc/dressing.nvim",
 			"nvim-lua/plenary.nvim",
@@ -227,6 +862,7 @@ require("lazy").setup({
 				lualine_a = { "mode" },
 				lualine_b = { "branch", "diff", "diagnostics" },
 				lualine_c = { "filename" },
+				lualine_x = { "aerial" },
 				lualine_y = { "fileformat", "filetype" },
 				lualine_z = { "location" },
 			},
@@ -336,12 +972,8 @@ require("lazy").setup({
 			-- add any options here
 		},
 		dependencies = {
-			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
-			-- OPTIONAL:
-			--   `nvim-notify` is only needed, if you want to use the notification view.
-			--   If not available, we use `mini` as the fallback
-			"rcarriga/nvim-notify",
+			{ "rcarriga/nvim-notify", opts = { top_down = false } },
 		},
 	},
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
@@ -608,42 +1240,12 @@ require("lazy").setup({
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-t>.
 					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-
-					-- Find references for the word under your cursor.
 					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-
-					-- Jump to the implementation of the word under your cursor.
-					--  Useful when your language has ways of declaring types without an actual implementation.
-					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-
-					-- Jump to the type of the word under your cursor.
-					--  Useful when you're not sure what type a variable is and you want to see
-					--  the definition of its *type*, not where it was *defined*.
-					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-
-					-- Fuzzy find all the symbols in your current document.
-					--  Symbols are things like variables, functions, types, etc.
-					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-
-					-- Fuzzy find all the symbols in your current workspace.
-					--  Similar to document symbols, except searches over your entire project.
-					map(
-						"<leader>ws",
-						require("telescope.builtin").lsp_dynamic_workspace_symbols,
-						"[W]orkspace [S]ymbols"
-					)
-
-					-- Rename the variable under your cursor.
-					--  Most Language Servers support renaming across files, etc.
+					map("K", vim.lsp.buf.signature_help, "Signature Help")
+					map("[d", vim.diagnostic.goto_prev, "Previous [d]iagnostic")
+					map("]d", vim.diagnostic.goto_next, "Next [d]iagnostic")
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-
-					-- Execute a code action, usually your cursor needs to be on top of an error
-					-- or a suggestion from your LSP for this to activate.
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
-
-					-- WARN: This is not Goto Definition, this is Goto Declaration.
-					--  For example, in C this would take you to the header.
-					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
@@ -673,16 +1275,6 @@ require("lazy").setup({
 								vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
 							end,
 						})
-					end
-
-					-- The following code creates a keymap to toggle inlay hints in your
-					-- code, if the language server you are using supports them
-					--
-					-- This may be unwanted, since they displace some of your code
-					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-						map("<leader>th", function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-						end, "[T]oggle Inlay [H]ints")
 					end
 				end,
 			})
@@ -714,51 +1306,46 @@ require("lazy").setup({
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
-				-- clangd = {},
-				-- gopls = {},
-				-- pyright = {},
-				-- rust_analyzer = {},
-				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-				--
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`ts_ls`) will work just fine
-				-- ts_ls = {},
-				--
-
 				lua_ls = {
-					-- cmd = { ... },
-					-- filetypes = { ... },
-					-- capabilities = {},
 					settings = {
 						Lua = {
 							completion = {
 								callSnippet = "Replace",
 							},
-							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-							-- diagnostics = { disable = { 'missing-fields' } },
+							diagnostics = { disable = { "missing-fields" } },
+						},
+					},
+				},
+				ruff = {
+					settings = {
+						cmd_env = { RUFF_TRACE = "messages" },
+						init_options = {
+							logLevel = "debug",
+						},
+					},
+				},
+				pylsp = {
+					settings = {
+						-- See https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+						pylsp = {
+							plugins = {
+								autopep8 = { enabled = false },
+								flake8 = { enabled = false },
+								pycodestyle = { enabled = false },
+								pydocstyle = { enabled = false },
+								pyflakes = { enabled = false },
+								pylint = { enabled = false },
+								yapf = { enabled = false },
+							},
 						},
 					},
 				},
 			}
-
-			-- Ensure the servers and tools above are installed
-			--
-			-- To check the current status of installed tools and/or manually install
-			-- other tools, you can run
-			--    :Mason
-			--
-			-- You can press `g?` for help in this menu.
-			--
-			-- `mason` had to be setup earlier: to configure its options see the
-			-- `dependencies` table for `nvim-lspconfig` above.
-			--
-			-- You can add other tools here that you want Mason to install
-			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
+				"ruff",
+				"pylsp",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -868,8 +1455,15 @@ require("lazy").setup({
 			cmp.setup.filetype("vimwiki", {
 				sources = cmp.config.sources({
 					{ name = "ultisnips" },
-				}, {
 					{ name = "omni" },
+					{ name = "papis" },
+				}),
+			})
+			cmp.setup.filetype("yaml", {
+				sources = cmp.config.sources({
+					{ name = "ultisnips" },
+					{ name = "omni" },
+					{ name = "papis" },
 				}),
 			})
 		end,
@@ -882,6 +1476,7 @@ require("lazy").setup({
 				flavour = "macchiato",
 				transparent_background = false,
 				integrations = {
+					aerial = true,
 					gitsigns = true,
 					markdown = true,
 					mason = true,
@@ -933,6 +1528,10 @@ require("lazy").setup({
 			-- -- set use_icons to true if you have a Nerd Font
 			-- statusline.setup({ use_icons = vim.g.have_nerd_font })
 
+			require("mini.misc").setup({})
+			MiniMisc.setup_auto_root({ ".git", "index.wiki" }, function()
+				return vim.fn.expand("%:p:h")
+			end)
 			-- You can configure sections in the statusline by overriding their
 			-- default behavior. For example, here we set the section for
 			-- cursor location to LINE:COLUMN
