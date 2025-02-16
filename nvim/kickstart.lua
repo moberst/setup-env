@@ -51,6 +51,19 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+vim.keymap.set("n", "<leader>ql", function()
+	local win = vim.api.nvim_get_current_win()
+	local qf_winid = vim.fn.getloclist(win, { winid = 0 }).winid
+	local action = qf_winid > 0 and "lclose" or "lopen"
+	vim.cmd(action)
+end, { desc = "Toggle loclist", noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>qq", function()
+	local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+	local action = qf_winid > 0 and "cclose" or "copen"
+	vim.cmd("botright " .. action)
+end, { desc = "Toggle quickfix", noremap = true, silent = true })
+
 vim.diagnostic.config({
 	float = true,
 	jump = {
@@ -72,10 +85,28 @@ vim.keymap.set("n", "<leader>tl", function()
 end, { desc = "[T]oggle diagnostic [l]ines" })
 
 vim.cmd([[
+function! VimwikiLinkHandler(link)
+  let link = a:link
+  if link =~# '^vfile:'
+    let link = link[1:]
+  else
+    return 0
+  endif
+  let link_infos = vimwiki#base#resolve_link(link)
+  if link_infos.filename == ''
+    echomsg 'Vimwiki Error: Unable to resolve link!'
+    return 0
+  else
+    exe 'edit ' . fnameescape(link_infos.filename)
+    return 1
+  endif
+endfunction
+]])
+
+vim.cmd([[
 au BufNewFile,BufRead *.tex
-    \ set spell | 
+    \ set spell |
     \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
-    \ let maplocalleader="\\" |
     \ set colorcolumn=0
 ]])
 
@@ -116,6 +147,43 @@ vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+	{
+		"folke/trouble.nvim",
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>cs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>cl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
+	},
 	{
 		"jghauser/papis.nvim",
 		dependencies = {
@@ -924,7 +992,7 @@ require("lazy").setup({
 		},
 		keys = {
 			{
-				"<leader>lg",
+				"<leader>g",
 				function()
 					Snacks.lazygit()
 				end,
@@ -1346,6 +1414,7 @@ require("lazy").setup({
 				"stylua", -- Used to format Lua code
 				"ruff",
 				"pylsp",
+				"texlab",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -1380,7 +1449,7 @@ require("lazy").setup({
 				if disable_filetypes[vim.bo[bufnr].filetype] then
 					lsp_format_opt = "never"
 				else
-					lsp_format_opt = "fallback"
+					lsp_format_opt = "prefer"
 				end
 				return {
 					timeout_ms = 500,
@@ -1389,11 +1458,8 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
-				--
-				-- You can use 'stop_after_first' to run the first available formatter from the list
-				-- javascript = { "prettierd", "prettier", stop_after_first = true },
+				python = { "isort", "black" },
+				tex = { "latexindent" },
 			},
 		},
 	},
@@ -1519,7 +1585,7 @@ require("lazy").setup({
 			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
 			-- - sd'   - [S]urround [D]elete [']quotes
 			-- - sr)'  - [S]urround [R]eplace [)] [']
-			-- require("mini.surround").setup()
+			require("mini.surround").setup()
 
 			-- Simple and easy statusline.
 			--  You could remove this setup call if you don't like it,
