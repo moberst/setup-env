@@ -150,13 +150,12 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    ft = { "markdown" },
+    'plasticboy/vim-markdown',
+    branch = 'master',
+    require = { 'godlygeek/tabular' },
+    config = function()
+      vim.g.vim_markdown_math = 1
+    end
   },
   {
     "folke/trouble.nvim",
@@ -921,10 +920,6 @@ require("lazy").setup({
           name = "main",
           path = "~/obsidian/main",
         },
-        {
-          name = "main",
-          path = "~/Dropbox/papis",
-        },
       },
       daily_notes = {
         -- Optional, if you keep daily notes in a separate directory.
@@ -960,7 +955,7 @@ require("lazy").setup({
             suffix = suffix .. string.char(math.random(65, 90))
           end
         end
-        return tostring(os.time()) .. "-" .. suffix
+        return tostring(os.date('%Y-%m-%d-%H%M%S')) .. "-" .. suffix
       end,
       follow_url_func = function(url)
         -- Open the URL in the default web browser.
