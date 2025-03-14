@@ -323,6 +323,7 @@ require("lazy").setup({
       vim.g.tex_flavor = "latex"
       vim.g.vimtex_compiler_latexmk = { out_dir = "./tex", aux_dir = "./tex" }
 
+<<<<<<< HEAD
       vim.g.vimtex_mappings_enabled = false
       local augroup = vim.api.nvim_create_augroup("vimtexConfig", {})
       vim.api.nvim_create_autocmd("FileType", {
@@ -935,7 +936,6 @@ require("lazy").setup({
     dependencies = {
       -- Required.
       "nvim-lua/plenary.nvim",
-
       -- see below for full list of optional dependencies 👇
     },
     opts = {
