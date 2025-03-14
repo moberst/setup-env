@@ -31,6 +31,8 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("n", "<BS>", "<nop>")
 vim.keymap.set("n", "q:", "<nop>")
+-- Reserve s for mini.surround
+vim.keymap.set({ "n", "x" }, "s", "<Nop>")
 vim.cmd([[:command W w]])
 vim.cmd([[:command Xa xa]])
 vim.g.python3_host_prog = vim.fn.expand("$HOME/.pyenv/versions/nvim/bin/python3")
@@ -112,6 +114,12 @@ au BufNewFile,BufRead *.tex
     \ set colorcolumn=0
 ]])
 
+vim.cmd([[
+au BufNewFile,BufRead *.md
+    \ set spell |
+    \ set spellfile=$HOME/Dropbox/org/md/en.utf-8.add |
+]])
+
 vim.filetype.add({
   extension = {
     wiki = "vimwiki",
@@ -147,8 +155,24 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+  {
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp",
+    init = function()
+      vim.cmd [[command! LuaSnipEdit :lua require("luasnip.loaders").edit_snippet_files()]]
+    end,
+    config = function()
+      local ls = require("luasnip")
+      ls.setup({ enable_autosnippets = true })
+      require("luasnip.loaders.from_lua").load({ paths = "~/repos/setup-env/nvim/snippets" })
+    end
+  },
   {
     'plasticboy/vim-markdown',
     branch = 'master',
@@ -228,12 +252,12 @@ require("lazy").setup({
             separator_str = ", ",
           },
           vimwiki = {
-            ref_prefix = "[[",
-            end_str = "]]",
+            ref_prefix = "@",
+            separator_str = "; ",
           },
           markdown = {
-            ref_prefix = "[[",
-            end_str = "]]",
+            ref_prefix = "@",
+            separator_str = "; ",
           },
           rmd = {
             ref_prefix = "@",
@@ -939,7 +963,11 @@ require("lazy").setup({
         substitutions = {},
       },
       ui = {
-        enable = false
+        enable = false,
+        checkboxes = {
+          [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+          ["x"] = { char = "", hl_group = "ObsidianDone" },
+        },
       },
       note_id_func = function(title)
         -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
@@ -988,7 +1016,7 @@ require("lazy").setup({
           desc = "[W]iki [T]ags"
         },
         ["<leader>wb"] = {
-          action = "<Cmd>ObsidianBackLinks<CR>",
+          action = "<Cmd>ObsidianBacklinks<CR>",
           opts = { buffer = true },
           desc = "[W]iki [B]acklinks"
         },
@@ -1060,6 +1088,7 @@ require("lazy").setup({
       vim.g.vimwiki_global_ext = 0
       vim.g.vimwiki_auto_chdir = 1
       vim.g.vimwiki_folding = "expr"
+      vim.g.vimwiki_filetypes = { 'markdown' }
       vim.keymap.set("n", "<leader>ww", "<Plug>VimwikiMakeDiaryNote")
       -- vim.keymap.set("n", "<leader>wt", "<Cmd>VimwikiGenerateTagLinks<CR>")
     end,
@@ -1117,9 +1146,9 @@ require("lazy").setup({
             },
             {
               icon = " ",
-              key = "g",
-              desc = "Find Text",
-              action = ":lua Snacks.dashboard.pick('live_grep')",
+              key = "o",
+              desc = "Old Files",
+              action = ":lua Snacks.dashboard.pick('oldfiles')",
             },
             {
               icon = " ",
@@ -1619,8 +1648,10 @@ require("lazy").setup({
     event = "InsertEnter",
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
-      "SirVer/ultisnips",
-      "quangnguyen30192/cmp-nvim-ultisnips",
+      -- "SirVer/ultisnips",
+      -- "quangnguyen30192/cmp-nvim-ultisnips",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
       "moberst/vim-snippets",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-cmdline",
@@ -1632,7 +1663,8 @@ require("lazy").setup({
       cmp.setup({
         snippet = {
           expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+            require('luasnip').lsp_expand(args.body)
+            -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -1650,7 +1682,8 @@ require("lazy").setup({
             group_index = 0,
           },
           { name = "nvim_lsp" },
-          { name = "ultisnips" },
+          { name = "luasnip" },
+          -- { name = "ultisnips" },
           { name = "path" },
         },
       })
@@ -1670,7 +1703,7 @@ require("lazy").setup({
       })
       cmp.setup.filetype("markdown", {
         sources = cmp.config.sources({
-          { name = "ultisnips" },
+          { name = "luasnip" },
           { name = "omni" },
           { name = "papis" },
           { name = "render-markdown" },
@@ -1678,14 +1711,14 @@ require("lazy").setup({
       })
       cmp.setup.filetype("vimwiki", {
         sources = cmp.config.sources({
-          { name = "ultisnips" },
+          { name = "luasnip" },
           { name = "omni" },
           { name = "papis" },
         }),
       })
       cmp.setup.filetype("yaml", {
         sources = cmp.config.sources({
-          { name = "ultisnips" },
+          { name = "luasnip" },
           { name = "omni" },
           { name = "papis" },
         }),
@@ -1796,6 +1829,7 @@ require("lazy").setup({
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { "ruby" },
+        disable = { "markdown", "vimwiki" }
       },
       indent = { enable = true, disable = { "ruby" } },
     },
