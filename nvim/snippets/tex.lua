@@ -34,50 +34,154 @@ local autosnippet = require("luasnip").extend_decorator.apply(s, { snippetType =
 local automath = require("luasnip").extend_decorator.apply(s, { snippetType = "autosnippet", condition = is_math })
 
 return {
-	s("idea0", {
-		t("# Idea: "),
-		i(1, "Description"),
-		t({ "", "#research/0-ideas-inbox" }),
-		t({ "", ">Note: See [[2025-03-24-091645-research-process|research process]] for instructions", "" }),
-	}, { condition = conds.line_begin }),
-	s("idea1", {
-		t("# Idea: "),
-		i(1, "Description"),
-		t({ "", "#research/1-ideas" }),
-		t({ "", ">Note: See [[2025-03-24-091645-research-process|research process]] for instructions", "" }),
-	}, { condition = conds.line_begin }),
-	s(
-		"pland",
-		t({
-			"#daily-plan",
-			"",
-			"- [ ] ",
-		}),
+	autosnippet({ trig = "ita", wordTrig = true }, fmta([[\textit{<>}<>]], { i(1), i(2) })),
+	autosnippet({ trig = "bf", wordTrig = true }, fmta([[\textbf{<>}<>]], { i(1), i(2) })),
+	autosnippet("sec", fmta([[\section{<>}<>]], { i(1), i(2) }), { condition = conds.line_begin }),
+	autosnippet("sub", fmta([[\subsection{<>}<>]], { i(1), i(2) }), { condition = conds.line_begin }),
+	autosnippet("ssub", fmta([[\subsubsection{<>}<>]], { i(1), i(2) }), { condition = conds.line_begin }),
+	autosnippet(
+		"box",
+		fmta(
+			[[
+	    \begin{tcolorbox}
+	    <>
+			\tcblower
+			<>
+	    \end{tcolorbox}
+	    <>]],
+			{ i(1), i(2), i(3) }
+		),
 		{ condition = conds.line_begin }
 	),
-	s(
-		"planw",
-		t({
-			"#weekly-plan",
-			"",
-			"- [ ] ",
-		}),
+	autosnippet(
+		"item",
+		fmta(
+			[[
+	    \begin{itemize}
+	    \item <>
+	    \end{itemize}
+	    <>]],
+			{ i(1), i(2) }
+		),
+		{ condition = conds.line_begin }
+	),
+	autosnippet(
+		"beg",
+		fmta(
+			[[
+	    \begin{<>}
+	    <>
+	    \end{<>}
+	    ]],
+			{ i(1), i(2), rep(1) }
+		),
+		{ condition = conds.line_begin }
+	),
+	autosnippet(
+		"ali",
+		fmta(
+			[[
+	    \begin{align*}
+	    <>
+	    \end{align*}
+	    ]],
+			{ i(1) }
+		),
 		{ condition = conds.line_begin }
 	),
 	autosnippet(
 		"eq",
 		fmta(
 			[[
-      $$
-      <>
-      $$
-    ]],
+	      \begin{equation}
+	      <>
+	      \end{equation}
+	    ]],
 			i(1)
 		),
 		{ condition = conds.line_begin }
 	),
 	s("frac", fmta("\\frac{<>}{<>}", { i(1), i(2) }), { condition = is_math }),
 	s("sum", fmta("\\sum_{<>}^{<>}", { i(1, "i=1"), i(2, "n") }), { condition = is_math }),
+	s(
+		"sfig",
+		fmta(
+			[[
+	\begin{figure}[t]
+	\centering
+		\begin{subfigure}[<>]{<>}
+		\centering
+			\includegraphics[width=<>]{figs/<>}
+		\caption{<>}%
+		\label{fig:<>}
+		\end{subfigure}
+	\caption{<>}%
+	\label{fig:<>}
+	\end{figure}
+	<>
+	  ]],
+			{ i(1, "h"), i(2, "\\textwidth"), i(3, "0.9\\linewidth"), i(4), i(5), i(6), i(7), i(8), i(9) }
+		),
+		{ condition = conds.line_begin }
+	),
+	s(
+		"res",
+		fmta(
+			[[
+	\begin{restatable}[<>]{<>}{<>}\label{<>:<>}
+		<>
+	\end{restatable}
+	<>
+	]],
+			{ i(1, "name"), i(2, "theorem"), i(3, "ShortName"), rep(2), i(4, "label"), i(5), i(6) }
+		),
+		{ condition = conds.line_begin }
+	),
+	s(
+		"fig",
+		fmta(
+			[[
+		\begin{figure}[t]
+		\begin{center}
+			\includegraphics[width=<>]{figs/<>}
+		\end{center}
+		\caption{<>}%
+		\label{fig:<>}
+		\end{figure}
+			<>
+	  ]],
+			{ i(1, "0.5\\linewidth"), i(2), i(3), i(4), i(5) }
+		),
+		{ condition = conds.line_begin }
+	),
+	s(
+		"tikz",
+		fmta(
+			[[
+		\begin{figure}[t]
+		\begin{center}
+		\begin{tikzpicture}[
+			obs/.style={circle, draw=gray!90, fill=gray!30, very thick, minimum size=5mm},
+			uobs/.style={circle, draw=gray!90, fill=gray!10, dotted, minimum size=5mm},
+			bend angle=30]
+			\node[uobs] (U) {$U$} ;
+			\node[obs] (Y) [below right=of U]  {$Y$};
+			\node[obs] (X) [below left=of U] {$X$} ;
+			\draw[-latex, thick] (X) -- (Y) node[midway, below] {$\alpha$};
+			\draw[-latex, thick] (U) -- (X);
+			\draw[-latex, thick] (U) -- (Y);
+			<>
+		\end{tikzpicture}
+		\end{center}
+		\caption{<>}%
+		\label{fig:<>}
+		\end{figure}
+		<>
+	  ]],
+			{ i(1), i(2), i(3), i(4) }
+		),
+		{ condition = conds.line_begin }
+	),
 	autosnippet(
 		{
 			trig = "(%a)(%d)",
@@ -108,9 +212,6 @@ return {
 	automath("`k", t("\\kappa")),
 	automath("`r", t("\\rho")),
 	automath("`e", t("\\epsilon")),
-	automath("`<", t("\\langle")),
-	automath("`>", t("\\rangle")),
-	automath("`h", t("\\eta")),
 	automath("`s", t("\\sigma")),
 	automath("`jl", t("\\rightarrow")),
 	postfix({ trig = ".bar", match_pattern = "\\*[%w%.%_%-]+$", snippetType = "autosnippet" }, {
@@ -123,6 +224,11 @@ return {
 			return "\\hat{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
 		end, { condition = is_math }),
 	}),
+	-- postfix({ trig = "^", match_pattern = "\\*[%w%.%_%-]+$", snippetType = "autosnippet" }, {
+	-- 	f(function(_, parent)
+	-- 		return "{" .. parent.snippet.env.POSTFIX_MATCH .. "}^{"
+	-- 	end, { condition = is_math }),
+	-- }),
 	postfix({ trig = ".tilde", match_pattern = "\\*[%w%.%_%-]+$", snippetType = "autosnippet" }, {
 		f(function(_, parent)
 			return "\\tilde{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
