@@ -178,7 +178,6 @@ require("lazy").setup({
 			vim.keymap.set({ "i", "s" }, "<C-k>", function()
 				ls.jump(-1)
 			end, { silent = true })
-
 			vim.keymap.set({ "i", "s" }, "<C-e>", function()
 				if ls.choice_active() then
 					ls.change_choice(1)
@@ -333,13 +332,7 @@ require("lazy").setup({
 			vim.g.vimtex_toc_enabled = 1
 			vim.g.vimtex_quickfix_mode = 0
 			vim.g.vimtex_toc_config = { mode = 1, layers = { "content" }, tocdepth = 2 }
-
-			vim.g.vimtex_compiler_method = "latexmk"
-			vim.g.tex_flavor = "latex"
-			vim.g.vimtex_compiler_latexmk = { out_dir = "./tex", aux_dir = "./tex" }
-
 			vim.g.vimtex_mappings_enabled = false
-			vim.g.vimtex_syntax_enabled = false
 			local augroup = vim.api.nvim_create_augroup("vimtexConfig", {})
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = "tex",
@@ -903,6 +896,12 @@ require("lazy").setup({
 			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
 			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
 			{
+				"zbirenbaum/copilot.lua",
+				config = function()
+					require("copilot").setup({})
+				end,
+			},
+			{
 				-- support for image pasting
 				"HakonHarnes/img-clip.nvim",
 				event = "VeryLazy",
@@ -924,12 +923,236 @@ require("lazy").setup({
 				"MeanderingProgrammer/render-markdown.nvim",
 				opts = {
 					file_types = { "markdown", "Avante", "vimwiki" },
-					win_options = {
-						conceallevel = { default = 0, rendered = 2 },
-					},
-					latex = { enabled = false },
 				},
 				ft = { "markdown", "Avante", "vimwiki" },
+			},
+		},
+	},
+	{
+		"epwalsh/obsidian.nvim",
+		version = "*", -- recommended, use latest release instead of latest commit
+		lazy = false,
+		-- ft = "markdown",
+		-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+		-- event = {
+		--   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+		--   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
+		--   -- refer to `:h file-pattern` for more examples
+		--   "BufReadPre /home/moberst/obsidian/main/*.md",
+		--   "BufNewFile /home/moberst/obsidian/main/*.md",
+		-- },
+		dependencies = {
+			-- Required.
+			"nvim-lua/plenary.nvim",
+			-- see below for full list of optional dependencies 👇
+		},
+		opts = {
+			workspaces = {
+				{
+					name = "main",
+					path = "~/obsidian/main",
+				},
+			},
+			daily_notes = {
+				-- Optional, if you keep daily notes in a separate directory.
+				folder = "diary",
+				-- Optional, if you want to change the date format for the ID of daily notes.
+				date_format = "%Y-%m-%d",
+				-- Optional, default tags to add to each new daily note created.
+				default_tags = { "daily-plan" },
+				-- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+				template = "daily.md",
+			},
+			templates = {
+				folder = "templates",
+				date_format = "%Y-%m-%d",
+				time_format = "%H:%M",
+				-- A map for custom variables, the key should be the variable and the value a function
+				substitutions = {},
+			},
+			ui = {
+				enable = false,
+				checkboxes = {
+					[" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+					["x"] = { char = "", hl_group = "ObsidianDone" },
+				},
+			},
+			note_id_func = function(title)
+				-- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+				-- In this case a note with the title 'My new note' will be given an ID that looks
+				-- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
+				local suffix = ""
+				if title ~= nil then
+					-- If title is given, transform it into valid file name.
+					suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+				else
+					-- If title is nil, just add 4 random uppercase letters to the suffix.
+					for _ = 1, 4 do
+						suffix = suffix .. string.char(math.random(65, 90))
+					end
+				end
+				return tostring(os.date("%Y-%m-%d-%H%M%S")) .. "-" .. suffix
+			end,
+			follow_url_func = function(url)
+				-- Open the URL in the default web browser.
+				-- vim.fn.jobstart({"xdg-open", url})  -- linux
+				-- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
+				vim.ui.open(url) -- need Neovim 0.10.0+
+			end,
+			mappings = {
+				-- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+				["gf"] = {
+					action = function()
+						return require("obsidian").util.gf_passthrough()
+					end,
+					opts = { noremap = false, expr = true, buffer = true },
+				},
+				-- Toggle check-boxes.
+				["<leader>wo"] = {
+					action = "<Cmd>ObsidianOpen<CR>",
+					opts = { buffer = true },
+					desc = "[W]iki [O]pen in Obsidian",
+				},
+				["<leader>ws"] = {
+					action = "<Cmd>ObsidianQuickSwitch<CR>",
+					opts = { buffer = true },
+					desc = "[W]iki [S]earch",
+				},
+				["<leader>wt"] = {
+					action = "<Cmd>ObsidianTags<CR>",
+					opts = { buffer = true },
+					desc = "[W]iki [T]ags",
+				},
+				["<leader>wb"] = {
+					action = "<Cmd>ObsidianBacklinks<CR>",
+					opts = { buffer = true },
+					desc = "[W]iki [B]acklinks",
+				},
+				["<leader>wrn"] = {
+					action = "<Cmd>ObsidianRename<CR>",
+					opts = { buffer = true },
+					desc = "[W]iki [R]ename",
+				},
+				["<leader>wnf"] = {
+					action = "<Cmd>ObsidianNew<CR>",
+					opts = { buffer = true },
+					desc = "[W]iki [N]ew [F]resh",
+				},
+				["<leader>wit"] = {
+					action = "<Cmd>ObsidianTemplate<CR>",
+					opts = { buffer = true },
+					desc = "[W]iki [I]nsert [T]emplate",
+				},
+				["<leader>wnt"] = {
+					action = "<Cmd>ObsidianNewFromTemplate<CR>",
+					opts = { buffer = true },
+					desc = "[W]iki [N]ew [T]emplate",
+				},
+				["<leader>wc"] = {
+					action = function()
+						return require("obsidian").util.toggle_checkbox()
+					end,
+					opts = { buffer = true },
+					desc = "[W]iki Toggle [C]heckbox",
+				},
+				-- Smart action depending on context, either follow link or toggle checkbox.
+				["<cr>"] = {
+					action = function()
+						return require("obsidian").util.smart_action()
+					end,
+					opts = { buffer = true, expr = true },
+				},
+			},
+		},
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			options = {
+				theme = "catppuccin",
+				icons_enabled = true,
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+				disabled_filetypes = {},
+				always_divide_middle = true,
+			},
+			sections = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch", "diff", "diagnostics" },
+				lualine_c = { "filename" },
+				lualine_x = { "aerial" },
+				lualine_y = { "fileformat", "filetype" },
+				lualine_z = { "location" },
+			},
+		},
+	},
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		opts = {
+			size = function(term)
+				if term.direction == "horizontal" then
+					return 20
+				elseif term.direction == "vertical" then
+					return vim.o.columns * 0.4
+				end
+			end,
+			open_mapping = [[<c-\>]],
+			start_in_insert = false,
+			insert_mappings = true,
+			terminal_mappings = true,
+			persist_size = true,
+			direction = "horizontal",
+			on_open = function(term)
+				local opts = { buffer = 0 }
+				vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
+				vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
+				vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
+				vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
+				vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
+			end, -- function to run when the terminal opens
+			close_on_exit = true,
+			shade_terminals = true,
+		},
+	},
+	{ "stevearc/dressing.nvim", opts = {} },
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			presets = {
+				command_palette = true,
+			},
+			-- add any options here
+		},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			{ "rcarriga/nvim-notify", opts = { top_down = false } },
+		},
+	},
+	{
+		"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+	},
+	---@type LazySpec
+	{
+		"mikavilpas/yazi.nvim",
+		event = "VeryLazy",
+		keys = {
+			-- 👇 in this section, choose your own keymappings!
+			{
+				"<leader>y",
+				mode = { "n", "v" },
+				"<cmd>Yazi cwd<cr>",
+				desc = "Open [Y]azi",
+			},
+		},
+		---@type YaziConfig
+		opts = {
+			-- if you want to open yazi instead of netrw, see below for more info
+			open_for_directories = false,
+			keymaps = {
+				show_help = "?",
 			},
 		},
 	},
