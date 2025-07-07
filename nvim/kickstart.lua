@@ -1053,7 +1053,7 @@ require("lazy").setup({
 	},
 	---@type LazySpec
 	{
-		"mikavilpas/azi.nvim",
+		"mikavilpas/yazi.nvim",
 		event = "VeryLazy",
 		keys = {
 			-- 👇 in this section, choose your own keymappings!
