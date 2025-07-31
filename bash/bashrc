@@ -50,13 +50,8 @@ if [ -d $HOME/.cargo ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-if [ -d /usr/local/share/chruby ]; then
-  source /usr/local/share/chruby/chruby.sh
-  source /usr/local/share/chruby/auto.sh
-fi
-
 # Fuzzyfinder
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+eval "$(fzf --bash)"
 export FZF_DEFAULT_OPTS='--color=bg+:#302D41,bg:#24273A,spinner:#F8BD96,hl:#F28FAD --color=fg:#CAD3F5,header:#F28FAD,info:#DDB6F2,pointer:#F8BD96 --color=marker:#F8BD96,fg+:#F2CDCD,prompt:#DDB6F2,hl+:#F28FAD'
 
 # Alias definitions.
@@ -92,4 +87,4 @@ _edit_wo_executing() {
 
 bind -x '"\C-x\C-e":_edit_wo_executing'
 
-export PATH="/home/moberst/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
