@@ -1,6 +1,6 @@
 [user]
 	name = Michael Oberst
-  email = michael.k.oberst@gmail.com
+        email = michael.k.oberst@gmail.com
 [alias]
 	st = status
 	ci = commit
