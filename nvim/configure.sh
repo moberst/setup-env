@@ -1,4 +1,7 @@
 #!/bin/sh
 
 rm ~/.config/nvim -rf
-cp ./config ~/.config/nvim -r
+mkdir ~/.config/nvim
+cp ~/repos/setup-env/nvim/kickstart.lua ~/.config/nvim/init.lua
+cp ~/repos/setup-env/nvim/snippets ~/.config/nvim -r
+

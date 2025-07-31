@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Get Fresh config
-git show lazy:nvim/kickstart.lua > tmp.lua
+git show master:nvim/kickstart.lua > tmp.lua
 
 rm ~/.config/nvim -rf
 mkdir ~/.config/nvim
