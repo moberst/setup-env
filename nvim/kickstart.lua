@@ -332,6 +332,9 @@ require("lazy").setup({
 			vim.g.vimtex_toc_enabled = 1
 			vim.g.vimtex_quickfix_mode = 0
 			vim.g.vimtex_toc_config = { mode = 1, layers = { "content" }, tocdepth = 2 }
+			vim.g.vimtex_compiler_method = "latexmk"
+			vim.g.tex_flavor = "latex"
+			vim.g.vimtex_compiler_latexmk = { out_dir = "./tex", aux_dir = "./tex" }
 			vim.g.vimtex_mappings_enabled = false
 			local augroup = vim.api.nvim_create_augroup("vimtexConfig", {})
 			vim.api.nvim_create_autocmd("FileType", {
