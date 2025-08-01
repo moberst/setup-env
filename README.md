@@ -1,10 +1,27 @@
-# Purpose of this repository
+# Workflow for setting up a new machine
 
-This repo exists to help me set up various environments on remote machines (e.g., download and setup python, tensorflow, etc).
+## Setup Git
+* Download `gh` and setup to clone this repo
+* Install lazygit
+* Update git configuration with `git/configure.sh`
 
-Points of interest include:
-* `bash/` for setting up command line environment, including tmux
-* `git/` for configuring git (see also `hub/` for github specific options)
-* `nvim/` for configuring my default local text editor (neovim)
-* `python/` for setting up conda and other python stuff
-* `tex/` for defining custom LaTeX packages and templates
+## Setup command line essentials
+* Download `neovim` and set up in `~/.neovim/bin`
+* Download `fzf` and set it up in `~/.local/bin`
+* Download rust via 
+```
+curl https://sh.rustup.rs -sSf | sh
+```
+* Setup essential command line tools
+```
+cargo install zoxide
+cargo install eza
+cargo install starship --locked
+```
+* Now you can configure bash via `bash/configure.sh` without throwing errors
+
+## Setup Neovim
+
+Note: For remote machines, use the `remote-other` branch which has fewer unnecessary nvim packages.
+* Run `nvim/configure.sh`
+
