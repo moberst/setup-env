@@ -166,7 +166,11 @@ require("lazy").setup({
 		end,
 		config = function()
 			local ls = require("luasnip")
-			ls.setup({ enable_autosnippets = true, update_events = { "TextChanged", "TextChangedI" } })
+			ls.setup({
+				enable_autosnippets = true,
+				store_selection_keys = "<C-j>",
+				update_events = { "TextChanged", "TextChangedI" },
+			})
 			require("luasnip.loaders.from_lua").load({ paths = "~/repos/setup-env/nvim/snippets" })
 
 			vim.keymap.set({ "i" }, "<C-y>", function()
