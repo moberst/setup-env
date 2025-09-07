@@ -189,6 +189,8 @@ require("lazy").setup({
 			end, { silent = true })
 		end,
 	},
+	{ "sindrets/diffview.nvim" },
+	{
 	{
 		"plasticboy/vim-markdown",
 		branch = "master",
