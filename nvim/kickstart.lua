@@ -864,7 +864,7 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"epwalsh/obsidian.nvim",
+		"obsidian-nvim/obsidian.nvim",
 		version = "*", -- recommended, use latest release instead of latest commit
 		lazy = false,
 		-- ft = "markdown",
