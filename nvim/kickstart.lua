@@ -1557,7 +1557,6 @@ require("lazy").setup({
 				"stylua", -- Used to format Lua code
 				"ruff",
 				"pylsp",
-				"texlab",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -1606,7 +1605,6 @@ require("lazy").setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "isort" },
-				tex = { "latexindent" },
 			},
 		},
 	},
@@ -1804,7 +1802,6 @@ require("lazy").setup({
 				"diff",
 				"html",
 				"lua",
-				-- "latex",
 				"luadoc",
 				"markdown",
 				"markdown_inline",
