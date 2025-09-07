@@ -33,6 +33,14 @@ local k = require("luasnip.nodes.key_indexer").new_key
 local autosnippet = require("luasnip").extend_decorator.apply(s, { snippetType = "autosnippet" })
 local automath = require("luasnip").extend_decorator.apply(s, { snippetType = "autosnippet", condition = is_math })
 
+local get_visual = function(args, parent)
+	if #parent.snippet.env.LS_SELECT_RAW > 0 then
+		return sn(nil, i(1, parent.snippet.env.LS_SELECT_RAW))
+	else -- If LS_SELECT_RAW is empty, return a blank insert node
+		return sn(nil, i(1))
+	end
+end
+
 return {
 	autosnippet({ trig = "ita", wordTrig = true }, fmta([[\textit{<>}<>]], { i(1), i(2) })),
 	autosnippet({ trig = "bf", wordTrig = true }, fmta([[\textbf{<>}<>]], { i(1), i(2) })),
@@ -50,6 +58,18 @@ return {
 	    \end{tcolorbox}
 	    <>]],
 			{ i(1), i(2), i(3) }
+		),
+		{ condition = conds.line_begin }
+	),
+	autosnippet(
+		"frame",
+		fmta(
+			[[
+	    \begin{frame}{<>}
+	    <>
+	    \end{frame}
+			]],
+			{ i(1), i(2) }
 		),
 		{ condition = conds.line_begin }
 	),
@@ -102,6 +122,7 @@ return {
 		{ condition = conds.line_begin }
 	),
 	s("frac", fmta("\\frac{<>}{<>}", { i(1), i(2) }), { condition = is_math }),
+	s("visible+", fmta("\\visible<<+->>{<>}", { d(1, get_visual) }), { condition = is_math }),
 	s("sum", fmta("\\sum_{<>}^{<>}", { i(1, "i=1"), i(2, "n") }), { condition = is_math }),
 	s(
 		"sfig",
@@ -134,6 +155,24 @@ return {
 	<>
 	]],
 			{ i(1, "name"), i(2, "theorem"), i(3, "ShortName"), rep(2), i(4, "label"), i(5), i(6) }
+		),
+		{ condition = conds.line_begin }
+	),
+	s(
+		"col",
+		fmta(
+			[[
+		\begin{columns}
+		\begin{column}{0.5\textwidth}
+		<>
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		<>
+		\end{column}
+		\end{columns}
+			<>
+	  ]],
+			{ i(1), i(2), i(3) }
 		),
 		{ condition = conds.line_begin }
 	),
@@ -199,6 +238,7 @@ return {
 		}),
 		{ condition = is_math }
 	),
+	autosnippet("`+", t("[<+->]")),
 	automath("`cid", t("\\stackrel{d}{\\rightarrow}")),
 	automath("`cip", t("\\stackrel{p}{\\rightarrow}")),
 	automath("`8", t("\\infty")),
@@ -217,6 +257,11 @@ return {
 	postfix({ trig = ".bar", match_pattern = "\\*[%w%.%_%-]+$", snippetType = "autosnippet" }, {
 		f(function(_, parent)
 			return "\\bar{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
+		end, { condition = is_math }),
+	}),
+	postfix({ trig = ".v", match_pattern = "\\*[%w%.%_%-]+$", snippetType = "autosnippet" }, {
+		f(function(_, parent)
+			return "\\vec{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
 		end, { condition = is_math }),
 	}),
 	postfix({ trig = ".hat", match_pattern = "\\*[%w%.%_%-]+$", snippetType = "autosnippet" }, {
