@@ -824,8 +824,8 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				-- markdown = { "prettier" },
 				python = { "isort" },
-				tex = { "latexindent" },
 			},
 		},
 	},
