@@ -34,8 +34,6 @@ vim.keymap.set("n", "q:", "<nop>")
 vim.cmd([[:command W w]])
 vim.cmd([[:command Xa xa]])
 vim.g.python3_host_prog = vim.fn.expand("$HOME/.pyenv/versions/nvim/bin/python3")
--- Used for making render-markdown work in vimwiki
-vim.treesitter.language.register("markdown", "vimwiki")
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -87,25 +85,6 @@ vim.keymap.set("n", "<leader>tl", function()
 end, { desc = "[T]oggle diagnostic [l]ines" })
 
 vim.cmd([[
-function! VimwikiLinkHandler(link)
-  let link = a:link
-  if link =~# '^vfile:'
-    let link = link[1:]
-  else
-    return 0
-  endif
-  let link_infos = vimwiki#base#resolve_link(link)
-  if link_infos.filename == ''
-    echomsg 'Vimwiki Error: Unable to resolve link!'
-    return 0
-  else
-    exe 'edit ' . fnameescape(link_infos.filename)
-    return 1
-  endif
-endfunction
-]])
-
-vim.cmd([[
 au BufNewFile,BufRead *.tex
     \ set spell |
     \ set spellfile=$HOME/Dropbox/org/tex/en.utf-8.add |
@@ -117,15 +96,6 @@ au BufNewFile,BufRead *.md
     \ set spell |
     \ set spellfile=$HOME/Dropbox/org/md/en.utf-8.add |
 ]])
-
-vim.filetype.add({
-	extension = {
-		wiki = "vimwiki",
-	},
-	pattern = {
-		["*.wiki"] = "vimwiki",
-	},
-})
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -258,28 +228,13 @@ require("lazy").setup({
 			require("papis").setup({
 				enable_keymaps = true,
 				enable_fs_watcher = true,
-				init_filetypes = { "markdown", "yaml", "vimwiki", "tex" },
-				enable_modules = {
-					["search"] = true, -- Enables/disables the search module
-					["completion"] = true, -- Enables/disables the completion module
-					["at-cursor"] = true, -- Enables/disables the at-cursor module
-					["formatter"] = true, -- Enables/disables the formatter module
-					["colors"] = true, -- Enables/disables default highlight groups (you
-					-- probably want this)
-					["base"] = true, -- Enables/disables the base module (you definitely
-					-- want this)
-					["debug"] = true, -- Enables/disables the debug module (useful to
-					-- troubleshoot and diagnose issues)
-				},
+				init_filetypes = { "markdown", "yaml", "tex" },
+				cite_formats_fallback = "plain",
 				cite_formats = {
 					tex = {
 						start_str = [[\citep{]],
 						end_str = "}",
 						separator_str = ", ",
-					},
-					vimwiki = {
-						ref_prefix = "@",
-						separator_str = "; ",
 					},
 					markdown = {
 						ref_prefix = "@",
@@ -867,26 +822,60 @@ require("lazy").setup({
 		"obsidian-nvim/obsidian.nvim",
 		version = "*", -- recommended, use latest release instead of latest commit
 		lazy = false,
-		-- ft = "markdown",
-		-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-		-- event = {
-		--   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-		--   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-		--   -- refer to `:h file-pattern` for more examples
-		--   "BufReadPre /home/moberst/obsidian/main/*.md",
-		--   "BufNewFile /home/moberst/obsidian/main/*.md",
-		-- },
-		dependencies = {
-			-- Required.
-			"nvim-lua/plenary.nvim",
-			-- see below for full list of optional dependencies 👇
-		},
 		opts = {
+			legacy_commands = false,
 			workspaces = {
 				{
 					name = "main",
 					path = "~/obsidian/main",
 				},
+			},
+			callbacks = {
+				enter_note = function(note)
+					vim.keymap.set("n", "<leader>m", function()
+						local api = require("obsidian.api")
+						local original_buf = vim.api.nvim_get_current_buf()
+						local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+
+						local title = "meeting"
+						local template = "meeting"
+
+						api.new_from_template(title, template, function(nte)
+							vim.api.nvim_set_current_buf(original_buf)
+
+							local link = nte:format_link({ label = nte:display_name() })
+
+							-- Append to current line
+							local line =
+								vim.api.nvim_buf_get_lines(original_buf, cursor_line - 1, cursor_line, false)[1]
+							vim.api.nvim_buf_set_lines(
+								original_buf,
+								cursor_line - 1,
+								cursor_line,
+								false,
+								{ line .. " " .. link }
+							)
+
+							vim.cmd("silent! write")
+							nte:open({ sync = false })
+						end)
+					end, {
+						buffer = true,
+						desc = "Start Meeting",
+					})
+					vim.keymap.set("n", "<Tab>", function()
+						require("obsidian.api").nav_link("next")
+					end, {
+						buffer = true,
+						desc = "Go to next link",
+					})
+					vim.keymap.set("n", "<S-Tab>", function()
+						require("obsidian.api").nav_link("prev")
+					end, {
+						buffer = true,
+						desc = "Go to previous link",
+					})
+				end,
 			},
 			daily_notes = {
 				-- Optional, if you keep daily notes in a separate directory.
@@ -904,18 +893,27 @@ require("lazy").setup({
 				time_format = "%H:%M",
 				-- A map for custom variables, the key should be the variable and the value a function
 				substitutions = {},
+				customizations = {
+					meeting = {
+						notes_subdir = "meetings",
+						note_id_func = function(title, path)
+							return tostring(os.date("%Y-%m-%d-%H%M%S"))
+						end,
+					},
+					project = {
+						notes_subdir = "projects",
+					},
+				},
 			},
 			ui = {
 				enable = false,
-				checkboxes = {
-					[" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-					["x"] = { char = "", hl_group = "ObsidianDone" },
-				},
+			},
+			checkbox = {
+				enabled = true,
+				create_new = true,
+				order = { " ", "x" },
 			},
 			note_id_func = function(title)
-				-- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-				-- In this case a note with the title 'My new note' will be given an ID that looks
-				-- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
 				local suffix = ""
 				if title ~= nil then
 					-- If title is given, transform it into valid file name.
@@ -928,76 +926,6 @@ require("lazy").setup({
 				end
 				return tostring(os.date("%Y-%m-%d-%H%M%S")) .. "-" .. suffix
 			end,
-			follow_url_func = function(url)
-				-- Open the URL in the default web browser.
-				-- vim.fn.jobstart({"xdg-open", url})  -- linux
-				-- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
-				vim.ui.open(url) -- need Neovim 0.10.0+
-			end,
-			mappings = {
-				-- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-				["gf"] = {
-					action = function()
-						return require("obsidian").util.gf_passthrough()
-					end,
-					opts = { noremap = false, expr = true, buffer = true },
-				},
-				-- Toggle check-boxes.
-				["<leader>wo"] = {
-					action = "<Cmd>ObsidianOpen<CR>",
-					opts = { buffer = true },
-					desc = "[W]iki [O]pen in Obsidian",
-				},
-				["<leader>ws"] = {
-					action = "<Cmd>ObsidianQuickSwitch<CR>",
-					opts = { buffer = true },
-					desc = "[W]iki [S]earch",
-				},
-				["<leader>wt"] = {
-					action = "<Cmd>ObsidianTags<CR>",
-					opts = { buffer = true },
-					desc = "[W]iki [T]ags",
-				},
-				["<leader>wb"] = {
-					action = "<Cmd>ObsidianBacklinks<CR>",
-					opts = { buffer = true },
-					desc = "[W]iki [B]acklinks",
-				},
-				["<leader>wrn"] = {
-					action = "<Cmd>ObsidianRename<CR>",
-					opts = { buffer = true },
-					desc = "[W]iki [R]ename",
-				},
-				["<leader>wnf"] = {
-					action = "<Cmd>ObsidianNew<CR>",
-					opts = { buffer = true },
-					desc = "[W]iki [N]ew [F]resh",
-				},
-				["<leader>wit"] = {
-					action = "<Cmd>ObsidianTemplate<CR>",
-					opts = { buffer = true },
-					desc = "[W]iki [I]nsert [T]emplate",
-				},
-				["<leader>wnt"] = {
-					action = "<Cmd>ObsidianNewFromTemplate<CR>",
-					opts = { buffer = true },
-					desc = "[W]iki [N]ew [T]emplate",
-				},
-				["<leader>wc"] = {
-					action = function()
-						return require("obsidian").util.toggle_checkbox()
-					end,
-					opts = { buffer = true },
-					desc = "[W]iki Toggle [C]heckbox",
-				},
-				-- Smart action depending on context, either follow link or toggle checkbox.
-				["<cr>"] = {
-					action = function()
-						return require("obsidian").util.smart_action()
-					end,
-					opts = { buffer = true, expr = true },
-				},
-			},
 		},
 	},
 	{
@@ -1087,41 +1015,6 @@ require("lazy").setup({
 				show_help = "?",
 			},
 		},
-	},
-	{
-		"vimwiki/vimwiki",
-		lazy = false,
-		init = function()
-			vim.g.vimwiki_list = {
-				{
-					name = "Obsidian",
-					path = "~/obsidian/main",
-					syntax = "markdown",
-					ext = ".md",
-				},
-				{
-					name = "Research",
-					path = "~/Dropbox/research/wiki",
-					syntax = "default",
-					ext = ".wiki",
-					links_space_char = "-",
-					auto_tags = 1,
-				},
-				{
-					name = "Reflection",
-					path = "~/log/wiki",
-					syntax = "default",
-					ext = ".wiki",
-					links_space_char = "-",
-					auto_tags = 1,
-				},
-			}
-			vim.g.vimwiki_global_ext = 0
-			vim.g.vimwiki_auto_chdir = 1
-			vim.g.vimwiki_folding = "expr"
-			vim.g.vimwiki_filetypes = { "markdown" }
-			vim.keymap.set("n", "<leader>ww", "<Plug>VimwikiMakeDiaryNote")
-		end,
 	},
 	{
 		"folke/snacks.nvim",
@@ -1372,7 +1265,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
 			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind [B]uffers" })
-			vim.keymap.set("n", "<leader>ft", builtin.tags, { desc = "[F]ind [T]ags" })
+			vim.keymap.set("n", "<leader>ft", ":Obsidian tags<CR>", { desc = "[F]ind Wiki [T]ags" })
 			vim.keymap.set("n", "<leader>fc", builtin.commands, { desc = "[F]ind [C]ommands" })
 			vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "[F]ind [S]tring" })
 
