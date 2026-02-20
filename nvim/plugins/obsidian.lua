@@ -46,6 +46,10 @@ return {
 					buffer = true,
 					desc = "[N]ew [M]eeting",
 				})
+				vim.keymap.set("n", "<C-Up>", "<cmd>Obsidian dailies<CR>", {
+					buffer = true,
+					desc = "Open Dailies",
+				})
 				-- Next/prior link
 				vim.keymap.set("n", "<Tab>", function()
 					require("obsidian.api").nav_link("next")
