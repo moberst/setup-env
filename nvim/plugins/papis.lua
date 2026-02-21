@@ -11,6 +11,13 @@ return {
 		},
 		config = function()
 			require("papis").setup({
+				["search"] = {
+					results_format = {
+						{ "ref", "%s ", "PapisResultsRef" },
+						{ "notes", { fallback = { "󰆈 ", "N " } }, "PapisResultsNotes", "force_space" },
+						{ "title", "%s", "PapisResultsTitle" },
+					},
+				},
 				enable_keymaps = true,
 				enable_fs_watcher = true,
 				init_filetypes = { "markdown", "yaml", "tex" },
@@ -22,8 +29,10 @@ return {
 						separator_str = ", ",
 					},
 					markdown = {
-						ref_prefix = "@",
-						separator_str = "; ",
+						start_str = "[[",
+						end_str = "]]",
+						ref_prefix = "",
+						separator_str = "]], [[",
 					},
 					rmd = {
 						ref_prefix = "@",
@@ -49,6 +58,7 @@ return {
 					},
 				},
 			})
+			vim.api.nvim_set_hl(0, "PapisResultsNotes", { fg = "#f5a97f" })
 		end,
 	},
 }
