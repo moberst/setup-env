@@ -7,7 +7,7 @@ return {
 			"pysan3/pathlib.nvim",
 			"nvim-neotest/nvim-nio",
 			"nvim-telescope/telescope.nvim",
-			"hrsh7th/nvim-cmp",
+			"saghen/blink.cmp",
 		},
 		config = function()
 			require("papis").setup({

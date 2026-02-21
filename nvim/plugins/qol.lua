@@ -14,7 +14,7 @@ return {
 					mini = { enabled = true },
 					noice = true,
 					render_markdown = true,
-					cmp = true,
+					blink_cmp = true,
 					notify = true,
 					treesitter = true,
 					treesitter_context = true,
