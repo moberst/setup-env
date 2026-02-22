@@ -1,5 +1,6 @@
 return {
 	"obsidian-nvim/obsidian.nvim",
+	dev = true, -- use local clone from ~/repos/obsidian.nvim (set dev.path in kickstart.lua)
 	version = "*", -- recommended, use latest release instead of latest commit
 	lazy = false,
 	opts = {
