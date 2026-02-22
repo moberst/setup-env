@@ -1,6 +1,7 @@
 return {
 	{
 		"jghauser/papis.nvim",
+		dev = true,
 		dependencies = {
 			"kkharji/sqlite.lua",
 			"MunifTanjim/nui.nvim",
@@ -25,6 +26,7 @@ return {
 				cite_formats = {
 					tex = {
 						start_str = [[\citep{]],
+						start_pattern = [[\cite[pt]?%[?[^%{]*]],
 						end_str = "}",
 						separator_str = ", ",
 					},
