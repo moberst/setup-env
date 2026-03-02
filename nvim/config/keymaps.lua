@@ -27,4 +27,5 @@ vim.keymap.set("n", "<leader>tl", function()
 	vim.diagnostic.config({ virtual_lines = new_config })
 end, { desc = "[T]oggle diagnostic [l]ines" })
 
-vim.keymap.set("n", "<leader>w<leader>w", "<cmd>Obsidian today<CR>", { desc = "Open Daily Note" })
+vim.keymap.set("n", "<leader>ww", "<cmd>Obsidian today<CR>", { desc = "Open Daily Note" })
+vim.keymap.set("n", "<leader>ws", "<cmd>Obsidian workspace<CR>", { desc = "Open Workspace Picker" })

@@ -10,6 +10,10 @@ return {
 				name = "main",
 				path = "~/obsidian/main",
 			},
+			{
+				name = "journal",
+				path = "~/obsidian/journal",
+			},
 		},
 		callbacks = {
 			enter_note = function(note)
@@ -71,8 +75,6 @@ return {
 			folder = "diary",
 			-- Optional, if you want to change the date format for the ID of daily notes.
 			date_format = "%Y-%m-%d",
-			-- Optional, default tags to add to each new daily note created.
-			default_tags = { "daily-plan" },
 			-- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
 			template = "daily.md",
 		},
