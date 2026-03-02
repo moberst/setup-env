@@ -58,7 +58,7 @@ return {
 			sources = {
 				default = { "lazydev", "lsp", "snippets", "path", "buffer" },
 				per_filetype = {
-					markdown = { "snippets", "lsp", "path", "buffer", "papis", "render-markdown" },
+					markdown = { "snippets", "lsp", "path", "papis", "render-markdown" },
 					vimwiki = { "snippets", "lsp", "path", "buffer", "papis" },
 					yaml = { "snippets", "lsp", "path", "buffer", "papis" },
 				},
