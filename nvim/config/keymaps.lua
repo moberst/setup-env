@@ -28,4 +28,10 @@ vim.keymap.set("n", "<leader>tl", function()
 end, { desc = "[T]oggle diagnostic [l]ines" })
 
 vim.keymap.set("n", "<leader>ww", "<cmd>Obsidian today<CR>", { desc = "Open Daily Note" })
-vim.keymap.set("n", "<leader>ws", "<cmd>Obsidian workspace<CR>", { desc = "Open Workspace Picker" })
+vim.keymap.set("n", "<leader>ws", "<cmd>Obsidian workspace<CR>", { desc = "Open Workspace" })
+vim.keymap.set(
+	"n",
+	"<leader>wr",
+	"<cmd>Obsidian workspace journal<CR><cmd>Obsidian today<CR>",
+	{ desc = "Open Journal" }
+)
