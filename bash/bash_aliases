@@ -6,27 +6,13 @@ alias vim="nvim"
 # Crop all pdfs in this folder
 alias crop_pdfs="find . -name '*.pdf' -print0 | xargs -0 -I _ pdfcrop _ _"
 
-alias addclip="xclip -selection clip -o > tmp.bib && papis add --from bibtex tmp.bib && rm tmp.bib"
-alias refcopy="papis export --format bibtex | xclip -selection c"
-
 # Aliases for directory navigation
 alias ..="cd .."
 
 # Alias to pretty-print the current path, dirs
 alias path='echo -e ${PATH//:/\\n}'
 alias dirs='dirs -v'
-
 alias tmux="tmux -2"
-
-# Typos
-alias tiemw="timew"
-
-# Timewarrior
-alias fill="timew @2 resize :fill"
-alias sum="bash ~/Dropbox/org/tracker/summarize.sh"
-
-# Create tex directory
-alias newtex="bash $HOME/repos/setup-env/tex/create_base.sh"
 
 # Exa
 alias ls="eza --git --icons"
@@ -35,12 +21,3 @@ alias ll="eza --git --icons --long -h"
 
 # Lazygit
 alias lg="lazygit"
-
-# Wrap common file commands in func that sends to bg and ignores output
-function evince {
-    nohup evince "$@" > /dev/null 2>&1 & disown
-}
-
-function libreoffice {
-    nohup libreoffice "$@" > /dev/null 2>&1 & disown
-}
