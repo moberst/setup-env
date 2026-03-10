@@ -66,7 +66,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
 		vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" })
 		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[F]ind [B]uffers" })
-		vim.keymap.set("n", "<leader>ft", ":Obsidian tags<CR>", { desc = "[F]ind Wiki [T]ags" })
 		vim.keymap.set("n", "<leader>fc", builtin.commands, { desc = "[F]ind [C]ommands" })
 		vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "[F]ind [S]tring" })
 

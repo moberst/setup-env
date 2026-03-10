@@ -19,7 +19,6 @@ return {
 					treesitter = true,
 					treesitter_context = true,
 					telescope = { enabled = true },
-					vimwiki = true,
 					fidget = true,
 					which_key = true,
 				},
