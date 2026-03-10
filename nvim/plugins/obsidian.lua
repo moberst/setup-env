@@ -17,7 +17,7 @@ return {
 		},
 		callbacks = {
 			enter_note = function(note)
-				local new_from_template = function(title, template)
+				local new_from_template = function(title, template, label)
 					local api = require("obsidian.api")
 					local original_buf = vim.api.nvim_get_current_buf()
 					local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
@@ -25,7 +25,7 @@ return {
 					api.new_from_template(title, template, function(nte)
 						vim.api.nvim_set_current_buf(original_buf)
 
-						local link = nte:format_link({ label = nte:display_name() })
+						local link = nte:format_link({ label = label or nte:display_name() })
 
 						-- Append to current line
 						local line = vim.api.nvim_buf_get_lines(original_buf, cursor_line - 1, cursor_line, false)[1]
@@ -43,10 +43,12 @@ return {
 				end
 
 				-- Create new meeting
-				vim.keymap.set("n", "<leader>nm", function()
-					local title = "meeting"
-					local template = "meeting"
-					new_from_template(title, template)
+				vim.keymap.set("n", "<leader>wnm", function()
+					local ok, name = pcall(vim.fn.input, "Meeting with: ")
+					if not ok or not name or name == "" then
+						return
+					end
+					new_from_template("meeting", "meeting", name)
 				end, {
 					buffer = true,
 					desc = "[N]ew [M]eeting",
