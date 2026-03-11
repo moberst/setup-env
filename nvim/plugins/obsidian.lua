@@ -15,6 +15,18 @@ return {
 				path = "~/obsidian/journal",
 			},
 		},
+		picker = {
+			name = nil,
+			note_mappings = {
+				new = "<C-x>",
+				insert_link = "<C-l>",
+			},
+			tag_mappings = {
+				tag_note = "<C-j>",
+				insert_tag = "<C-l>",
+				rename_tag = "<C-x>",
+			},
+		},
 		callbacks = {
 			enter_note = function(note)
 				local new_from_template = function(title, template, label)
