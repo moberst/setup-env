@@ -1,7 +1,4 @@
-return {
-	"sindrets/diffview.nvim",
-	{ "tpope/vim-unimpaired", lazy = false },
-	{ "kevinhwang91/nvim-bqf", lazy = false },
-	{ "stevearc/dressing.nvim", opts = {} },
-	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-}
+-- dressing.nvim
+require("dressing").setup({})
+-- vim-sleuth, vim-unimpaired, nvim-bqf, diffview: no setup needed
+-- vim: ts=2 sts=2 sw=2 et
