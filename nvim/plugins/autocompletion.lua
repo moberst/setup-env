@@ -58,9 +58,9 @@ return {
 			sources = {
 				default = { "lazydev", "lsp", "snippets", "path", "buffer" },
 				per_filetype = {
-					markdown = { "snippets", "lsp", "path", "papis", "render-markdown" },
-					vimwiki = { "snippets", "lsp", "path", "buffer", "papis" },
-					yaml = { "snippets", "lsp", "path", "buffer", "papis" },
+					markdown = { "snippets", "lsp", "path", "render-markdown" },
+					vimwiki = { "snippets", "lsp", "path", "buffer" },
+					yaml = { "snippets", "lsp", "path", "buffer" },
 				},
 				providers = {
 					lazydev = {
@@ -68,7 +68,7 @@ return {
 						module = "lazydev.integrations.blink",
 						score_offset = 100,
 					},
-						["render-markdown"] = {
+					["render-markdown"] = {
 						name = "RenderMarkdown",
 						module = "render-markdown.integ.blink",
 					},
