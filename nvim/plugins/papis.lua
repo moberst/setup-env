@@ -1,6 +1,6 @@
 return {
 	{
-		"jghauser/papis.nvim",
+		"moberst/papis.nvim",
 		dev = true,
 		dependencies = {
 			"kkharji/sqlite.lua",

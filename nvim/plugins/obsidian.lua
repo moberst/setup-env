@@ -1,6 +1,5 @@
 return {
-	"obsidian-nvim/obsidian.nvim",
-	version = "*", -- recommended, use latest release instead of latest commit
+	"moberst/obsidian.nvim",
 	lazy = false,
 	dev = true,
 	opts = {
