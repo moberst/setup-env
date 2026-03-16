@@ -63,7 +63,35 @@ return {
 					new_from_template("meeting", "meeting", name)
 				end, {
 					buffer = true,
-					desc = "[N]ew [M]eeting",
+					desc = "[W]iki [N]ew [M]eeting",
+				})
+				vim.keymap.set("n", "<leader>wnd", function()
+					new_from_template("daily-plan", "dailyplan", "Daily Plan")
+				end, {
+					buffer = true,
+					desc = "[W]iki [N]ew [D]aily Plan",
+				})
+				vim.keymap.set("n", "<leader>wnw", function()
+					new_from_template("weekly-plan", "weeklyplan", "Weekly Plan")
+				end, {
+					buffer = true,
+					desc = "[W]iki [N]ew [W]eekly Plan",
+				})
+				vim.keymap.set("n", "<leader>wld", function()
+					require("obsidian.actions").insert_link_by_tag("planning/daily-plan", "Previous Daily Plan", 1)
+				end, {
+					buffer = true,
+					desc = "[W]iki [L]ink Prior [D]ailiy plan",
+				})
+				vim.keymap.set("n", "<leader>wlw", function()
+					require("obsidian.actions").insert_link_by_tag("planning/weekly-plan", "Weekly Plan")
+				end, {
+					buffer = true,
+					desc = "[W]iki [L]ink [W]eekly plan",
+				})
+				vim.keymap.set("x", "<leader>wx", ":Obsidian extract_note<CR>", {
+					buffer = true,
+					desc = "[W]iki E[x]tract Note",
 				})
 				vim.keymap.set("n", "<C-Up>", "<cmd>Obsidian dailies<CR>", {
 					buffer = true,
@@ -85,11 +113,12 @@ return {
 			end,
 		},
 		daily_notes = {
-			-- Optional, if you keep daily notes in a separate directory.
+			enabled = true,
 			folder = "diary",
-			-- Optional, if you want to change the date format for the ID of daily notes.
 			date_format = "%Y-%m-%d",
-			-- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+			alias_format = nil,
+			default_tags = {},
+			workdays_only = false,
 			template = "daily.md",
 		},
 		templates = {
@@ -99,6 +128,12 @@ return {
 			-- A map for custom variables, the key should be the variable and the value a function
 			substitutions = {},
 			customizations = {
+				dailyplan = {
+					notes_subdir = "plans",
+				},
+				weeklyplan = {
+					notes_subdir = "plans",
+				},
 				meeting = {
 					notes_subdir = "meetings",
 					note_id_func = function(title, path)
