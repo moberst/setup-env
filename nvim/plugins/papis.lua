@@ -21,7 +21,7 @@ return {
 				},
 				enable_keymaps = true,
 				enable_fs_watcher = true,
-				init_filetypes = { "markdown", "yaml", "tex" },
+				init_filetypes = { "markdown", "yaml", "tex", "bib" },
 				cite_formats_fallback = "plain",
 				cite_formats = {
 					tex = {

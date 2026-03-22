@@ -64,6 +64,36 @@ return {
 					buffer = true,
 					desc = "[W]iki [N]ew [M]eeting",
 				})
+				vim.keymap.set("n", "<leader>wnp", function()
+					local ok, name = pcall(vim.fn.input, "Project Title")
+					if not ok or not name or name == "" then
+						return
+					end
+					new_from_template("project", "project", name)
+				end, {
+					buffer = true,
+					desc = "[W]iki [N]ew [P]roject",
+				})
+				vim.keymap.set("n", "<leader>wni", function()
+					local ok, name = pcall(vim.fn.input, "Short Idea Title")
+					if not ok or not name or name == "" then
+						return
+					end
+					new_from_template("research-idea", "research-idea", name)
+				end, {
+					buffer = true,
+					desc = "[W]iki [N]ew [I]dea",
+				})
+				vim.keymap.set("n", "<leader>wnn", function()
+					local ok, name = pcall(vim.fn.input, "Link Title")
+					if not ok or not name or name == "" then
+						return
+					end
+					new_from_template("basic", "basic", name)
+				end, {
+					buffer = true,
+					desc = "[W]iki [N]ew [N]ote",
+				})
 				vim.keymap.set("n", "<leader>wnd", function()
 					new_from_template("daily-plan", "dailyplan", "Daily Plan")
 				end, {
