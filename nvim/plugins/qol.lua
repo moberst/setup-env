@@ -6,6 +6,7 @@ return {
 			require("catppuccin").setup({
 				flavour = "macchiato",
 				transparent_background = false,
+				auto_integrations = true,
 				integrations = {
 					aerial = true,
 					gitsigns = true,
@@ -24,7 +25,7 @@ return {
 					which_key = true,
 				},
 			})
-			vim.cmd.colorscheme("catppuccin-macchiato")
+			vim.cmd.colorscheme("catppuccin-nvim")
 		end,
 	},
 	-- Highlight todo, notes, etc in comments
