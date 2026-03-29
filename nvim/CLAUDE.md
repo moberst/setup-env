@@ -8,11 +8,11 @@ This is a modular Neovim configuration based on the kickstart.nvim pattern, mana
 
 - `configure.sh` — Copies files into `~/.config/nvim/`. Wipes existing config first.
 - `revert.sh` — Reverts to the git master version of the config.
-- `kickstart.lua` becomes `~/.config/nvim/init.lua`, `config/` and `plugins/` go into `lua/`.
+- `init.lua` becomes `~/.config/nvim/init.lua`, `config/` and `plugins/` go into `lua/`.
 
 ## Architecture
 
-- **Entry point**: `kickstart.lua` — loads config modules, sets Python host via pyenv, bootstraps lazy.nvim.
+- **Entry point**: `init.lua` — loads config modules, sets Python host via pyenv, bootstraps lazy.nvim.
 - **Plugin manager**: [lazy.nvim](https://github.com/folke/lazy.nvim) — plugins auto-discovered from `plugins/` directory via `{ import = "plugins" }`.
 - **Config modules** (`config/`): `options.lua`, `keymaps.lua`, `spelling.lua`.
 - **Snippets** (`snippets/`): LuaSnip snippets loaded from `~/repos/setup-env/nvim/snippets` (not from the deployed location).
