@@ -22,8 +22,9 @@ return {
 			},
 			tag_mappings = {
 				tag_note = "<C-j>",
-				insert_tag = "<C-l>",
+				insert_tag = "<C-i>",
 				rename_tag = "<C-x>",
+				insert_link = "<C-l>",
 			},
 		},
 		callbacks = {
@@ -151,6 +152,7 @@ return {
 			template = "daily.md",
 		},
 		templates = {
+			enabled = true,
 			folder = vim.fn.expand("$HOME") .. "/.config/obsidian-templates",
 			date_format = "%Y-%m-%d",
 			time_format = "%H:%M",
