@@ -40,7 +40,7 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.diagnostic.config({
 	float = true,
 	jump = {
-		float = false,
+		on_jump = false,
 		wrap = true,
 	},
 	severity_sort = false,
