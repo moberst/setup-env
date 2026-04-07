@@ -172,7 +172,7 @@ return {
 					end,
 				},
 				project = {
-					notes_subdir = "projects",
+					notes_subdir = "research/projects",
 				},
 			},
 		},
