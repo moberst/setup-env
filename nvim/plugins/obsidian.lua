@@ -2,6 +2,7 @@ return {
 	"moberst/obsidian.nvim",
 	lazy = false,
 	dev = true,
+	priority = 900,
 	opts = {
 		legacy_commands = false,
 		workspaces = {
@@ -26,6 +27,15 @@ return {
 				rename_tag = "<C-x>",
 				insert_link = "<C-l>",
 			},
+		},
+		sync = {
+			enabled = true,
+			mode = nil,
+			conflict_strategy = "merge",
+			file_types = { "image", "audio", "video", "pdf", "unsupported" },
+			configs = nil,
+			excluded_folders = {},
+			device_name = "pop-os",
 		},
 		callbacks = {
 			enter_note = function(note)
@@ -53,6 +63,14 @@ return {
 						nte:open({ sync = false })
 					end)
 				end
+
+				-- Add Lualine component
+				local status = require("obsidian.sync.status")
+				require("lualine").setup({
+					sections = {
+						lualine_x = { { status.icon, color = status.color, cond = status.cond } },
+					},
+				})
 
 				-- Create new meeting
 				vim.keymap.set("n", "<leader>wnm", function()
