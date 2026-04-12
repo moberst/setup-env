@@ -73,6 +73,10 @@ return {
 				})
 
 				-- Create new meeting
+				vim.keymap.set("n", "<leader>wob", "<cmd>Obsidian backlinks<CR>", {
+					buffer = true,
+					desc = "[W]iki [N]ew [M]eeting",
+				})
 				vim.keymap.set("n", "<leader>wnm", function()
 					local ok, name = pcall(vim.fn.input, "Meeting with: ")
 					if not ok or not name or name == "" then
