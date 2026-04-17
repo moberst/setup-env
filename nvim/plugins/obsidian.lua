@@ -62,7 +62,15 @@ return {
 				local status = require("obsidian.sync.status")
 				require("lualine").setup({
 					sections = {
-						lualine_x = { { status.icon, color = status.color, cond = status.cond } },
+						lualine_x = {
+							{
+								function()
+									return "Obsidian Sync: " .. status.icon()
+								end,
+								color = status.color,
+								cond = status.cond,
+							},
+						},
 					},
 				})
 
