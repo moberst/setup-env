@@ -51,13 +51,7 @@ return {
 
 						-- Append to current line
 						local line = vim.api.nvim_buf_get_lines(original_buf, cursor_line - 1, cursor_line, false)[1]
-						vim.api.nvim_buf_set_lines(
-							original_buf,
-							cursor_line - 1,
-							cursor_line,
-							false,
-							{ line .. " " .. link }
-						)
+						vim.api.nvim_buf_set_lines(original_buf, cursor_line - 1, cursor_line, false, { line .. link })
 
 						vim.cmd("silent! write")
 						nte:open({ sync = false })
