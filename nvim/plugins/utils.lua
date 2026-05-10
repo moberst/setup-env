@@ -1,5 +1,4 @@
 return {
-	"sindrets/diffview.nvim",
 	{ "tpope/vim-unimpaired", lazy = false },
 	{ "kevinhwang91/nvim-bqf", lazy = false },
 	{ "stevearc/dressing.nvim", opts = {} },
