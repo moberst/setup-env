@@ -20,6 +20,9 @@ add_newline = false
 [sudo]
 disabled = false
 
+[hostname]
+trim_at = '-'
+
 [python]
 style = 'bold green'
 format = '[(\($virtualenv\))]($style) '
