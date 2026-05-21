@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a modular Neovim configuration based on the kickstart.nvim pattern, managed as part of a dotfiles repo (`setup-env`). It is tailored for an academic/research workflow (LaTeX, Obsidian notes, Papis citations, Markdown).
+This is a modular Neovim configuration based on the kickstart.nvim pattern, managed as part of a dotfiles repo (`setup-env`). This is the **server** variant — a stripped-down config intended for use on Linux servers, without the desktop-only academic plugins (Obsidian, Papis, VimTeX). For the full desktop config see the `master` branch.
 
 ## Deployment
 
@@ -36,7 +36,7 @@ This is a modular Neovim configuration based on the kickstart.nvim pattern, mana
 ## Completion
 
 - nvim-cmp with sources: LSP, LuaSnip, path, buffer, cmdline
-- Markdown/vimwiki/yaml filetypes get papis (citations) and omni sources
+- Markdown filetype adds `render-markdown` source
 - LuaSnip keymaps: `<C-y>` expand, `<C-j>`/`<C-k>` jump forward/back, `<C-e>` cycle choices
 
 ## Key Plugins
@@ -45,10 +45,8 @@ This is a modular Neovim configuration based on the kickstart.nvim pattern, mana
 |--------|------|-------|
 | Telescope | `picker.lua` | Fuzzy finder, `<leader>f*` bindings |
 | which-key | `whichkey.lua` | Keybinding discovery |
-| Obsidian.nvim | `obsidian.lua` | Vault at `~/obsidian/main`, daily notes, meeting templates |
-| VimTeX | `vimtex.lua` | LaTeX with latexmk, output to `./tex`, `<localleader>l*` bindings |
-| Papis | `papis.lua` | Citation manager integration |
 | Gitsigns | `display.lua` | Git hunks, `<leader>h*` bindings |
+| Diffview | `git.lua` | `:DiffviewOpen` / `:DiffviewFileHistory` |
 | Lualine | `display.lua` | Statusline with Catppuccin theme |
 | Noice | `display.lua` | UI for messages/cmdline |
 | mini.nvim | `qol.lua` | ai textobjects, surround (vim-surround style: `ys`/`ds`/`cs`/`S`), auto-root |
@@ -56,6 +54,7 @@ This is a modular Neovim configuration based on the kickstart.nvim pattern, mana
 | Trouble | `trouble.lua` | Diagnostics |
 | Yazi | `yazi.lua` | File manager |
 | Treesitter | `treesitter.lua` | Syntax |
+| undotree | bundled in `init.lua` via `packadd`, `<leader>u` to toggle |
 
 ## Telescope Keymaps
 
@@ -65,14 +64,13 @@ This is a modular Neovim configuration based on the kickstart.nvim pattern, mana
 - `<leader>fh` Help tags
 - `<leader>fk` Keymaps
 - `<leader>fc` Commands
-- `<leader>ft` Obsidian tags
 - `<leader>/` Fuzzy find in current buffer
 
 ## Other Notable Keymaps
 
 - `<leader>qq` / `<leader>ql` — Toggle quickfix / loclist
 - `<leader>tl` — Toggle diagnostic virtual lines
-- `<leader>w<leader>w` — Open Obsidian daily note
+- `<leader>u` — Toggle undotree
 - `<C-h/j/k/l>` — Window navigation
 - `gd` / `gr` — LSP go to definition / references
 - `<leader>rn` / `<leader>ca` — LSP rename / code action
@@ -87,4 +85,3 @@ This is a modular Neovim configuration based on the kickstart.nvim pattern, mana
 - Each plugin file in `plugins/` must return a valid lazy.nvim spec (table or list of tables)
 - After changes, run `configure.sh` to deploy, then restart Neovim
 - Snippets are loaded directly from this repo path, not the deployed config
-- The surround mappings in `qol.lua` (mini.surround) can conflict with VimTeX's `ds`/`cs` mappings in tex files — VimTeX overrides take priority via which-key buffer-local bindings

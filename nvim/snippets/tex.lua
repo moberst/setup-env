@@ -1,5 +1,5 @@
 local function is_math()
-	return vim.api.nvim_eval("vimtex#syntax#in_mathzone()") == 1
+	return false
 end
 
 local ls = require("luasnip")

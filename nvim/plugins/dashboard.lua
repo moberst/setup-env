@@ -10,18 +10,6 @@ return {
 				keys = {
 					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 					{
-						icon = "󰧮 ",
-						key = "w",
-						desc = "Research Log",
-						action = "<cmd>Obsidian today<CR>",
-					},
-					{
-						icon = "󰧮 ",
-						desc = "Reflection Log",
-						key = "r",
-						action = "<cmd>3VimwikiMakeDiaryNote<CR>",
-					},
-					{
 						icon = " ",
 						key = "f",
 						desc = "Find File",

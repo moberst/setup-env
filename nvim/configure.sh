@@ -7,9 +7,3 @@ cp ~/repos/setup-env/nvim/init.lua ~/.config/nvim/init.lua
 cp -R ~/repos/setup-env/nvim/snippets ~/.config/nvim
 cp -R ~/repos/setup-env/nvim/config ~/.config/nvim/lua
 cp -R ~/repos/setup-env/nvim/plugins ~/.config/nvim/lua
-
-if [ -d ~/.config/obsidian-templates ]; then
-  rm -rf ~/.config/obsidian-templates
-fi
-cp -R ~/repos/setup-env/nvim/obsidian-templates ~/.config
-
