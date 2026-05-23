@@ -163,10 +163,10 @@ return {
 		fmta(
 			[[
 		\begin{columns}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 		<>
 		\end{column}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 		<>
 		\end{column}
 		\end{columns}
