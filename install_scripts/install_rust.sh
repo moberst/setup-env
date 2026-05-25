@@ -7,3 +7,4 @@ cargo binstall zoxide
 cargo binstall eza
 cargo binstall starship
 cargo binstall ripgrep
+cargo binstall tree-sitter-cli
