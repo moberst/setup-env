@@ -3,3 +3,5 @@ git:
     colorArg: always
   commit:
     signOff: true
+  pagers:
+    - externalDiffCommand: difft --color=always
