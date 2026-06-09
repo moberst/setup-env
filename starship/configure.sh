@@ -1,3 +1,5 @@
 #!/bin/sh
 
-cp starship.toml ~/.config/starship.toml
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+cp "$SCRIPT_DIR/starship.toml" ~/.config/starship.toml
