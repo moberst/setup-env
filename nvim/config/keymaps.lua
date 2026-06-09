@@ -27,6 +27,17 @@ vim.keymap.set("n", "<leader>tl", function()
 	vim.diagnostic.config({ virtual_lines = new_config })
 end, { desc = "[T]oggle diagnostic [l]ines" })
 
+vim.api.nvim_create_user_command("SplitSentences", function(opts)
+	local lines = vim.api.nvim_buf_get_lines(0, opts.line1 - 1, opts.line2, false)
+	-- collapse the selection into one normalized line
+	local text = table.concat(lines, " "):gsub("%s+", " ")
+	-- newline after . ! ? when followed by an (optionally quoted) capital
+	text = text:gsub('([%.%!%?])%s+(["\']?%u)', "%1\n%2")
+	vim.api.nvim_buf_set_lines(0, opts.line1 - 1, opts.line2, false, vim.split(text, "\n"))
+end, { range = true, desc = "Split selection into one sentence per line" })
+
+vim.keymap.set("x", "<leader>ss", ":SplitSentences<CR>", { desc = "[S]plit [s]entences" })
+
 vim.keymap.set("n", "<leader>ww", "<cmd>Obsidian today<CR>", { desc = "Open Daily Note" })
 vim.keymap.set("n", "<leader>ws", "<cmd>Obsidian workspace<CR>", { desc = "Open Workspace" })
 vim.keymap.set(
