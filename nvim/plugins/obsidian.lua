@@ -198,6 +198,9 @@ return {
 				project = {
 					notes_subdir = "research/projects",
 				},
+				basic = {
+					notes_subdir = "notes",
+				},
 			},
 		},
 		ui = {
