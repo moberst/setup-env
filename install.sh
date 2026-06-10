@@ -1,10 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "Installing rust and other utilities"
-bash install_scripts/install.sh
+bash "$SCRIPT_DIR/install_scripts/install.sh"
 
 echo "Configuring bash, git, starship, nvim"
-bash bash/configure.sh
-bash git/configure.sh
-bash starship/configure.sh
-bash nvim/configure.sh
+bash "$SCRIPT_DIR/bash/configure.sh"
+bash "$SCRIPT_DIR/git/configure.sh"
+bash "$SCRIPT_DIR/starship/configure.sh"
+bash "$SCRIPT_DIR/nvim/configure.sh"
